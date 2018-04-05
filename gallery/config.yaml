@@ -1,0 +1,4 @@
+stream:
+    camera_1: http://188.187.189.247:555/jCk78c1n?container=mjpeg&stream=main
+    camera_2: http://188.187.189.247:555/jCk78c1n?container=mjpeg&stream=main
+    camera_3: http://188.187.189.247:555/jCk78c1n?container=mjpeg&stream=main

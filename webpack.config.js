@@ -66,6 +66,10 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test:   /\.css$/,
+        loader: "style-loader!css-loader"
       }
     ]
   },
@@ -78,12 +82,16 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    proxy: {
+      "/api": "http://localhost/firstline2/"
+    }
   },
   performance: {
     hints: false
   },
   devtool: '#eval-source-map'
+
 }
 
 if (process.env.NODE_ENV === 'production') {

@@ -1,0 +1,60 @@
+@font-face {
+  font-family: direct_Bold;
+  src: url(fonts/direct_Bold.otf) format("opentype"); }
+
+@font-face {
+  font-family: direct_BoldItalic;
+  src: url(fonts/direct_BoldItalic.otf) format("opentype"); }
+
+@font-face {
+  font-family: direct_Cond;
+  src: url(fonts/direct_Cond.otf) format("opentype"); }
+
+@font-face {
+  font-family: direct_Cond_Light;
+  src: url(fonts/direct_Cond_Light.otf) format("opentype"); }
+
+@font-face {
+  font-family: direct_Italic;
+  src: url(fonts/direct_Italic.otf) format("opentype"); }
+
+@font-face {
+  font-family: direct_Regular;
+  src: url(fonts/direct_Regular.otf) format("opentype"); }
+
+@font-face {
+  font-family: direct_SemiCond;
+  src: url(fonts/direct_SemiCond.otf) format("opentype"); }
+
+@font-face {
+  font-family: direct_SemiCond_Bold;
+  src: url(fonts/direct_SemiCond_Bold.otf) format("opentype"); }
+
+@font-face {
+  font-family: direct_SemiCond_Light;
+  src: url(fonts/direct_SemiCond_Light.otf) format("opentype"); }
+
+@font-face {
+  font-family: BebasRegular;
+  src: url("fonts/BebasRegular.eot");
+  src: url("fonts/BebasRegular.eot?#iefix") format("embedded-opentype"), url("fonts/BebasRegular.woff") format("woff"), url("fonts/BebasRegular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: OpenSansBold;
+  src: url("fonts/OpenSansBold.eot");
+  src: url("fonts/OpenSansBold.eot?#iefix") format("embedded-opentype"), url("fonts/OpenSansBold.woff") format("woff"), url("fonts/OpenSansBold.ttf") format("truetype"); }
+
+@font-face {
+  font-family: OpenSansLight;
+  src: url("fonts/OpenSansLight.eot");
+  src: url("fonts/OpenSansLight.eot?#iefix") format("embedded-opentype"), url("fonts/OpenSansLight.woff") format("woff"), url("fonts/OpenSansLight.ttf") format("truetype"); }
+
+@font-face {
+  font-family: OpenSansRegular;
+  src: url("fonts/OpenSansRegular.eot");
+  src: url("fonts/OpenSansRegular.eot?#iefix") format("embedded-opentype"), url("fonts/OpenSansRegular.woff") format("woff"), url("fonts/OpenSansRegular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: OpenSansSemiBold;
+  src: url("fonts/OpenSansSemiBold.eot");
+  src: url("fonts/OpenSansSemiBold.eot?#iefix") format("embedded-opentype"), url("fonts/OpenSansSemiBold.woff") format("woff"), url("fonts/OpenSansSemiBold.ttf") format("truetype"); }

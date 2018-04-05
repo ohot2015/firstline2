@@ -1,6 +1,6 @@
 <template>
   <div class='main-nav'>
-    <div class="work-spaces" id="menu">
+    <div class="work-spaces" id="work-spaces">
       <div class="block-menu">
         <div class="buter">
             <img src="src/assets/img/buter.png" alt="" class="ico"><div>меню</div>
@@ -22,7 +22,7 @@
 </template>
 <script>
 export default {
-    name: 'menu',
+    name: 'work-spaces',
     data () {
         return {
             phone: this.getPhone()
