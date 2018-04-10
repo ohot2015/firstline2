@@ -9,7 +9,7 @@
             Выбрать квартиру
         </button>
       </div>
-      <div class="logo"><a href=""><img src="src/assets/img/menu-logo.png" alt=""></a></div>
+      <div class="logo"><a href=""><img src="src/assets/img/logo-menu.png" alt=""></a></div>
       <div class="contact">
           <img src="src/assets/img/menu-phone.png" alt="" class="logo-phone">
           <div class="phone">
@@ -22,7 +22,7 @@
 </template>
 <script>
 export default {
-    name: 'work-spaces',
+    name: 'AppMenu',
     data () {
         return {
             phone: this.getPhone()
@@ -37,12 +37,10 @@ export default {
 </script>
 
 <style lang="scss">
-    body {
-        background: #eee;
-        color: #252525;
-    }
     $button-border-color: blue;
     .main-nav {
+        position: fixed;
+        top:0;
         width:100%;
         height: 75px;
         background: white;

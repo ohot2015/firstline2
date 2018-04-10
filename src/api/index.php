@@ -1,10 +1,10 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
-require_once './class/_autoload.php';
+require_once '../../vendor/autoload.php';
+require_once 'class/_autoload.php';
 
 // $detect = new Mobile_Detect;
 // $gallery  = new StreamGallery($_SERVER['DOCUMENT_ROOT'] . '/gallery');
-$config = Symfony\Component\Yaml\Yaml::parseFile($_SERVER['DOCUMENT_ROOT'] . '/config/'. 'config.yaml');
+$config = Symfony\Component\Yaml\Yaml::parseFile( '/config/config.yaml');
 
 if (empty($config['crm_api_token'])) {
 

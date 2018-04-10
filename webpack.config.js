@@ -84,7 +84,7 @@ module.exports = {
     noInfo: true,
     overlay: true,
     proxy: {
-      "/api": "http://localhost/firstline2/"
+      "/src/api": "http://firstline2/firstline2"
     }
   },
   performance: {

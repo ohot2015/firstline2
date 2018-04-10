@@ -6,6 +6,7 @@ class Gallery {
     protected $path_gallery;
     private $data = [];
     private $futureYears = false;
+    private $absolute_path
 
     public function getPath() {
         return substr($this->path_gallery, strlen($_SERVER['DOCUMENT_ROOT']) + 1);
