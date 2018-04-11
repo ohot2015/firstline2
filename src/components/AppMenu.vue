@@ -42,8 +42,9 @@ export default {
         position: fixed;
         top:0;
         width:100%;
-        height: 75px;
+        height: 67px;
         background: white;
+        border-bottom: 1px solid black;
         .work-spaces {
             width: 900px;
             @media screen and (min-width: 1366px) {

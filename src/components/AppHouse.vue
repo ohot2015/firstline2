@@ -6,6 +6,7 @@
             :color="'white'"
             :line1=" item"
             :line2="'этаж'"
+            :key="item.id"
         ></house-realty>
         <div class="help">
             <img src="src/assets/img/help.png" alt="">
@@ -19,8 +20,9 @@
                 v-for="item_floor in floor "
             >
                 <house-realty class="realty"
-                    v-for="(item, index) in getRealtyInFloor(item_floor, item_section )"
+                    v-for="(item, index) in getRealtyInFloor(item_floor, item_section)"
                     :realty="item.id"
+                    :key="item.id"
                     :id="'realty_'+item.id"
                     :color="getColor(item)"
                     :line1="item.rooms + 'к'"
