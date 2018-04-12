@@ -4,41 +4,100 @@
         <div class="header">
             <h1>Галерея</h1>
         </div>
-        <div class="container-gallery">
-            <a href="" class="fancy" data-fancybox="_group">
-               <div class="container">
-                   <div class="photo">
-                    <img src="" alt="">
-                   </div>
-                    <div class="desc"><span>месяц год </span></div>
-               </div>
-            </a>
+        <div class="gallery">
+            <div class="container-gallery">
+                <lightbox
+                    :key="'streamGallery'"
+                    :loop="false"
+                    :images="stream"
+                    :title="'Сейчас'"
+                    :imgprev="stream[0].src"
+                    >
+                </lightbox>
+                <lightbox
+                    v-for="(month, index) in img"
+                    :key="month.title + index"
+                    :loop="false"
+                    :images="month.images"
+                    :title="month.title"
+                    :imgprev="month.imgPrev"
+                    >
+                </lightbox>
+            </div>
         </div>
     </div>
+    <app-footer></app-footer>
   </div>
 </template>
+
 <script>
+import AppFooter from './AppFooter.vue'
+import _ from 'underscore'
+import lightbox from './Lightbox.vue';
+
 export default {
     name: 'gallery',
     data () {
         return {
-            endpoint: 'api/index.php',
+            endpoint: 'src/api/index.php',
             gallery: [],
+            img: [{
+                    month: [
+                        {
+                            title: 'январь',
+                            imgPrev: 'https://unsplash.it/500',
+                            images: [
+                                {
+                                    src: 'https://unsplash.it/500',
+                                },
+                                {
+                                    src: 'https://unsplash.it/400',
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            stream: [{
+                src:''
+            }]
         }
     },
     methods: {
         getGallery: function() {
-          this.$http.get(this.endpoint).then(function(response){
-            console.log(response.data);
-            this.gallery = response.data
-          },
-          function(error){
-
-          })
+            this.$http.get(this.endpoint).then(function(response){
+                this.img = [];
+                _.each(response.data.images[2018], (el,monthName) => {
+                    let month = {
+                        title: monthName,
+                        imgPrev: el.main? el.main: el[0],
+                        images: []
+                    }
+                    _.each(el,(path) => {
+                        let obj = {
+                            src: path
+                        }
+                        month.images.push(obj);
+                    })
+                    this.img.push(month)
+                })
+                this.stream = [];
+                _.each(response.data.stream,(path) => {
+                        let obj = {
+                            src: path
+                        }
+                        this.stream.push(obj);
+                })
+            },
+            function(error){
+            })
         }
     },
+    components: {
+      AppFooter,
+      lightbox
+    },
     created: function() {
-
       this.getGallery();
     }
 }
@@ -47,6 +106,17 @@ export default {
 
 <style lang="scss">
   $background: #e7e4ff;
+   .container-gallery {
+        width: 1024px;
+        height: 560px;
+        box-sizing: border-box;
+        padding-left:10px;
+        margin:0 auto;
+        .box {
+          width: 100%;
+          float:left;
+        }
+    }
  .page6 {
     background: $background;
     width: 100%;
@@ -69,69 +139,6 @@ export default {
       margin: 0 auto;
       text-align: center;
     }
-    .container-gallery {
-        width: 1024px;
-        height: 560px;
-        box-sizing: border-box;
-        padding-left:10px;
-        margin:0 auto;
-        .box {
-          width: 100%;
-          float:left;
-        }
-      .container {
-        float:left;
-        width: 231px;
-        height:140px;
-        box-sizing: border-box;
-        margin:10px;
-        position: relative;
-        //background: url(img/house.jpeg) center;
-        background-size: contain;
-        transition: all .2s ease-in 0s;
-        &.stream {
-          img {
-            height: 100%;
-            width: 100%;
-            margin: 0 auto;
-          }
-        }
-        &:hover {
-          filter: drop-shadow(4px 4px 15px #888);
-          .desc{
-            opacity: 0;
-          }
-          .photo {
-            opacity: 1  ;
-          }
-        }
-        .photo {
-          background-color:  steelblue;
-          opacity: .5;
-          width: 100%;
-          height: 100%;
-          position: relative;
-          img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-        .desc {
-          width: 100%;
-          height: 40px;
-          position: absolute;
-          bottom: 0px;
-          left: 0px;
-          background: white;
-          opacity: .5;
-          font-size: 24px;
-          text-align: center;
-          line-height: 40px;
-          transition: all .2s ease-in 0s;
-          text-transform: capitalize;
-          color: black;
-        }
-      }
-    }
+
   }
 </style>

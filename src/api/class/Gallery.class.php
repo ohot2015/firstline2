@@ -4,13 +4,10 @@ class Gallery {
     const MONTHS = ['январь', 'февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
 
     protected $path_gallery;
+    protected $rel_path;
     private $data = [];
     private $futureYears = false;
-    private $absolute_path
 
-    public function getPath() {
-        return substr($this->path_gallery, strlen($_SERVER['DOCUMENT_ROOT']) + 1);
-    }
     public function setPathGalery(String $path) {
         if (is_string($path)) {
             $this->checkPathGalery($path);
@@ -47,7 +44,6 @@ class Gallery {
         $path_years = scandir($this->path_gallery);
 
         $path_years = array_slice($path_years,2);
-
         if (empty($path_years)) {
             throw new GalleryException('нет папки с годом');
         }
@@ -74,7 +70,7 @@ class Gallery {
                     }
                     else {
                         if ($month <= date('m',time()) or $year != date('Y',time()) ) {
-                            $path = sprintf('%s/%s/%s/',$this->getPath(),$year,$month);
+                            $path = sprintf('%s/%s/%s/',$this->rel_path, $year, $month);
                             $this->data[$year][$this->getNameMonth($month)] = [];
                             foreach ($files as $file) {
                                 if (false !== strpos($file,'main')) {
@@ -94,7 +90,7 @@ class Gallery {
         }
     }
 
-    public function getPathGalery() {
+    public function getPathGallery() {
         return $this->path_gallery;
     }
 
@@ -106,14 +102,14 @@ class Gallery {
         $this->data = is_array($data) ? $data : [];
     }
 
-    public function __construct (String $path_gallery) {
+    public function __construct (String $abs_path, String $rel_path) {
         try {
-            $this->setPathGalery($path_gallery);
+            $this->setPathGalery($abs_path);
+            $this->rel_path = $rel_path;
             $this->buildData();
-            $this->getPath();
         }
         catch (GalleryException $e) {
-            return $e->getMessage();
+            die($e->getMessage());
         }
     }
 }

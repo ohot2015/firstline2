@@ -100,19 +100,19 @@ export default {
 $sm: 1024px;
 $md: 1366px;
 $lg: 1920px;
+    body {
+        background: #e7e4ff;
+    }
     .house {
         font-size: direct_Regular;
-        margin-top: 25px;
         display: flex;
+        overflow: auto;
         justify-content: center;
-        overflow-x: auto;
-        //smin-width: 100%;
-        &>div {
-
-         // flex: 0 0 auto;
-        }
+        margin-top: 17px;
         .section {
             margin-right:5px;
+            display: inline-block;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items:stretch;

@@ -77,11 +77,14 @@
             <p>Все объекты комплекса оснащены поквартирной системой отопления. Высота потолков 2,7м, на последних этажах - 3м. Строительство ведется под чутким контролем профессионалов, уделяющих особое внимание качеству материалов и производимых работ.</p>
             <div class="black-wave"></div>
         </section>
+        <app-district></app-district>
+        <app-footer></app-footer>
     </div>
 </template>
 <script>
 import { yandexMap, ymapMarker } from 'vue-yandex-maps'
-
+import AppFooter from './AppFooter.vue'
+import AppDistrict from './AppDistrict.vue'
 export default {
     name: 'AppLongrid',
     data () {
@@ -101,7 +104,12 @@ export default {
             }]
         }
     },
-    components: { yandexMap, ymapMarker },
+    components: {
+        yandexMap,
+        ymapMarker,
+        AppFooter,
+        AppDistrict
+    },
 }
 </script>
 
@@ -212,8 +220,8 @@ export default {
         margin-top: 41px;
         background: url(../assets/img/iphone_4k.png) no-repeat center;
         background-size: cover;
-        @media screen and (max-width: 1920px) {
-            height: 383px;
+        @media screen and (min-width: 1920px) {
+            height: 422px;
         }
     }
     .mesto ,.dvor ,.kindergarten, .parking-text, .footbol-text, .plan-text{
@@ -248,8 +256,8 @@ export default {
             margin-top: 22px;
         }
     }
-    .mest {
-        margin-top: -51px;
+    .mesto {
+      margin-top: -51px;
     }
     .wrap-map {
         height: 759px;
@@ -263,13 +271,13 @@ export default {
         .wave {
             background: url(../assets/img/camera_4k.png) no-repeat center;
             background-size: cover;
-            bottom: 5px;
+            bottom: 4px;
             height: 362px;
             position: absolute;
             width: 100%;
             z-index: 1;
-            @media screen and (max-width: 1920px) {
-                height: 392px;
+            @media screen and (min-width: 1920px) {
+                height: 458px;
             }
         }
     }
@@ -294,8 +302,8 @@ export default {
             height: 359px;
             margin-top: 47px;
             position: relative;
-            @media screen and (max-width: 1920px) {
-                height: 417px;
+            @media screen and (min-width: 1920px) {
+                height: 458px;
             }
         }
     }
@@ -320,8 +328,8 @@ export default {
             height: 327px;
             position: relative;
             margin-top: 44px;
-            @media screen and (max-width: 1920px) {
-                height: 343px;
+            @media screen and (min-width: 1920px) {
+                height: 380px;
             }
         }
     }
@@ -343,8 +351,8 @@ export default {
             height: 433px;
             position: relative;
             margin-top: 42px;
-            @media screen and (max-width: 1920px) {
-                height: 466px;
+            @media screen and (min-width: 1920px) {
+                height: 513px;
             }
         }
     }
@@ -365,8 +373,8 @@ export default {
             height: 316px;
             position: relative;
             margin-top: 23px;
-            @media screen and (max-width: 1920px) {
-                height: 337px;
+            @media screen and (min-width: 1920px) {
+                 height: 374px;
             }
         }
     }
@@ -382,6 +390,4 @@ export default {
             width: 910px;
         }
     }
-
-
 </style>

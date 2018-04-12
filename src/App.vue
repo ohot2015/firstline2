@@ -19,15 +19,17 @@ import AppPlan from './components/AppPlan.vue'
 import AppRealty from './components/AppRealty.vue'
 import AppAbout from './components/AppAbout.vue'
 
+
 import YmapPlugin from 'vue-yandex-maps'
 Vue.use(YmapPlugin)
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 Vue.component('AppMenu', AppMenu);
+
 
 var router = new VueRouter({
     routes: [
-        {path: '/', component: AppLongrid},
+        {path: '/',  name: 'home', component: AppLongrid},
         {path: '/house', component: AppHouse},
         {path: '/plan', component: AppPlan},
         {path: '/realty', component: AppRealty},
@@ -66,4 +68,12 @@ export default {
   #app {
 
   }
+  a:link,
+  a:visited ,
+  a:hover ,
+  a:active {
+      color: #111;
+      text-decoration: none;
+  }
+
 </style>

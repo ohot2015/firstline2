@@ -6,9 +6,9 @@ class StreamGallery extends Gallery {
 
     const CONFIG_NAME = 'config.yaml';
 
-    public function __construct ($path){
-        parent::__construct($path);
+    public function __construct ($abs_path, $rel_apth){
         try {
+            parent::__construct($abs_path, $rel_apth);
             $config = Symfony\Component\Yaml\Yaml::parseFile($this->path_gallery . '/'. self::CONFIG_NAME);
             $this->streams = $config['stream'];
         } catch (ParseException $exception) {
