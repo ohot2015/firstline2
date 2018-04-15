@@ -1,8 +1,13 @@
 <?php
 class ApiCrm {
-    private $dev = true;
-    private $access_token;
 
+    private $var_cache = '';
+    private $time_cahe_live = 60*10;
+
+    private $dev = true;
+    private $cache_on = true;
+    private $access_token;
+    private $crm_url;
     /**
      * Authorization status.
      * @var bool
@@ -15,8 +20,6 @@ class ApiCrm {
      */
     private $ch;
 
-    private $crm_url;
-
     /**
      * Constructor.
      * @param   string $app_id
@@ -28,8 +31,22 @@ class ApiCrm {
     {
         $this->Env();
         $this->setAccessToken($access_token);
+        $this->setCacheDir('firstline2/var/cache/apiCrm/');
         $this->ch = curl_init();
     }
+
+    private function getCaheOn () {
+        return $this->cache_on;
+    }
+
+    private function setCacheDir ($dir) {
+        $this->var_cache = $_SERVER['DOCUMENT_ROOT'].$dir;
+    }
+
+    private function setCacheOn ($on = true) {
+        $this->cache_on = $on;
+    }
+
     private function Env () {
         $this->crm_url = ($this->dev) ?  'http://crm/app_dev.php/api/' :'http://crm.m2metr.com/api/';
     }
@@ -62,6 +79,26 @@ class ApiCrm {
     {
         return $this->crm_url . $method . '.' . $response_format;
     }
+    //https://i-notes.org/php-funkciya-okrugleniya-vremeni/
+    private function round_time($ts, $step) {
+        return(floor(floor($ts/60)/60)*3600+floor(date("i",$ts)/$step)*$step*60);
+    }
+
+    public function cache($url, $requestMethod = 'get') {
+        if (false === $this->cache_on) return null;
+
+        $cache_time = $this->round_time(time(),$this->time_cahe_live) ;
+        $name_cache = sprintf('%s.json', md5($url.$cache_time));
+
+        if (false === $rs = @file_get_contents($this->var_cache.$name_cache)) {
+            $rs = $this->request($url, $requestMethod = 'get');
+            file_put_contents($this->var_cache.$name_cache, json_encode($rs));
+        }
+        else {
+            $rs = json_decode($rs);
+        }
+        return $rs;
+    }
 
     /**
      * Execute API method with parameters and return result.
@@ -73,14 +110,17 @@ class ApiCrm {
      */
     public function api($method, $parameters = array(), $format = 'array', $requestMethod = 'get')
     {
-        $parameters['timestamp'] = time();
+        //$parameters['timestamp'] = time();
 
         if (!array_key_exists('token', $parameters) && !is_null($this->access_token)) {
             $parameters['token'] = $this->access_token;
         }
 
         ksort($parameters);
-        $rs = $this->request($this->createUrl( $this->crm_url . $method ,$parameters), $requestMethod );
+        $url = $this->createUrl( $this->crm_url . $method ,$parameters);
+
+        $rs = $this->cache($url, $requestMethod);
+
         return $format == 'array' ? json_decode($rs, true) : $rs;
     }
 
@@ -116,5 +156,4 @@ class ApiCrm {
 
         return curl_exec($this->ch);
     }
-
 }

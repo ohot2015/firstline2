@@ -58,15 +58,17 @@ export default {
     background: white;
     color:#252525;
     margin:0;
-//    width : 100%;
+    width : 100%;
+    height: 100%
   }
   .content{
     padding-top: 68px;
     width: 100%;
-    //height: calc(100% - 68px);
+    height: calc(100% - 68px);
   }
   #app {
-
+    width : 100%;
+    height: 100%
   }
   a:link,
   a:visited ,

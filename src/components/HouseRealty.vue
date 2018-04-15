@@ -40,6 +40,7 @@ $lg: 1920px;
         font-size: direct_Regular;
         height:40px;
         width:44px;
+        cursor: pointer;
         @media screen and (min-width: $sm) {
             height:50px;
             width:55px;
