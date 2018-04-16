@@ -19,15 +19,18 @@
             <div class="floor-line"
                 v-for="item_floor in floor "
             >
+
                 <house-realty class="realty"
                     v-for="(item, index) in getRealtyInFloor(item_floor, item_section)"
-                    :realty="item.id"
+                    :data="item.id"
                     :key="item.id"
                     :id="'realty_'+item.id"
                     :color="getColor(item)"
                     :line1="item.rooms + 'к'"
                     :line2="item.square + ' м²'"
+                    @eventHouseRealty="clickHouseRealty"
                 ></house-realty>
+
             </div>
         </div>
         <div class="floor-desc">
@@ -88,6 +91,11 @@ export default {
             }
             return arr;
         },
+        clickHouseRealty: function(id) {
+
+            this.$router.push({name:'realty',params:{id:id}});
+            //location.href = `/#/realty/${id}`
+        }
     },
     created: function() {
         this.getRealtysByHouseId();
@@ -97,9 +105,9 @@ export default {
 </script>
 
 <style lang="scss">
-$sm: 1024px;
-$md: 1366px;
-$lg: 1920px;
+    $sm: 1024px;
+    $md: 1366px;
+    $lg: 1920px;
     body {
         background: #e7e4ff;
     }

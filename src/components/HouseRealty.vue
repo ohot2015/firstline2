@@ -1,5 +1,5 @@
 <template>
-  <div class='house-realty' :class="color" v-on:click="chouseRealty(realty)" >
+  <div class='house-realty' :class="color" v-on:click="setEvent()" >
     <div class="first-line" >{{ line1 }}</div>
     <div class="second-line" >{{ line2 }}</div>
   </div>
@@ -14,13 +14,13 @@ export default {
             // lowMess: 'этаж',
         }
     },
-    props: ['color','line1','line2','realty'],
+    props: ['color','line1','line2','data'],
     computed: {
 
     },
     methods: {
-        chouseRealty: function(realty){
-            console.log(realty);
+        setEvent: function(data){
+            this.$emit('eventHouseRealty',this.data);
         }
     },
     created () {
@@ -40,7 +40,7 @@ $lg: 1920px;
         font-size: direct_Regular;
         height:40px;
         width:44px;
-        cursor: pointer;
+        cursor:pointer;
         @media screen and (min-width: $sm) {
             height:50px;
             width:55px;

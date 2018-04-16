@@ -2,7 +2,7 @@
   <div id="app">
     <app-menu></app-menu>
     <div class="content">
-      <router-view></router-view>
+        <router-view></router-view>
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@ var router = new VueRouter({
         {path: '/',  name: 'home', component: AppLongrid},
         {path: '/house', component: AppHouse},
         {path: '/plan', component: AppPlan},
-        {path: '/realty', component: AppRealty},
+        {path: '/realty/:id', name:'realty', component: AppRealty},
         {path: '/gallery', component: AppGallery},
         {path: '/about', component: AppAbout}
     ]

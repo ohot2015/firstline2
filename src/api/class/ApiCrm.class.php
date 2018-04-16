@@ -118,7 +118,6 @@ class ApiCrm {
 
         ksort($parameters);
         $url = $this->createUrl( $this->crm_url . $method ,$parameters);
-
         $rs = $this->cache($url, $requestMethod);
 
         return $format == 'array' ? json_decode($rs, true) : $rs;
