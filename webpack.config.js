@@ -83,7 +83,9 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
+    port: 9000,
     proxy: {
+
       "/src/api": "http://firstline2/firstline2"
     }
   },

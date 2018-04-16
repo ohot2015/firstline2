@@ -3,6 +3,7 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+webpack.config.js
 vendor/
 var/
 # Editor directories and files
