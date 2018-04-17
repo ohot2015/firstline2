@@ -31,7 +31,7 @@ class ApiCrm {
     {
         $this->Env();
         $this->setAccessToken($access_token);
-        $this->setCacheDir('firstline2/var/cache/apiCrm/');
+        $this->setCacheDir('/var/cache/apiCrm/');
         $this->ch = curl_init();
     }
 
