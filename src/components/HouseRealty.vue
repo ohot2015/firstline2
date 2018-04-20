@@ -19,7 +19,7 @@ export default {
 
     },
     methods: {
-        setEvent: function(data){
+        setEvent: function(){
             this.$emit('eventHouseRealty',this.data);
         }
     },

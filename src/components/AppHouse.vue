@@ -66,8 +66,8 @@ export default {
           this.$http.get(this.endpoint).then(function(response){
              this.house = response.data.response.house
              this.realtys = response.data.response.realty
-             this.section =  _.range(1,this.house.section_count)
-             this.floor =   _.range(this.house.floor_count ,0,-1)
+             this.section = _.range(1,this.house.section_count)
+             this.floor = _.range(this.house.floor_count ,0,-1)
           },
           function(error){
 
