@@ -4,7 +4,7 @@ class ApiCrm {
     private $var_cache = '';
     private $time_cahe_live = 60*10;
 
-    private $dev = true;
+    private $dev = false;
     private $cache_on = false;
     private $access_token;
     private $crm_url;

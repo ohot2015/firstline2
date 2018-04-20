@@ -116,7 +116,7 @@ export default {
         height: 67px;
         background: white;
         border-bottom: 1px solid black;
-        z-index: 99999999;
+        z-index: 999;
         background: rgba(255,255,255,.9);
         .work-spaces {
             width: 940px;

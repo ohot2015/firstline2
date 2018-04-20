@@ -2,6 +2,7 @@
     <div class="floor">
         <div class="floors-count">
             <house-realty
+                class="realty"
                 v-for="(item, index) in floors"
                 :color="'white'"
                 :line1="item.floor"
@@ -47,11 +48,14 @@
             </carousel>
           <div class="block-nav">
             <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
+            <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану этажа</div>
           </div>
         </div>
         <div class="info-plan">
             <ul>
-                <li v-for="item in countRoomsInFloor"></li>
+                <li v-for="item in realtys" :class="'rooms'+item.rooms">
+                    {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
+                </li>
             </ul>
         </div>
     </div>
@@ -80,6 +84,13 @@ export default {
                 offsetY: "",
                 show: false
             },
+            realtys:[],
+            rooms: {
+                1: 'Однокомнатная',
+                2: 'Двухкомнатная',
+                3: 'Трёхкомнатная',
+                4: 'Четырёхкомнатная',
+            }
         }
     },
     computed: {
@@ -98,6 +109,9 @@ export default {
         backToPlan () {
             this.$router.push({name:'home'});
         },
+         backToFloor: function() {
+            this.$router.push({name:'floor'});
+        },
         clickHouseRealty(floor){
             this.selectedSlider = [floor]
         },
@@ -111,12 +125,18 @@ export default {
         tooltipChange(rId,e) {
             this.realtyHover = this.$store.getters.realty(rId);
             setTimeout(()=>{
-                this.tooltip.width = 107;
-                this.tooltip.height = 86;
-                this.tooltip.offsetY = e.offsetY;
-                this.tooltip.offsetX = e.offsetX;
-                this.tooltip.show = !this.tooltip.show;
+                this.tooltip = {
+                    width : 107,
+                    height : 86,
+                    offsetY : e.offsetY - 70,
+                    offsetX : e.offsetX,
+                    show : !this.tooltip.show,
+                }
             },200)
+        },
+        getRealtys() {
+            let floor = _.first(this.selectedSlider).floor
+            this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
         },
     },
     components: {
@@ -124,13 +144,13 @@ export default {
         Carousel,
         Slide,
         tooltip
-
     },
     created() {
         this.houseId = this.$route.params.id;
         this.$store.dispatch('getRealtysByHouseId', this.houseId)
         this.$store.dispatch('getFloorsByHouseId', this.houseId)
         this.setSelectedSlider();
+        this.getRealtys();
     }
 }
 </script>
@@ -139,9 +159,10 @@ export default {
         background:  #e7e4ff;
     }
 
-// \e903
-// \e908
-    .VueCarousel-wrapper {
+    // \e903
+    // \e908
+
+    .VueCarousel {
         background: white;
     }
     .prev, .next {
@@ -151,6 +172,9 @@ export default {
     }
 </style>
 <style lang="scss" scoped>
+    $sm: 1024px;
+    $md: 1366px;
+    $lg: 1920px;
     .floor {
         background: #e7e4ff;
         display: flex;
@@ -194,4 +218,70 @@ export default {
                 }
         }
     }
+    .info-plan {
+        width: 250px;
+        background: white;
+
+        ul {
+            margin:0;
+            padding-left: 0;
+            padding:10px 0 10px 0;
+            li {
+                list-style-type: none;
+                font-family: 'Firstline' !important;
+                speak: none;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                /* Better Font Rendering =========== */
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+
+                height: 35px;
+                line-height: 35px;
+                font-family: RobotoCondensed-Regular;
+                color: #252525;
+                font-weight: 400;
+                padding-left:10px;
+                span {
+                    font-weight: 700;
+                }
+                &.active {
+                    background: #a3cdf9;
+                }
+                &:hover {
+                    background: #a3cdf9;
+                }
+            }
+            li.rooms1:before {
+                content: "\e90d",
+            }
+            li.rooms2:before {
+                content: '\e90f',
+            }
+            li.rooms3:before {
+                content: '\e90e',
+            }
+            li.rooms4:before {
+                content: '\e90c',
+            }
+        }
+    }
+    .realty {
+            margin-bottom: 10px;
+            @media screen and (min-width: $sm) {
+                margin-bottom: 12px;
+            }
+            @media screen and (min-width: $sm) {
+                margin-bottom: 14px;
+            }
+            @media screen and (min-width: $lg) {
+                margin-bottom: 16px;
+            }
+            &:last-child{
+                margin:0;
+            }
+        }
 </style>

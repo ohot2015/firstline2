@@ -71,11 +71,13 @@ export default {
         },
         tooltipChange(e) {
             setTimeout(()=>{
-                this.tooltip.width = 107;
-                this.tooltip.height = 86;
-                this.tooltip.offsetY = e.offsetY;
-                this.tooltip.offsetX = e.offsetX;
-                this.tooltip.show = !this.tooltip.show;
+                this.tooltip = {
+                    width : 107,
+                    height : 86,
+                    offsetY : e.offsetY,
+                    offsetX : e.offsetX,
+                    show : !this.tooltip.show,
+                }
             },200)
         },
     },

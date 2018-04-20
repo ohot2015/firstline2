@@ -85,11 +85,11 @@
 }
 @font-face {
   font-family: 'Firstline';
-  src:  url('fonts/Firstline.eot?ivcd4r');
-  src:  url('fonts/Firstline.eot?ivcd4r#iefix') format('embedded-opentype'),
-    url('fonts/Firstline.ttf?ivcd4r') format('truetype'),
-    url('fonts/Firstline.woff?ivcd4r') format('woff'),
-    url('fonts/Firstline.svg?ivcd4r#Firstline') format('svg');
+  src:  url('fonts/Firstline.eot?tcm19z');
+  src:  url('fonts/Firstline.eot?tcm19z#iefix') format('embedded-opentype'),
+    url('fonts/Firstline.ttf?tcm19z') format('truetype'),
+    url('fonts/Firstline.woff?tcm19z') format('woff'),
+    url('fonts/Firstline.svg?tcm19z#Firstline') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -109,24 +109,63 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon_arrowleft2:before {
+.icon_four:before {
+  content: "\e90c";
+}
+.icon_one:before {
+  content: "\e90d";
+}
+.icon_three:before {
+  content: "\e90e";
+}
+.icon_two:before {
+  content: "\e90f";
+}
+.icon_arrowleft2 .path1:before {
   content: "\e900";
   color: rgb(205, 205, 205);
 }
-
-.icon_arrowleftnew:before {
+.icon_arrowleft2 .path2:before {
+  content: "\e901";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon_arrowleft2 .path3:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(168, 168, 168);
+}
+.icon_arrowleftnew .path1:before {
   content: "\e903";
   color: rgb(255, 255, 255);
 }
-
-.icon_arrowright2:before {
+.icon_arrowleftnew .path2:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(168, 168, 168);
+}
+.icon_arrowright2 .path1:before {
   content: "\e905";
   color: rgb(205, 205, 205);
 }
-
-.icon_arrowrightnew:before {
+.icon_arrowright2 .path2:before {
+  content: "\e906";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon_arrowright2 .path3:before {
+  content: "\e907";
+  margin-left: -1em;
+  color: rgb(168, 168, 168);
+}
+.icon_arrowrightnew .path1:before {
   content: "\e908";
   color: rgb(255, 255, 255);
+}
+.icon_arrowrightnew .path2:before {
+  content: "\e909";
+  margin-left: -1em;
+  color: rgb(168, 168, 168);
 }
 .icon_planfloor:before {
   content: "\e90a";
