@@ -29,7 +29,7 @@ Vue.component('AppMenu', AppMenu);
 var router = new VueRouter({
     routes: [
         {path: '/',  name: 'home', component: AppLongrid},
-        {path: '/house', component: AppHouse},
+        {path: '/house', name:'house', component: AppHouse},
         {path: '/floor/:id',name:'floor', component: AppFloor},
         {path: '/realty/:id', name:'realty', component: AppRealty},
         {path: '/gallery', component: AppGallery},

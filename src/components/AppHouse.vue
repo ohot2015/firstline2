@@ -7,6 +7,7 @@
             :line1=" item"
             :line2="'этаж'"
             :key="item.id"
+            @click=""
         ></house-realty>
         <div class="help">
             <img src="src/assets/img/help.png" alt="">
@@ -19,7 +20,6 @@
             <div class="floor-line"
                 v-for="item_floor in floor "
             >
-
                 <house-realty class="realty"
                     v-for="(item, index) in getRealtyInFloor(item_floor, item_section)"
                     :data="item.id"
@@ -99,7 +99,6 @@ export default {
     },
     created: function() {
         this.getRealtysByHouseId();
-
     }
 }
 </script>

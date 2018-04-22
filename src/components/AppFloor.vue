@@ -3,12 +3,13 @@
         <div class="floors-count">
             <house-realty
                 class="realty"
-                v-for="(item, index) in floors"
+                v-for="(item, key, index) in floors"
                 :color="'white'"
                 :line1="item.floor"
                 :line2="'этаж'"
                 :key="index"
                 :data="item"
+                :class="index == 0 ? 'active':''"
                 @eventHouseRealty="clickHouseRealty"
             >
             </house-realty>
@@ -75,7 +76,7 @@ export default {
                 points:'',
             },
             houseId:0,
-            selectedSlider:'',
+            //selectedSlider:'',
             realtyHover:'',
             tooltip: {
                 width:'',
@@ -84,7 +85,7 @@ export default {
                 offsetY: "",
                 show: false
             },
-            realtys:[],
+            //realtys:[],
             rooms: {
                 1: 'Однокомнатная',
                 2: 'Двухкомнатная',
@@ -94,33 +95,49 @@ export default {
         }
     },
     computed: {
+
         house() {
             return this.$store.getters.house(this.houseId);
         },
-        floors() {
-            return this.$store.getters.floors && this.$store.getters.floors.floors;
-            //return [...Array(parseInt(this.house.floor_count)).keys()].map((c)=> c + 1).reverse();
+        floors: {
+            set: function(val) {
+
+            },
+            get: function() {
+                return  this.$store.getters.floors.floors;
+                //return [...Array(parseInt(this.house.floor_count)).keys()].map((c)=> c + 1).reverse();
+            }
         },
         countRoomsInFloor(){
             //return this.$store.getters.countRoomsInFloor(this.houseId)
         },
+        selectedSlider: {
+            set: function(val) {
+            },
+            get:function() {
+                this.floors = this.$store.getters.floors.floors
+                let qwe = {};
+                for(let el in this.floors) {
+                    qwe = this.floors[el];break;
+                }
+                return [qwe];
+            }
+        },
+        realtys() {
+            let floor = _.first(this.selectedSlider).floor
+            return this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
+        },
     },
     methods: {
+
         backToPlan () {
-            this.$router.push({name:'home'});
+            this.$router.push({name:'house',params:{id:this.houseId} });
         },
-         backToFloor: function() {
+        backToFloor: function() {
             this.$router.push({name:'floor'});
         },
         clickHouseRealty(floor){
             this.selectedSlider = [floor]
-        },
-        setSelectedSlider(){
-            let qwe = {};
-            for(let el in this.floors) {
-                qwe = this.floors[el];break;
-            }
-            this.selectedSlider = [qwe]
         },
         tooltipChange(rId,e) {
             this.realtyHover = this.$store.getters.realty(rId);
@@ -134,10 +151,10 @@ export default {
                 }
             },200)
         },
-        getRealtys() {
-            let floor = _.first(this.selectedSlider).floor
-            this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
-        },
+        // getRealtys() {
+        //     let floor = _.first(this.selectedSlider).floor
+        //     this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
+        // },
     },
     components: {
         HouseRealty,
@@ -147,10 +164,8 @@ export default {
     },
     created() {
         this.houseId = this.$route.params.id;
-        this.$store.dispatch('getRealtysByHouseId', this.houseId)
-        this.$store.dispatch('getFloorsByHouseId', this.houseId)
-        this.setSelectedSlider();
-        this.getRealtys();
+       // this.setSelectedSlider();
+        //this.getRealtys();
     }
 }
 </script>

@@ -22,6 +22,8 @@ $tempalte = <<<END
     </table>
 END;
 
- $rs = @mail( 'ohot2015@gmail.com' , 'первая линия' , $tempalte );
+ $rs = @mail( 'ohot2015@gmail.com' , 'первая линия' , $tempalte, "From: banel1ng@yahoo.com\r\n"
+    ."Content-type: text/html; charset=utf-8\r\n"
+    ."X-Mailer: PHP mail script" );
 echo json_encode($rs);
 ?>

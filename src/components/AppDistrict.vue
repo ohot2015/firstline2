@@ -8,10 +8,10 @@
             </div>
         </header>
         <tooltip :options="tooltip">
-            <header>{{houses[0].sections_count}} подъезда </header>
+            <header v-if="house">{{house.sections_count}} подъезда </header>
             <hr>
-            <div class="body">
-                {{houses[0].floor_count}} этажей
+            <div class="body" v-if="house">
+                {{house.floor_count}} этажей
             </div>
         </tooltip>
         <div class="plan">
@@ -19,7 +19,7 @@
             <svg>
                 <g>
                     <polygon
-                        v-for="item in houses"
+                        v-for="item in $store.getters.houses"
                         :points="item.coords"
                         data="item.house_id"
                         fill="rgba(0,0,0,.1)"
@@ -49,17 +49,21 @@ export default {
         }
     },
     computed: {
-        houses() {
-            let houses = this.$store.getters.houses;
-            if (houses) {
-                return houses;
-            }
-            else {
-               return 0
-            }
-        },
+        // houses() {
+        //     let houses = this.$store.getters.houses;
+        //     console.log(houses);
+        //     if (houses) {
+        //         return houses;
+        //     }
+        //     else {
+        //        return 0
+        //     }
+        // },
         districtImg(){
             return this.$store.getters.districtImg;
+        },
+        house(){
+            return this.$store.getters.house(14);
         }
     },
     components: {
@@ -67,6 +71,8 @@ export default {
     },
     methods:{
         toFloor(id,e) {
+            this.$store.dispatch('getRealtysByHouseId', id)
+            this.$store.dispatch('getFloorsByHouseId', id);
             this.$router.push({name:'floor',params:{id:id}});
         },
         tooltipChange(e) {
@@ -83,6 +89,7 @@ export default {
     },
     created () {
         this.$store.dispatch('getHousesByDistrictId')
+        this.houses = this.$store.getters.houses;
     }
 }
 </script>
