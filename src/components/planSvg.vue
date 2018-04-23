@@ -1,8 +1,7 @@
 <template>
     <div class="wrap">
-        <tooltip :options="tooltip">
-            <header>{{rh.rooms}} комн. / №  {{rh.num}}</header>
-            <hr>
+        <tooltip class="tooltip" :options="tooltip">
+            <header>{{rh.rooms}} комн. <span class="delimiter">/</span> №  {{rh.num}}</header>
             <div class="body">
                 {{rh.square}} м2
             </div>
@@ -55,13 +54,13 @@ export default {
             this.rh = this.$store.getters.realty(rId);
             setTimeout(()=>{
                 this.tooltip = {
-                    width : 107,
-                    height : 86,
-                    offsetY : e.offsetY - 70,
+                    width : 130,
+                    height : 37,
+                    offsetY : e.offsetY - 50,
                     offsetX : e.offsetX,
                     show : !this.tooltip.show,
                 }
-            },200)
+            },0)
             e.target.style.fill = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
             this.$emit('eventMouseEnter',rId);
         },
@@ -96,4 +95,21 @@ export default {
                 }
         }
 
+    .tooltip{
+        header{
+            font-family: RobotoCondensed-Bold;
+            font-size: 20px;
+
+            span{
+                color: #a3cdf9;
+            }
+        }
+
+        .body{
+            width: 100%;
+            text-align: center;
+            font-family: RobotoCondensed-Regular;
+            font-size: 16px;
+        }
+    }
 </style>

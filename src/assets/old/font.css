@@ -1,22 +1,22 @@
 @font-face {
   font-family: direct-Bold;
-  src: url(fonts/direct_Bold.otf) format("opentype"); }
+  src: url(fonts/ALS_Direct_Bold.otf) format("opentype"); }
 
 @font-face {
   font-family: direct-BoldItalic;
-  src: url(fonts/direct_BoldItalic.otf) format("opentype"); }
+  src: url(fonts/ALS_Direct_BoldItalic.otf) format("opentype"); }
 
 @font-face {
   font-family: direct-Cond;
-  src: url(fonts/direct_Cond.otf) format("opentype"); }
+  src: url(fonts/ALS_Direct_Cond.otf) format("opentype"); }
 
 @font-face {
   font-family: direct-Cond_Light;
-  src: url(fonts/direct_Cond_Light.otf) format("opentype"); }
+  src: url(fonts/ALS_Direct_Cond_Light.otf) format("opentype"); }
 
 @font-face {
   font-family: direct-Italic;
-  src: url(fonts/direct_Italic.otf) format("opentype"); }
+  src: url(fonts/ALS_Direct_Italic.otf) format("opentype"); }
 
 @font-face {
   font-family: direct-Regular;
@@ -24,15 +24,15 @@
 
 @font-face {
   font-family: direct-SemiCond;
-  src: url(fonts/direct_SemiCond.otf) format("opentype"); }
+  src: url(fonts/ALS_Direct_SemiCond.otf) format("opentype"); }
 
 @font-face {
   font-family: direct-SemiCond_Bold;
-  src: url(fonts/direct_SemiCond_Bold.otf) format("opentype"); }
+  src: url(fonts/ALS_Direct_SemiCond_Bold.otf) format("opentype"); }
 
 @font-face {
   font-family: direct-SemiCond_Light;
-  src: url(fonts/direct_SemiCond_Light.otf) format("opentype"); }
+  src: url(fonts/ALS_Direct_SemiCond_Light.otf) format("opentype"); }
 
 @font-face {
   font-family: BebasRegular;
