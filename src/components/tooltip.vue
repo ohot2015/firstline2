@@ -4,6 +4,7 @@
       <div class="container">
         <slot></slot>
       </div>
+      <div class="arrow"></div>
     </div>
   </transition>
 </template>
@@ -26,7 +27,7 @@ export default {
       return {
         width: w + 'px',
         height: h + 'px',
-        left: l - (w / 2) + 'px',
+        left: l - (w/2 + 28)  + 'px',
         top: t - 30 + 'px',
       }
     }
@@ -43,15 +44,28 @@ export default {
 
 <style lang="scss" scoped>
   .tooltip {
-    margin-left: 30px;
+    /*margin-left: 30px;*/
     background: white;
-    border-radius: 15px;
+    border-radius: 5px;
     box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     position: absolute;
+    padding: 14px 20px;
     z-index: 9999999999;
+
+      .arrow{
+          width: 0;
+          height: 0;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 15px solid white;
+          position: absolute;
+          left: calc(50% - 7px);
+          bottom: -15px;
+      }
   }
+
   .container {
-    padding: 3px;
+    padding: 0px;
   }
   .fade-enter-active, .fade-leave-active {
     transition: opacity .2s ease .1s;

@@ -7,11 +7,12 @@
                 <div>недоступные объекты</div>
             </div>
         </header>
-        <tooltip :options="tooltip">
+        <tooltip class="tooltip" :options="tooltip">
             <header v-if="house">{{house.sections_count}} подъезда </header>
             <hr>
             <div class="body" v-if="house">
-                {{house.floor_count}} этажей
+                <span class="floor">{{house.floor_count}}</span>
+                этажей
             </div>
         </tooltip>
         <div class="plan">
@@ -76,15 +77,23 @@ export default {
             this.$router.push({name:'floor',params:{id:id}});
         },
         tooltipChange(e) {
-            setTimeout(()=>{
-                this.tooltip = {
-                    width : 107,
-                    height : 86,
-                    offsetY : e.offsetY,
-                    offsetX : e.offsetX,
-                    show : !this.tooltip.show,
-                }
-            },200)
+            this.tooltip = {
+                width : 107,
+                height : 65,
+                offsetY : e.offsetY,
+                offsetX : e.offsetX,
+            }
+
+            console.log(e.target.attributes);
+//            setTimeout(()=>{
+//            if (!document.querySelector('.tooltip')){
+               if (e.type == "mouseenter") {
+                   this.tooltip.show = !this.tooltip.show;
+               }
+
+
+//            }
+//            },200)
         },
     },
     created () {
@@ -172,6 +181,33 @@ export default {
                 }
             }
 
+        }
+    }
+
+    .tooltip{
+        padding: 8px 20px 0 20px;
+
+        header{
+            width: 100%;
+            font-size: 13px;
+            text-align: center;
+            font-family: RobotoCondensed-Regular;
+        }
+        .body{
+            width: 100%;
+            text-align: center;
+            font-family: RobotoCondensed-Regular;
+            font-size: 13px;
+            .floor{
+                display: block;
+                font-family: direct-Bold;
+                font-size: 28px;
+            }
+        }
+        hr{
+            padding: 0;
+            margin: 0;
+            margin-top: 5px;
         }
     }
 </style>
