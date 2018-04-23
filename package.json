@@ -37,6 +37,7 @@
     "underscore": "^1.8.3",
     "vlightbox": "^2.0.2",
     "vue-loader": "^13.0.5",
+    "vue-masked-input": "^0.5.2",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.4.4",
     "vuex": "^3.0.1",

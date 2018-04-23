@@ -12,7 +12,7 @@
             @click="showModal = true"
         >ОСТАВИТЬ ЗАЯВКУ НА БРОНЬ КВАРТИРЫ</div>
           <modal :realtyId="realtyId" v-if="showModal" @close="close">
-            <h3 slot="header">Оставте свой номер телефона мы вам перезвоним</h3>
+            <h3 class="description" slot="header">Оставьте свой номер телефона и мы вам перезвоним</h3>
           </modal>
     </div>
 </template>
@@ -29,8 +29,14 @@ export default {
     },
     methods: {
         close(form) {
+            if (!form) {
+                return this.showModal = false;
+            }
+
+            console.log(form);
+
             this.$http.get(this.endpoint, {params: form}).then(function(response){
-                //console.log(response.data);
+                console.log(response.data);
             },
             function(error){
 
@@ -89,4 +95,8 @@ export default {
             cursor: pointer;
         }
     }
+
+.description{
+    margin: 10px 0;
+}
 </style>

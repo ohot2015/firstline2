@@ -3,8 +3,8 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
-        <form action="">
+        <div @click.prevent="$emit('close')" class="close">&#10010;</div>
+        <form @submit.prevent="$emit('close',form)" action="">
           <div class="modal-header">
             <slot name="header">
               default header
@@ -13,18 +13,18 @@
 
           <div class="modal-body">
             <slot name="body">
-                <label for="name-madal">Ваше имя</label>
-                <input type="text" id="name-label" name="name" v-model="form.name"><br>
+                <label for="name-modal">Ваше имя</label>
+                <input required type="text" id="name-modal" name="name" v-model="form.name"><br>
                 <label for="phone-modal">Ваш телефон</label>
-                <input type="text" name="phone" id="phone-modal" v-model="form.phone">
+                <masked-input id="phone-modal" name="phone" v-model="form.phone" mask="\+\7 (111) 111-1111" placeholder="Номер телефона" type="tel" />
                 <input type="hidden" name="realty_id" v-model="form.rId">
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" type="submit" @click.prevent="$emit('close',form)">
-                OK
+              <button class="modal-default-button" type="submit">
+                Отправить
               </button>
             </slot>
           </div>
@@ -35,7 +35,7 @@
   </transition>
 </template>
 <script>
-
+import maskedInput from 'vue-masked-input'
 export default {
   name: 'modal',
   data () {
@@ -49,12 +49,25 @@ export default {
     }
   },
   props: ['realtyId'],
+  components: {
+      maskedInput
+  },
   created(){
         console.log(this.realtyId);
   }
 }
 
 </script>
+<style lang="scss">
+    #phone-modal{
+        width: 300px;
+        height: 30px;
+        padding-left: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #898989;
+    }
+</style>
 
 <style lang="scss" scoped>
   .modal-mask {
@@ -75,14 +88,29 @@ export default {
 }
 
 .modal-container {
-  width: 500px;
+  width: 510px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 20px;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  position: relative;
+  font-family: RobotoCondensed-Regular;
+
+  .close {
+      height: 23px;
+      width: 22px;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      font-size: 25px;
+      cursor: pointer;
+      color: #252525;
+      transform: rotate(45deg);
+  }
+
 }
 
 .modal-header h3 {
@@ -91,12 +119,40 @@ export default {
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 10px 0;
+    label{
+        display: block;
+        margin-bottom: 3px;
+        margin-top: 10px;
+        font-size: 12px;
+    }
+    input[type="text"]{
+        width: 300px;
+        height: 30px;
+        padding-left: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #898989;
+    }
 }
 
-.modal-default-button {
-  float: right;
+.modal-footer{
+    width: 100%;
+    font-family: RobotoCondensed-Regular;
+
+    .modal-default-button {
+        font-family: RobotoCondensed-Regular;
+        background: none;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #898989;
+        font-size: 14px;
+        background-color: #a3cdf9;
+        cursor: pointer;
+    }
 }
+
+
 
 /*
  * The following styles are auto-applied to elements with
