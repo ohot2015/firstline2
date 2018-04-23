@@ -23,7 +23,7 @@
                         v-for="item in $store.getters.houses"
                         :points="item.coords"
                         data="item.house_id"
-                        fill="rgba(0,0,0,.1)"
+                        fill="rgba(0,0,0,0)"
                         @mouseenter="tooltipChange"
                         @mouseleave="tooltipChange"
                         @click="toFloor(item.id,$event)"

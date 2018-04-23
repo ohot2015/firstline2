@@ -78,6 +78,7 @@
             <p>Все объекты комплекса оснащены поквартирной системой отопления. Высота потолков 2,7м, на последних этажах - 3м. Строительство ведется под чутким контролем профессионалов, уделяющих особое внимание качеству материалов и производимых работ.</p>
             <div class="black-wave"></div>
         </section>
+        <div id="scrolltodistrict"></div>
         <app-district></app-district>
         <app-footer></app-footer>
     </div>
@@ -106,6 +107,21 @@ export default {
                     callbacks: { click: function() {} }
             }]
         }
+    },
+    mounted(){
+        if (this.$route.params.scrollTo) {
+            this.$scrollTo('#scrolltodistrict', 500, {
+     easing: "ease-in-out",})
+        }
+    },
+    updated(){
+        if (this.$route.params.scrollTo) {
+            this.$scrollTo('#scrolltodistrict', 500, {
+     easing: "ease-in-out",})
+        }
+    },
+    created(){
+        console.log();
     },
     components: {
         yandexMap,

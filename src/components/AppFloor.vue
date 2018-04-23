@@ -1,39 +1,39 @@
 <template>
-    <div class="wrap">
-    <div class="floor">
-        <div class="floors-count">
-            <house-realty
-                class="realty"
-                v-for="(item, key, index) in floors"
-                :color="'white'"
-                :line1="item.floor"
-                :line2="'этаж'"
-                :key="index"
-                :data="item"
-                :class="index == 0 ? 'active':''"
-                @eventHouseRealty="clickHouseRealty"
-            >
-            </house-realty>
+    <div class="wrap-all">
+        <div class="floor">
+            <div class="floors-count">
+                <house-realty
+                    class="realty"
+                    v-for="(item, key, index) in floors"
+                    :color="'white'"
+                    :line1="item.floor"
+                    :line2="'этаж'"
+                    :key="index"
+                    :data="item"
+                    :class="index == 0 ? 'active':''"
+                    @eventHouseRealty="clickHouseRealty"
+                >
+                </house-realty>
+            </div>
+            <div class="slider">
+                <plan-svg
+                    :plan="selectedSlider[0]"
+                    :floor="floor"
+                    @eventMouseEnter="mouseEnterPolly"
+                ></plan-svg>
+              <div class="block-nav">
+                <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
+                <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану района</div>
+              </div>
+            </div>
+            <div class="info-plan">
+                <ul>
+                    <li v-for="item in realtys ? realtys: realty" :key="item.id" :ref="'realty-'+item.id" :elem="huelem" :class="'rooms'+item.rooms">
+                        {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="slider">
-            <plan-svg
-                :plan="selectedSlider[0]"
-                :floor="floor"
-                @eventMouseEnter="mouseEnterPolly"
-            ></plan-svg>
-          <div class="block-nav">
-            <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
-            <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану района</div>
-          </div>
-        </div>
-        <div class="info-plan">
-            <ul>
-                <li v-for="item in realtys ? realtys: realty" :key="item.id" :ref="'realty-'+item.id" :elem="huelem" :class="'rooms'+item.rooms">
-                    {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
-                </li>
-            </ul>
-        </div>
-    </div>
     </div>
 </template>
 <script>
@@ -102,14 +102,6 @@ export default {
             return this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
         },
     },
-    // watch: {
-    //     selectedSlider: function (val) {
-    //         console.log(12123);
-    //       let floor = _.first(this.selectedSlider).floor
-
-    //         this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
-    //     },
-    // },
     methods: {
         setRealtys(){
             let floor = _.first(this.selectedSlider).floor
@@ -123,14 +115,13 @@ export default {
             this.$router.push({name:'house',params:{id:this.houseId}});
         },
         backToFloor: function() {
-            this.$router.push('/');
+            this.$router.push({name:'district',params:{scrollTo:'scrolltodistrict'}});
         },
         clickHouseRealty(floor) {
             this.floor = floor.floor;
             this.selectedSlider = floor;
             this.huelem = floor.floor;
             let floor1 = _.first(this.selectedSlider).floor
-            console.log(this.$store.getters.getRealtyByFloorByHouseId(floor1,this.houseId));
             this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor1,this.houseId);
         },
         mouseEnterPolly(id) {
@@ -156,10 +147,7 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
-    .content {
-        background:  #e7e4ff;
-    }
+<style lang="scss">
 
     // \e903
     // \e908
@@ -174,10 +162,13 @@ export default {
     }
 </style>
 <style lang="scss" scoped>
+    .content {
+        background:  #e7e4ff;
+    }
     $sm: 1024px;
     $md: 1366px;
     $lg: 1920px;
-    .wrap {
+    .wrap-all {
         min-height: 100%;
         background: #e7e4ff;
     }
@@ -206,8 +197,6 @@ export default {
         height: 420px;
         margin: 0 20px;
         position: relative;
-
-
     }
     .info-plan {
         width: 250px;

@@ -1,6 +1,6 @@
 <template>
   <div class='gallery' id="gallery">
-    <div class="page6 galery">
+    <div class="page6">
         <div class="header">
             <h1>Галерея</h1>
         </div>
@@ -12,6 +12,7 @@
                     :images="stream"
                     :title="'Сейчас'"
                     :imgprev="stream[0].src"
+                    v-if="false"
                     >
                 </lightbox>
                 <lightbox
@@ -26,7 +27,9 @@
             </div>
         </div>
     </div>
+    <div class="footer">
     <app-footer></app-footer>
+    </div>
   </div>
 </template>
 
@@ -104,11 +107,16 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   $background: #e7e4ff;
+  #gallery {
+        min-height: 100%;
+        background: $background;
+  }
    .container-gallery {
         width: 1024px;
         height: 560px;
+
         box-sizing: border-box;
         padding-left:10px;
         margin:0 auto;
@@ -117,10 +125,15 @@ export default {
           float:left;
         }
     }
+    .footer {
+        position: fixed;
+        bottom: 0;
+    }
  .page6 {
     background: $background;
     width: 100%;
     height: 100%;
+
     h1 {
       margin: 0;
       height: 50px;
