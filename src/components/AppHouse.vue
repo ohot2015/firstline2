@@ -1,6 +1,6 @@
 <template>
   <div class='house'>
-    <div class="floor-block">
+    <div class="floor-block" @click="clickFloor">
         <house-realty class="realty"
             v-for="(item, index) in floor"
             :color="'white'"
@@ -91,9 +91,10 @@ export default {
             return arr;
         },
         clickHouseRealty: function(id) {
-
             this.$router.push({name:'realty',params:{id:id}});
-            //location.href = `/#/realty/${id}`
+        },
+        clickFloor() {
+            this.$router.push({name:'house',params:{id:this.house.id}});
         }
     },
     created: function() {
@@ -110,7 +111,7 @@ export default {
     $lg: 1920px;
     .house {
         background: #e7e4ff;
-        font-size: direct_Regular;
+        font-family: direct-Regular;
         display: flex;
         overflow: auto;
         justify-content: center;

@@ -23,12 +23,12 @@
             ></plan-svg>
           <div class="block-nav">
             <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
-            <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану этажа</div>
+            <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану района</div>
           </div>
         </div>
         <div class="info-plan">
             <ul>
-                <li v-for="item in realtys" :key="item.id" :ref="'realty-'+item.id" :elem="huelem" :class="'rooms'+item.rooms">
+                <li v-for="item in (realtys||realty)" :key="item.id" :ref="'realty-'+item.id" :elem="huelem" :class="'rooms'+item.rooms">
                     {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
                 </li>
             </ul>
@@ -64,7 +64,7 @@ export default {
                 4: 'Четырёхкомнатная',
             },
             huelem:'123',
-            //realtys:'',
+            realtys:'',
         }
     },
     computed: {
@@ -97,8 +97,9 @@ export default {
                 return [qwe];
             }
         },
-        realtys() {
+        realty() {
             let floor = _.first(this.selectedSlider).floor
+            console.log(floor);
             return this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
         },
     },
@@ -111,36 +112,32 @@ export default {
     //     },
     // },
     methods: {
+        setRealtys(){
+            let floor = _.first(this.selectedSlider).floor
+            this.realtys =  this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
+        },
         backToPlan () {
-            this.$router.push({name:'house',params:{id:this.houseId} });
+            this.$router.push({name:'house',params:{id:this.houseId}});
         },
         backToFloor: function() {
-            this.$router.push({name:'floor'});
+            this.$router.push('/');
         },
         clickHouseRealty(floor) {
             this.floor = floor.floor;
             this.selectedSlider = floor;
-            this.huelem= floor.floor;
+            this.huelem = floor.floor;
+            let floor1 = _.first(this.selectedSlider).floor
+            this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor1,this.houseId);
         },
         mouseEnterPolly(id) {
-
             let els = document.querySelectorAll('.info-plan ul li');
             els.forEach((el)=> {
                 el.classList.remove('active')
             })
-         //   console.log(id);
             let target = this.$refs['realty-'+id];
-          //  console.log(this.$refs);
-          if (target) {
-
-            target[0].classList.add('active')
-          }
-
-
-            //document.querySelectorAll(`#realty`);
-            //e.target.parentElement.classList.add('active')
-//            let realty = this.$store.getters.realty(id);
-
+            if (target) {
+                target[0].classList.add('active')
+            }
         }
     },
     components: {
@@ -151,6 +148,7 @@ export default {
     },
     created() {
         this.houseId = parseInt(this.$route.params.id);
+        this.setRealtys();
     }
 }
 </script>

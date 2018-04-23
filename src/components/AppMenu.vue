@@ -50,9 +50,11 @@ export default {
         getPhone() {
             return '430-800';
         },
-        click() { this.active = this.active ? false : true; },
+        click() {
+            this.active = this.active ? false : true;
+        },
         chanageRealty() {
-            this.$router.push('/house');
+            this.$router.push({name:'house',params:{id:14}});
         }
 
     },
