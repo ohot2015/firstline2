@@ -99,7 +99,6 @@ export default {
         },
         realty() {
             let floor = _.first(this.selectedSlider).floor
-            console.log(this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId));
             return this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
         },
     },
