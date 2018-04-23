@@ -83,17 +83,9 @@ export default {
                 offsetY : e.offsetY,
                 offsetX : e.offsetX,
             }
-
-            console.log(e.target.attributes);
-//            setTimeout(()=>{
-//            if (!document.querySelector('.tooltip')){
-               if (e.type == "mouseenter") {
-                   this.tooltip.show = !this.tooltip.show;
-               }
-
-
-//            }
-//            },200)
+            if (e.type == "mouseenter") {
+                this.tooltip.show = !this.tooltip.show;
+            }
         },
     },
     created () {
