@@ -19,7 +19,6 @@
             <div class="floor-line"
                 v-for="item_floor in floor "
             >
-
                 <house-realty class="realty"
                     v-for="(item, index) in getRealtyInFloor(item_floor, item_section)"
                     :data="item.id"
@@ -52,7 +51,7 @@ export default {
             section: 0,
             floor: [],
             realtys: [],
-            endpoint: 'src/api/getRealtysByHouseId.php'
+            endpoint: 'src/api/getRealtysByHouseId.php',
         }
     },
     components: {
@@ -66,8 +65,8 @@ export default {
           this.$http.get(this.endpoint).then(function(response){
              this.house = response.data.response.house
              this.realtys = response.data.response.realty
-             this.section =  _.range(1,this.house.section_count)
-             this.floor =   _.range(this.house.floor_count ,0,-1)
+             this.section = _.range(1,this.house.section_count)
+             this.floor = _.range(this.house.floor_count ,0,-1)
           },
           function(error){
 
@@ -98,25 +97,25 @@ export default {
         }
     },
     created: function() {
+        this.beforeShow = '';
         this.getRealtysByHouseId();
-
     }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
     $sm: 1024px;
     $md: 1366px;
     $lg: 1920px;
-    body {
-        background: #e7e4ff;
-    }
     .house {
+        background: #e7e4ff;
         font-size: direct_Regular;
         display: flex;
         overflow: auto;
         justify-content: center;
-        margin-top: 17px;
+        padding-top: 17px;
+        min-height: calc(100% - 17px);
         .section {
             margin-right:5px;
             display: inline-block;

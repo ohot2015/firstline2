@@ -4,8 +4,8 @@ class ApiCrm {
     private $var_cache = '';
     private $time_cahe_live = 60*10;
 
-    private $dev = true;
-    private $cache_on = true;
+    private $dev = false;
+    private $cache_on = false;
     private $access_token;
     private $crm_url;
     /**
@@ -85,7 +85,9 @@ class ApiCrm {
     }
 
     public function cache($url, $requestMethod = 'get') {
-        if (false === $this->cache_on) return null;
+        if (false === $this->cache_on) {
+            return $this->request($url, $requestMethod = 'get');
+        };
 
         $cache_time = $this->round_time(time(),$this->time_cahe_live) ;
         $name_cache = sprintf('%s.json', md5($url.$cache_time));
@@ -111,11 +113,9 @@ class ApiCrm {
     public function api($method, $parameters = array(), $format = 'array', $requestMethod = 'get')
     {
         //$parameters['timestamp'] = time();
-
         if (!array_key_exists('token', $parameters) && !is_null($this->access_token)) {
             $parameters['token'] = $this->access_token;
         }
-
         ksort($parameters);
         $url = $this->createUrl( $this->crm_url . $method ,$parameters);
         $rs = $this->cache($url, $requestMethod);

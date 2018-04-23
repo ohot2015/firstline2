@@ -16,7 +16,7 @@
             </template>
             <img src="src/assets/img/buter_1024.png" alt="" class="ico"><!-- <div>меню</div> -->
         </div>
-        <button>
+        <button @click="chanageRealty">
             Выбрать квартиру
         </button>
       </div>
@@ -50,7 +50,11 @@ export default {
         getPhone() {
             return '430-800';
         },
-        click() { this.active = this.active ? false : true; }
+        click() { this.active = this.active ? false : true; },
+        chanageRealty() {
+            this.$router.push('/house');
+        }
+
     },
     components: {
         dropDown
@@ -112,7 +116,7 @@ export default {
         height: 67px;
         background: white;
         border-bottom: 1px solid black;
-        z-index: 99999999;
+        z-index: 999;
         background: rgba(255,255,255,.9);
         .work-spaces {
             width: 940px;

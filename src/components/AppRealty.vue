@@ -1,5 +1,6 @@
 <template>
     <div class="realty">
+
         <div class="type-slider" >
             <house-realty
                 v-for="(item, index) in nav"
@@ -8,25 +9,29 @@
                 :line2="item.line2"
                 :key="index"
                 :data="item.type"
+                :class="index == 0 ? 'active':''"
                 @eventHouseRealty="clickHouseRealty"
             >
             </house-realty>
         </div>
         <div class="slider">
             <carousel
-                :navigationNextLabel="'<span class=next></span>'"
-                :navigationPrevLabel="'<span class=prev></span>'"
                 :per-page="1"
                 :mouse-drag="false"
                 :navigationEnabled="true"
                 :paginationEnabled="false"
+                :key="'qwe12323'"
             >
             <slide v-for="(item, index) in selectedSlider" :key="index" >
               <img :src="'http://' + item.img_path" alt="">
             </slide>
           </carousel>
+          <div class="block-nav">
+            <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
+            <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану этажа</div>
+          </div>
         </div>
-        <realty-info-board :infoBoard="infoBoard"></realty-info-board>
+        <realty-info-board :realtyId="rId" :infoBoard="infoBoard"></realty-info-board>
     </div>
 </template>
 <script>
@@ -35,7 +40,7 @@ import HouseRealty from './HouseRealty.vue'
 import RealtyInfoBoard from './RealtyInfoBoard.vue'
 import _ from 'underscore'
 import { Carousel, Slide } from 'vue-carousel';
-function getInfoBoard(realty) {
+function getInfoBoard(realty,house) {
     return [
         {
             info: `${realty.rooms} комн. / №${realty.num}`,
@@ -75,23 +80,23 @@ export default {
                 {
                     line1: '2D',
                     line2: 'квартира',
-                    type: 'plan'
+                    type: '1'
                 },
                 {
                     line1: '2D',
                     line2: 'вид этажа',
-                    type: 'main'
+                    type: '2'
                 },
                 {
                     line1: '3D',
                     line2: 'квартира',
-                    type: 'other'
+                    type: '3'
                 },
             ],
             sliders:{
-                main: [{img_path: ''}],
-                plan: [{img_path:''}],
-                other: [{img_path:''}]
+                1: [{img_path: ''}],
+                2: [{img_path:''}],
+                3: [{img_path:''}]
             },
             selectedSlider:[],
             endpoint: 'src/api/realty.php'
@@ -106,39 +111,45 @@ export default {
     methods: {
         clickHouseRealty(typeSlider){
             this.selectedSlider = this.sliders[typeSlider];
-            console.log(this.sliders);
         },
         getRealtysByHouseId: function() {
 
           this.$http.get(this.endpoint, {params: {realty_id: this.rId}}).then(function(response){
             let house = response.data.house;
             let realty = response.data.realty;
-            console.log(response.data);
+        //   console.log(response.data);
 
-            this.infoBoard = getInfoBoard(realty);
+            this.infoBoard = getInfoBoard(realty,house);
             // при перовй загрузки страницы
-            let selectedSlider = _.find(realty.img,{type:'plan'}) || _.find(realty.img,{type:'main'});
-            this.selectedSlider = [selectedSlider];
-            // подставляю значения для навигации
-            this.sliders.plan = _.filter(realty.img,{type:'plan'})
-            this.sliders.main = _.filter(realty.img,{type:'main'})
-            this.sliders.other = _.filter(realty.img,{type:'other'})
+            let selectedSlider = _.find(realty.img,{type:1}) || _.find(realty.img,{type:2});
+            if (selectedSlider) {
+                this.selectedSlider = [selectedSlider];
+            }
 
+            // подставляю значения для навигации
+            this.sliders[1] = _.filter(realty.img,{type:1})
+            this.sliders[2] = _.filter(realty.img,{type:2})
+            this.sliders[3] = _.filter(realty.img,{type:3})
           },
           function(error){
 
           })
         },
+        backToPlan: function() {
+            this.$router.push({name:'home'});
+        },
+        backToFloor: function() {
+            this.$router.push({name:'floor',params:{id:14}});
+        }
     },
     created () {
-        console.log(this.$route);
         this.getRealtysByHouseId();
     }
 }
 </script>
 <style lang="scss">
-    body, html , #app, .content {
-        background:  #e7e4ff;
+    .VueCarousel-wrapper {
+        background: white;
     }
     .prev, .next {
         width: 20px;
@@ -154,8 +165,9 @@ export default {
         background: #e7e4ff;
         display: flex;
         justify-content: center;
-        height: 100%;
+       // height: 100%;
         padding-top: 25px;
+        min-height: 100%;
     }
     .type-slider {
         .house-realty {
@@ -163,12 +175,22 @@ export default {
         }
     }
     .slider {
-        background: white ;
+
+        background: #e7e4ff;
         width: 560px;
-        height: 420px;
+        min-height: 420px;
+        height: 100%;
         margin: 0 20px;
         img {
             width: 100%;
+        }
+    }
+    .block-nav {
+        margin-top: 12px;
+        font-family: RobotoCondensed-Regular;
+        div span {
+            padding-right: 10px;
+            line-height: 32px;
         }
     }
 

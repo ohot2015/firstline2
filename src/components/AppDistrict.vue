@@ -1,5 +1,5 @@
 <template>
-    <div class="district">
+    <div class="district" >
         <header>
             <p>Для перехода к планировкам выберите желаемый дом на общем плане жилого комплекса</p>
             <div class="wrap">
@@ -7,22 +7,96 @@
                 <div>недоступные объекты</div>
             </div>
         </header>
-        <div class="plan"></div>
+        <tooltip :options="tooltip">
+            <header v-if="house">{{house.sections_count}} подъезда </header>
+            <hr>
+            <div class="body" v-if="house">
+                {{house.floor_count}} этажей
+            </div>
+        </tooltip>
+        <div class="plan">
+            <img class="background" :src="'http://'+districtImg">
+            <svg>
+                <g>
+                    <polygon
+                        v-for="item in $store.getters.houses"
+                        :points="item.coords"
+                        data="item.house_id"
+                        fill="rgba(0,0,0,.1)"
+                        @mouseenter="tooltipChange"
+                        @mouseleave="tooltipChange"
+                        @click="toFloor(item.id,$event)"
+                        >
+                        </polygon>
+                </g>
+            </svg>
+        </div>
     </div>
 </template>
 <script>
+import tooltip from './tooltip'
 export default {
     name: 'AppDistrict',
     data () {
         return {
-
+            tooltip: {
+                width:'',
+                height:'',
+                offsetX: "",
+                offsetY: "",
+                show: false
+            },
         }
+    },
+    computed: {
+        // houses() {
+        //     let houses = this.$store.getters.houses;
+        //     console.log(houses);
+        //     if (houses) {
+        //         return houses;
+        //     }
+        //     else {
+        //        return 0
+        //     }
+        // },
+        districtImg(){
+            return this.$store.getters.districtImg;
+        },
+        house(){
+            return this.$store.getters.house(14);
+        }
+    },
+    components: {
+        tooltip,
+    },
+    methods:{
+        toFloor(id,e) {
+            this.$store.dispatch('getRealtysByHouseId', id)
+            this.$store.dispatch('getFloorsByHouseId', id);
+            this.$router.push({name:'floor',params:{id:id}});
+        },
+        tooltipChange(e) {
+            setTimeout(()=>{
+                this.tooltip = {
+                    width : 107,
+                    height : 86,
+                    offsetY : e.offsetY,
+                    offsetX : e.offsetX,
+                    show : !this.tooltip.show,
+                }
+            },200)
+        },
+    },
+    created () {
+        this.$store.dispatch('getHousesByDistrictId')
+        this.houses = this.$store.getters.houses;
     }
 }
 </script>
 
 <style lang="scss" scoped>
     .district {
+        position: relative;
         header {
             p {
                 width: 100%;
@@ -70,14 +144,34 @@ export default {
             }
         }
         .plan {
-            background: url(../assets/img/district_map.jpg) no-repeat center;
-            background-size: cover;
+          //  background: url(../assets/img/district_map.jpg) no-repeat center;
+
+            //background-size: cover;
+            background-size:contain;
             width:100%;
             height: 687px;
             margin-top: 13px;
+            position: relative;
             @media screen and (min-width: 1920px) {
                 height: 820px;
             }
+            img {
+                width: 100%;
+                position: absolute;
+                z-index: 2
+            }
+            svg {
+                position: absolute;
+                left:0;
+                top:0;
+                width: 100%;
+                height: 687px;
+                z-index: 3;
+                @media screen and (min-width: 1920px) {
+                    height: 820px;
+                }
+            }
+
         }
     }
 </style>

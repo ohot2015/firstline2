@@ -1,37 +1,37 @@
 @font-face {
-  font-family: direct_Bold;
+  font-family: direct-Bold;
   src: url(fonts/direct_Bold.otf) format("opentype"); }
 
 @font-face {
-  font-family: direct_BoldItalic;
+  font-family: direct-BoldItalic;
   src: url(fonts/direct_BoldItalic.otf) format("opentype"); }
 
 @font-face {
-  font-family: direct_Cond;
+  font-family: direct-Cond;
   src: url(fonts/direct_Cond.otf) format("opentype"); }
 
 @font-face {
-  font-family: direct_Cond_Light;
+  font-family: direct-Cond_Light;
   src: url(fonts/direct_Cond_Light.otf) format("opentype"); }
 
 @font-face {
-  font-family: direct_Italic;
+  font-family: direct-Italic;
   src: url(fonts/direct_Italic.otf) format("opentype"); }
 
 @font-face {
-  font-family: direct_Regular;
-  src: url(fonts/direct_Regular.otf) format("opentype"); }
+  font-family: direct-Regular;
+  src: url(fonts/ALS_Direct_Regular.otf) format("opentype"); }
 
 @font-face {
-  font-family: direct_SemiCond;
+  font-family: direct-SemiCond;
   src: url(fonts/direct_SemiCond.otf) format("opentype"); }
 
 @font-face {
-  font-family: direct_SemiCond_Bold;
+  font-family: direct-SemiCond_Bold;
   src: url(fonts/direct_SemiCond_Bold.otf) format("opentype"); }
 
 @font-face {
-  font-family: direct_SemiCond_Light;
+  font-family: direct-SemiCond_Light;
   src: url(fonts/direct_SemiCond_Light.otf) format("opentype"); }
 
 @font-face {
@@ -82,4 +82,94 @@
 @font-face {
   font-family: "RobotoCondensed-Regular";
   src: url("fonts/RobotoCondensed-Regular.ttf");
+}
+@font-face {
+  font-family: 'Firstline';
+  src:  url('fonts/Firstline.eot?tcm19z');
+  src:  url('fonts/Firstline.eot?tcm19z#iefix') format('embedded-opentype'),
+    url('fonts/Firstline.ttf?tcm19z') format('truetype'),
+    url('fonts/Firstline.woff?tcm19z') format('woff'),
+    url('fonts/Firstline.svg?tcm19z#Firstline') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon_"], [class*=" icon_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Firstline' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon_four:before {
+  content: "\e90c";
+}
+.icon_one:before {
+  content: "\e90d";
+}
+.icon_three:before {
+  content: "\e90e";
+}
+.icon_two:before {
+  content: "\e90f";
+}
+.icon_arrowleft2 .path1:before {
+  content: "\e900";
+  color: rgb(205, 205, 205);
+}
+.icon_arrowleft2 .path2:before {
+  content: "\e901";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon_arrowleft2 .path3:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(168, 168, 168);
+}
+.icon_arrowleftnew .path1:before {
+  content: "\e903";
+  color: rgb(255, 255, 255);
+}
+.icon_arrowleftnew .path2:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(168, 168, 168);
+}
+.icon_arrowright2 .path1:before {
+  content: "\e905";
+  color: rgb(205, 205, 205);
+}
+.icon_arrowright2 .path2:before {
+  content: "\e906";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon_arrowright2 .path3:before {
+  content: "\e907";
+  margin-left: -1em;
+  color: rgb(168, 168, 168);
+}
+.icon_arrowrightnew .path1:before {
+  content: "\e908";
+  color: rgb(255, 255, 255);
+}
+.icon_arrowrightnew .path2:before {
+  content: "\e909";
+  margin-left: -1em;
+  color: rgb(168, 168, 168);
+}
+.icon_planfloor:before {
+  content: "\e90a";
+}
+.icon_planhouse:before {
+  content: "\e90b";
 }

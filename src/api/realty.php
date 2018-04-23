@@ -25,7 +25,4 @@ foreach ($realtys as $v) {
 }
 
 echo json_encode(['house'=>$house, 'realty'=>$realty]);
-
-
-
 ?>

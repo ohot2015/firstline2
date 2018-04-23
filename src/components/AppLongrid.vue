@@ -16,9 +16,10 @@
             <p>Расположенный на набережной Малой Кокшаги, комплекс обладает рядом эксклюзивных особенностей: необычная архитектура зданий, многофункциональный внутренний двор с развитой инфраструктура и детским садом, закрытая охраняемая территория и, конечно, захватывающие панорамные виды на речную акваторию, лесопарковые массивы и архитектурные объекты столицы.</p>
         </section>
         <section class="wrap-map">
+                  <!-- :coords="[56.625628, 47.892787]" -->
             <div id="yamaps">
                 <yandex-map
-                  :coords="[56.625628, 47.892787]"
+                  :coords="[56.622603, 47.887130]"
                   zoom="16"
                   style="width: 100%; height: 100%;"
                   :placemarks="placemarks"
@@ -90,6 +91,8 @@ export default {
     data () {
         return {
             placemarks: [{
+
+                //coords: [56.618972, 47.887258],
                 coords: [56.622964,  47.897818],
                 properties:
                     {}, // define properties here
@@ -112,9 +115,12 @@ export default {
     },
 }
 </script>
-
 <style lang="scss" scoped>
+    .content {
+        background: white;
+    }
     .longrid {
+        background: white;
         font-weight: 400;
         font-family: direct_Regular;
     }
