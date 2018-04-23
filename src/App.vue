@@ -19,21 +19,39 @@ import AppGallery from './components/AppGallery.vue'
 import AppFloor from './components/AppFloor.vue'
 import AppRealty from './components/AppRealty.vue'
 import AppAbout from './components/AppAbout.vue'
+import AppDeclaration from './components/AppDeclaration.vue'
 
 import YmapPlugin from 'vue-yandex-maps'
+import VueScrollTo from 'vue-scrollto'
 
 Vue.use(YmapPlugin)
 Vue.use(VueRouter)
 Vue.component('AppMenu', AppMenu);
 
+// You can also pass in the default options
+Vue.use(VueScrollTo, {
+     container: "body",
+     duration: 500,
+     easing: "ease",
+     offset: 0,
+     cancelable: true,
+     onStart: false,
+     onDone: false,
+     onCancel: false,
+     x: false,
+     y: true
+ })
+
 var router = new VueRouter({
     routes: [
         {path: '/',  name: 'home', component: AppLongrid},
+        {path: '/scrollTo/:scrollTo',  name: 'district', component: AppLongrid},
         {path: '/house/:id', name:'house', component: AppHouse},
         {path: '/floor/:id',name:'floor', component: AppFloor},
         {path: '/realty/:id', name:'realty', component: AppRealty},
-        {path: '/gallery', component: AppGallery},
-        {path: '/about', component: AppAbout}
+        {path: '/gallery', name:'gallery', component: AppGallery},
+        {path: '/declaration', name:'declaration', component: AppDeclaration},
+        {path: '/about', name:"about", component: AppAbout}
     ]
 })
 

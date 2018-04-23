@@ -42,13 +42,6 @@ const store = new Vuex.Store({
                 houseId = parseInt(houseId);
             return _.filter(state.realtys.realty,{floor:floorNum, house_id:houseId});
         },
-        // countRoomsInFloor:(state, getters)=>(houseId, floorNum)=>{
-        //     let house = getters.house(houseId),
-        //     floor = _.where(state.realtys,{house_id:houseId, floor:floorNum});
-
-        //     _.countBy(house,{})
-        //     return getters.house(houseId);
-        // },
         districtImg(state) {
             return state.district.img;
         }
