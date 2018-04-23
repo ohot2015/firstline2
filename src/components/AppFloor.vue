@@ -28,7 +28,7 @@
         </div>
         <div class="info-plan">
             <ul>
-                <li v-for="item in (realtys||realty)" :key="item.id" :ref="'realty-'+item.id" :elem="huelem" :class="'rooms'+item.rooms">
+                <li v-for="item in realtys ? realtys: realty" :key="item.id" :ref="'realty-'+item.id" :elem="huelem" :class="'rooms'+item.rooms">
                     {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
                 </li>
             </ul>
@@ -99,7 +99,7 @@ export default {
         },
         realty() {
             let floor = _.first(this.selectedSlider).floor
-            console.log(floor);
+            console.log(this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId));
             return this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
         },
     },
@@ -114,7 +114,11 @@ export default {
     methods: {
         setRealtys(){
             let floor = _.first(this.selectedSlider).floor
-            this.realtys =  this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
+            if (floor){
+                this.realtys =  this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
+            }else {
+                this.realtys = false
+            }
         },
         backToPlan () {
             this.$router.push({name:'house',params:{id:this.houseId}});
@@ -127,6 +131,7 @@ export default {
             this.selectedSlider = floor;
             this.huelem = floor.floor;
             let floor1 = _.first(this.selectedSlider).floor
+            console.log(this.$store.getters.getRealtyByFloorByHouseId(floor1,this.houseId));
             this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor1,this.houseId);
         },
         mouseEnterPolly(id) {
