@@ -48,7 +48,7 @@ export default {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" >
   body,html {
 //    background: #e7e4ff;
     background: white;
@@ -61,6 +61,7 @@ export default {
     padding-top: 68px;
     width: 100%;
     height: calc(100% - 68px);
+    background: white;
   }
   #app {
     width : 100%;

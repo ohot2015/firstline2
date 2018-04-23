@@ -7,7 +7,6 @@
             :line1=" item"
             :line2="'этаж'"
             :key="item.id"
-            @click=""
         ></house-realty>
         <div class="help">
             <img src="src/assets/img/help.png" alt="">
@@ -52,7 +51,7 @@ export default {
             section: 0,
             floor: [],
             realtys: [],
-            endpoint: 'src/api/getRealtysByHouseId.php'
+            endpoint: 'src/api/getRealtysByHouseId.php',
         }
     },
     components: {
@@ -98,24 +97,25 @@ export default {
         }
     },
     created: function() {
+        this.beforeShow = '';
         this.getRealtysByHouseId();
     }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
     $sm: 1024px;
     $md: 1366px;
     $lg: 1920px;
-    body {
-        background: #e7e4ff;
-    }
     .house {
+        background: #e7e4ff;
         font-size: direct_Regular;
         display: flex;
         overflow: auto;
         justify-content: center;
-        margin-top: 17px;
+        padding-top: 17px;
+        min-height: calc(100% - 17px);
         .section {
             margin-right:5px;
             display: inline-block;

@@ -9,6 +9,7 @@
                 :line2="item.line2"
                 :key="index"
                 :data="item.type"
+                :class="index == 0 ? 'active':''"
                 @eventHouseRealty="clickHouseRealty"
             >
             </house-realty>
@@ -138,7 +139,7 @@ export default {
             this.$router.push({name:'home'});
         },
         backToFloor: function() {
-            this.$router.push({name:'floor'});
+            this.$router.push({name:'floor',params:{id:14}});
         }
     },
     created () {
@@ -147,12 +148,6 @@ export default {
 }
 </script>
 <style lang="scss">
-    body, html , #app, .content {
-        background:  #e7e4ff;
-    }
-
-// \e903
-// \e908
     .VueCarousel-wrapper {
         background: white;
     }
@@ -172,6 +167,7 @@ export default {
         justify-content: center;
        // height: 100%;
         padding-top: 25px;
+        min-height: 100%;
     }
     .type-slider {
         .house-realty {

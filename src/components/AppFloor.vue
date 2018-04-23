@@ -1,4 +1,5 @@
 <template>
+    <div class="wrap">
     <div class="floor">
         <div class="floors-count">
             <house-realty
@@ -15,38 +16,11 @@
             </house-realty>
         </div>
         <div class="slider">
-        <tooltip :options="tooltip">
-            <header>{{realtyHover.rooms}} комн. / №  {{realtyHover.num}}</header>
-            <hr>
-            <div class="body">
-                {{realtyHover.square}} м2
-            </div>
-        </tooltip>
-            <carousel
-                :per-page="1"
-                :mouse-drag="false"
-                :navigationEnabled="true"
-                :paginationEnabled="false"
-                :key="'qwe1232'"
-                >
-            <slide v-for="(item, index) in selectedSlider" :key="index" >
-                <div class="wrap-svg">
-                    <svg>
-                        <g>
-                            <polygon
-                                v-for="ploy in item.polygon"
-                                :points="ploy.points"
-                                fill="rgba(0,0,0,.5)"
-                                @mouseenter="tooltipChange(ploy.realty,$event)"
-                                @mouseleave="tooltipChange(ploy.realty,$event)"
-                                >
-                            </polygon>
-                        </g>
-                    </svg>
-                    <img :src="'http://'+item.path" alt="">
-                </div>
-            </slide>
-            </carousel>
+            <plan-svg
+                :plan="selectedSlider[0]"
+                :floor="floor"
+                @eventMouseEnter="mouseEnterPolly"
+            ></plan-svg>
           <div class="block-nav">
             <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
             <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану этажа</div>
@@ -54,11 +28,12 @@
         </div>
         <div class="info-plan">
             <ul>
-                <li v-for="item in realtys" :class="'rooms'+item.rooms">
+                <li v-for="item in realtys" :key="item.id" :ref="'realty-'+item.id" :elem="huelem" :class="'rooms'+item.rooms">
                     {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
                 </li>
             </ul>
         </div>
+    </div>
     </div>
 </template>
 <script>
@@ -66,7 +41,9 @@
 import HouseRealty from './HouseRealty.vue'
 import _ from 'underscore'
 import { Carousel, Slide } from 'vue-carousel';
-import tooltip from './tooltip'
+
+import planSvg from './planSvg'
+import Vue from 'vue'
 
 export default {
     name: 'AppFloor',
@@ -77,44 +54,41 @@ export default {
             },
             houseId:0,
             //selectedSlider:'',
-            realtyHover:'',
-            tooltip: {
-                width:'',
-                height:'',
-                offsetX: "",
-                offsetY: "",
-                show: false
-            },
+            selected: false,
             //realtys:[],
+            floor:1,
             rooms: {
                 1: 'Однокомнатная',
                 2: 'Двухкомнатная',
                 3: 'Трёхкомнатная',
                 4: 'Четырёхкомнатная',
-            }
+            },
+            huelem:'123',
+            //realtys:'',
         }
     },
     computed: {
-
         house() {
             return this.$store.getters.house(this.houseId);
         },
         floors: {
             set: function(val) {
-
             },
             get: function() {
                 return  this.$store.getters.floors.floors;
                 //return [...Array(parseInt(this.house.floor_count)).keys()].map((c)=> c + 1).reverse();
             }
         },
-        countRoomsInFloor(){
-            //return this.$store.getters.countRoomsInFloor(this.houseId)
-        },
         selectedSlider: {
             set: function(val) {
+                this.selectedSlider[0] = val;
+               // console.log(this.selectedSlider);
             },
             get:function() {
+                if (!this.selected) {
+                    this.selected = true;
+                    return this.selectedSlider;
+                }
                 this.floors = this.$store.getters.floors.floors
                 let qwe = {};
                 for(let el in this.floors) {
@@ -128,49 +102,60 @@ export default {
             return this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
         },
     },
-    methods: {
+    // watch: {
+    //     selectedSlider: function (val) {
+    //         console.log(12123);
+    //       let floor = _.first(this.selectedSlider).floor
 
+    //         this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
+    //     },
+    // },
+    methods: {
         backToPlan () {
             this.$router.push({name:'house',params:{id:this.houseId} });
         },
         backToFloor: function() {
             this.$router.push({name:'floor'});
         },
-        clickHouseRealty(floor){
-            this.selectedSlider = [floor]
+        clickHouseRealty(floor) {
+            this.floor = floor.floor;
+            this.selectedSlider = floor;
+            this.huelem= floor.floor;
         },
-        tooltipChange(rId,e) {
-            this.realtyHover = this.$store.getters.realty(rId);
-            setTimeout(()=>{
-                this.tooltip = {
-                    width : 107,
-                    height : 86,
-                    offsetY : e.offsetY - 70,
-                    offsetX : e.offsetX,
-                    show : !this.tooltip.show,
-                }
-            },200)
-        },
-        // getRealtys() {
-        //     let floor = _.first(this.selectedSlider).floor
-        //     this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
-        // },
+        mouseEnterPolly(id) {
+
+            let els = document.querySelectorAll('.info-plan ul li');
+            els.forEach((el)=> {
+                el.classList.remove('active')
+            })
+         //   console.log(id);
+            let target = this.$refs['realty-'+id];
+          //  console.log(this.$refs);
+          if (target) {
+
+            target[0].classList.add('active')
+          }
+
+
+            //document.querySelectorAll(`#realty`);
+            //e.target.parentElement.classList.add('active')
+//            let realty = this.$store.getters.realty(id);
+
+        }
     },
     components: {
         HouseRealty,
         Carousel,
         Slide,
-        tooltip
+        planSvg
     },
     created() {
-        this.houseId = this.$route.params.id;
-       // this.setSelectedSlider();
-        //this.getRealtys();
+        this.houseId = parseInt(this.$route.params.id);
     }
 }
 </script>
-<style lang="scss">
-    body, html , #app, .content {
+<style lang="scss" scoped>
+    .content {
         background:  #e7e4ff;
     }
 
@@ -190,6 +175,10 @@ export default {
     $sm: 1024px;
     $md: 1366px;
     $lg: 1920px;
+    .wrap {
+        min-height: 100%;
+        background: #e7e4ff;
+    }
     .floor {
         background: #e7e4ff;
         display: flex;
@@ -209,29 +198,14 @@ export default {
         height: 100%;
     }
     .slider {
-        background: #e7e4ff;
+        background: white;
         width: 560px;
         min-height: 420px;
         height: 420px;
         margin: 0 20px;
         position: relative;
-        .wrap-svg {
-            width: 100%;
-            position: relative;
-            img {
-                    //width: 100%;
-                    // position: absolute;
-                    // z-index: 2
-                }
-                svg {
-                    position: absolute;
-                    left:0;
-                    top:0;
-                    width: 100%;
-                    height: 687px;
-                    z-index: 3;
-                }
-        }
+
+
     }
     .info-plan {
         width: 250px;

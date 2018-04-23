@@ -40,7 +40,7 @@ const store = new Vuex.Store({
         getRealtyByFloorByHouseId:(state, getters)=>(floorNum,houseId)=>{
             var floorNum = parseInt(floorNum),
                 houseId = parseInt(houseId);
-            return _.filter(state.realtys.realty,{house_id:houseId,floor:floorNum});
+            return _.filter(state.realtys.realty,{floor:floorNum, house_id:houseId});
         },
         // countRoomsInFloor:(state, getters)=>(houseId, floorNum)=>{
         //     let house = getters.house(houseId),

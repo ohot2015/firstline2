@@ -1,5 +1,5 @@
 <template>
-  <div class='house-realty' :class="color" v-on:click="setEvent()" >
+  <div class='house-realty' :class="color" v-on:click="setEvent" >
     <div class="first-line" >{{ line1 }}</div>
     <div class="second-line" >{{ line2 }}</div>
   </div>
@@ -19,8 +19,16 @@ export default {
 
     },
     methods: {
-        setEvent: function(){
+        setEvent: function(e){
             this.$emit('eventHouseRealty',this.data);
+            let els = document.querySelectorAll('.house-realty');
+            els.forEach((el)=> {
+                el.classList.remove('active')
+            })
+            e.target.parentElement.classList.add('active')
+        },
+        toggle(num) {
+           //console.log($el);
         }
     },
     created () {
@@ -37,7 +45,7 @@ $sm: 1024px;
 $md: 1366px;
 $lg: 1920px;
     .house-realty {
-        font-size: direct_Regular;
+        font-family: direct-Regular;
         height:40px;
         width:44px;
         cursor:pointer;
@@ -58,6 +66,7 @@ $lg: 1920px;
             font-size: 18px;
             text-align: center;
             line-height: 30px;
+            font-family: direct-Regular;
             font-weight: 700;
             @media screen and (min-width: $sm) {
                 font-size: 23px;
@@ -73,6 +82,7 @@ $lg: 1920px;
             }
         }
         .second-line{
+            font-family: direct-Regular;
             font-size: 9px;
             text-align: center;
             line-height: 2px;
@@ -86,23 +96,41 @@ $lg: 1920px;
             }
             @media screen and (min-width: $lg) {
                 line-height: 11px;
-                font-size: 17px;
+                font-size: 16px;
             }
         }
         &.orange {
             background: #ffb735;
+            &:hover {
+                background: #eaa11c;
+            }
         }
         &.blue {
             background: #21c9d2;
+            &:hover {
+                background: #0cb8c3;
+            }
         }
         &.red {
             background: #ef5350;
+            &:hover {
+                background: #d83a36;
+            }
         }
         &.purpul {
             background: #c569d6;
+            &:hover {
+                background: #ae4fbf;
+            }
         }
         &.white {
             background: white;
+            &:hover {
+                background: #a3cdf9;
+            }
+        }
+        &.active {
+            background: #a3cdf9;
         }
     }
 </style>
