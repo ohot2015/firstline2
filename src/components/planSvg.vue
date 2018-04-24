@@ -67,6 +67,9 @@ export default {
         clickPoly (){
             this.$router.push({name:'realty',params:{id:this.rh.id} });
         }
+    },
+    created(){
+        console.log(this.plan);
     }
 }
 </script>

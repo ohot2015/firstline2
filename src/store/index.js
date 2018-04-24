@@ -33,6 +33,9 @@ const store = new Vuex.Store({
         floors(state) {
             return state.floors;
         },
+        floorByNum:(state) => (num = 1) => {
+            return _.find(state.floors.floors,{floor:parseInt(num)});
+        },
         realty:(state) => (id) => {
             var id = parseInt(id);
             return _.find(state.realtys.realty,{id:id});

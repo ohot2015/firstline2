@@ -10,21 +10,20 @@
                     :line2="'этаж'"
                     :key="index"
                     :data="item"
-                    :class="index + 1 == floor ? 'active':''"
+                    :class="index + 1 == selectFloorNum ? 'active':''"
                     @eventHouseRealty="clickHouseRealty"
                 >
                 </house-realty>
             </div>
             <div class="slider">
                 <plan-svg
-                    :plan="selectedSlider[0]"
-                    :floor="floor"
+                    :plan="selectFloor"
                     @eventMouseEnter="mouseEnterPolly"
                 ></plan-svg>
             </div>
             <div class="info-plan">
                 <ul>
-                    <li v-for="item in realtys ? realtys: realty" :key="item.id" :ref="'realty-'+item.id" :elem="huelem" :class="'rooms'+item.rooms">
+                    <li v-for="item in realtys" :key="item.id" :ref="'realty-'+item.id"  :class="'rooms'+item.rooms">
                         {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
                     </li>
                 </ul>
@@ -55,66 +54,30 @@ export default {
                 points:'',
             },
             houseId:0,
-            //selectedSlider:'',
-            selected: false,
-            //realtys:[],
+            selectFloorNum:1,
             rooms: {
                 1: 'Однокомнатная',
                 2: 'Двухкомнатная',
                 3: 'Трёхкомнатная',
                 4: 'Четырёхкомнатная',
             },
-            floor:1,
-            huelem:'123',
-            realtys:'',
         }
     },
     computed: {
         house() {
             return this.$store.getters.house(this.houseId);
         },
-        floors: {
-            set: function(val) {
-            },
-            get: function() {
-                return  this.$store.getters.floors.floors;
-                //return [...Array(parseInt(this.house.floor_count)).keys()].map((c)=> c + 1).reverse();
-            }
+        floors(){
+            return  this.$store.getters.floors.floors;
         },
-
-        selectedSlider: {
-            set: function(val) {
-                this.selectedSlider[0] = val;
-               // console.log(this.selectedSlider);
-            },
-            get:function() {
-                if (!this.selected) {
-                    this.selected = true;
-                    return this.selectedSlider;
-                }
-                this.floors = this.$store.getters.floors.floors
-                let qwe = {};
-                for(let el in this.floors) {
-                    qwe = this.floors[el];break;
-                }
-                return [qwe];
-            }
+        selectFloor(){
+            return this.$store.getters.floorByNum(this.selectFloorNum);
         },
-        realty() {
-            let floor = _.first(this.selectedSlider).floor
-            return this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
+        realtys() {
+            return this.$store.getters.getRealtyByFloorByHouseId(this.selectFloorNum,this.houseId);
         },
-
     },
     methods: {
-        setRealtys(){
-            let floor = _.first(this.selectedSlider).floor
-            if (floor){
-                this.realtys =  this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
-            }else {
-                this.realtys = false
-            }
-        },
         backToPlan () {
             this.$router.push({name:'house',params:{id:this.houseId}});
         },
@@ -122,11 +85,7 @@ export default {
             this.$router.push({name:'district',params:{scrollTo:'scrolltodistrict'}});
         },
         clickHouseRealty(floor) {
-            this.floor = floor.floor;
-            this.selectedSlider = floor;
-            this.huelem = floor.floor;
-            let floor1 = _.first(this.selectedSlider).floor
-            this.realtys = this.$store.getters.getRealtyByFloorByHouseId(floor1,this.houseId);
+            this.selectFloorNum = floor.floor;
         },
         mouseEnterPolly(id) {
             let els = document.querySelectorAll('.info-plan ul li');
@@ -138,9 +97,6 @@ export default {
                 target[0].classList.add('active')
             }
         },
-        loadFloor() {
-            this.floor = parseInt(this.$route.params.floor)
-        }
     },
     components: {
         HouseRealty,
@@ -149,9 +105,8 @@ export default {
         planSvg
     },
     created() {
-        this.loadFloor()
         this.houseId = parseInt(this.$route.params.id);
-        this.setRealtys();
+        this.selectFloorNum = parseInt(this.$route.params.floor);
     }
 }
 </script>
