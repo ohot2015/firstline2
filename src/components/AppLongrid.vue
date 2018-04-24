@@ -138,7 +138,7 @@ export default {
     .longrid {
         background: white;
         font-weight: 400;
-        font-family: direct_Regular;
+        font-family: direct-Regular;
     }
     .silence {
         .logo {
