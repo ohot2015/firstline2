@@ -1,5 +1,5 @@
 <template>
-    <div class="district" >
+    <div class="district">
         <header>
             <p>Для перехода к планировкам выберите желаемый дом на общем плане жилого комплекса</p>
             <div class="wrap">
@@ -81,7 +81,7 @@ export default {
                 width : 107,
                 height : 65,
                 offsetY : e.offsetY,
-                offsetX : e.offsetX,
+                offsetX : e.pageX,
             }
             if (e.type == "mouseenter") {
                 this.tooltip.show = !this.tooltip.show;
@@ -151,25 +151,35 @@ export default {
             background-size:contain;
             width:100%;
             height: 687px;
+            overflow: hidden;
             margin-top: 13px;
             position: relative;
             @media screen and (min-width: 1920px) {
                 height: 820px;
             }
             img {
-                width: 100%;
+                /*width: 100%;*/
+                left: calc(50% - 960px);
                 position: absolute;
-                z-index: 2
+                z-index: 2;
+                height: 820px;
             }
             svg {
                 position: absolute;
-                left:0;
+                left: calc(50% - 960px);
                 top:0;
                 width: 100%;
-                height: 687px;
                 z-index: 3;
-                @media screen and (min-width: 1920px) {
-                    height: 820px;
+                height: 820px;
+
+                polygon{
+                    cursor: pointer;
+                    transform: translate(5px);
+                    box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
+
+                    &:hover{
+                        fill: #c787fd;
+                    }
                 }
             }
 

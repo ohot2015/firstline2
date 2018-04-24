@@ -151,11 +151,14 @@ export default {
     .VueCarousel-wrapper {
         background: white;
     }
-    .prev, .next {
-        width: 20px;
-        height: 20px;
-        background: url(../assets/img/strelka_levaya.png);
+    .VueCarousel{
+        .prev, .next {
+            width: 20px;
+            height: 20px;
+            background: url(../assets/img/strelka_levaya.png);
+        }
     }
+
 </style>
 <style lang="scss" scoped>
     .VueCarousel {
@@ -192,6 +195,13 @@ export default {
             padding-right: 10px;
             line-height: 32px;
         }
+    }
+
+    .back-to-plan{
+        cursor: pointer;
+    }
+    .back-to-floor{
+        cursor: pointer;
     }
 
 </style>

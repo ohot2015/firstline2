@@ -21,10 +21,6 @@
                     :floor="floor"
                     @eventMouseEnter="mouseEnterPolly"
                 ></plan-svg>
-              <div class="block-nav">
-                <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
-                <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану района</div>
-              </div>
             </div>
             <div class="info-plan">
                 <ul>
@@ -32,6 +28,12 @@
                         {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
                     </li>
                 </ul>
+            </div>
+        </div>
+        <div class="floor2">
+            <div class="block-nav">
+                <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
+                <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану района</div>
             </div>
         </div>
     </div>
@@ -165,19 +167,53 @@ export default {
     .content {
         background:  #e7e4ff;
     }
+
     $sm: 1024px;
     $md: 1366px;
     $lg: 1920px;
     .wrap-all {
-        min-height: 100%;
+        min-height: calc(100% - 68px);
+        width: 100%;
         background: #e7e4ff;
+        height: calc(100% - 68px);
+        padding-top: 68px;
+
     }
     .floor {
         background: #e7e4ff;
         display: flex;
         justify-content: center;
-       // height: 100%;
         padding-top: 25px;
+        margin: 0 auto;
+        /*width: 100%;*/
+
+        width: 960px;
+        @media screen and (min-width: 1366px) {
+            width: 1170px;
+        }
+    }
+
+    .floor2{
+        width: 960px;
+        margin:0 auto;
+
+        @media screen and (min-width: 1366px) {
+            width: 1170px;
+        }
+
+        .block-nav{
+            @media screen and (min-width: $sm) {
+                margin-left: 73px;
+            }
+            @media screen and (min-width: $md) {
+                margin-left: 84px;
+            }
+            @media screen and (min-width: $lg) {
+                margin-left: 95px;
+            }
+        }
+
+
     }
     .block-nav {
         margin-top: 12px;
@@ -192,11 +228,18 @@ export default {
     }
     .slider {
         background: white;
-        width: 560px;
+        width: calc(100% - 345px);
         min-height: 420px;
-        height: 420px;
+        /*height: 420px;*/
         margin: 0 20px;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        @media screen and (min-width: 1366px) {
+            min-height: 500px;
+        }
+
     }
     .info-plan {
         width: 250px;
@@ -208,7 +251,6 @@ export default {
             padding:10px 0 10px 0;
             li {
                 list-style-type: none;
-                font-family: 'Firstline' !important;
                 speak: none;
                 font-style: normal;
                 font-weight: normal;
@@ -235,6 +277,9 @@ export default {
                     background: #a3cdf9;
                 }
             }
+            li[class^="rooms"]:before{
+                font-family: 'Firstline' !important;
+            }
             li.rooms1:before {
                 content: "\e90d",
             }
@@ -247,6 +292,7 @@ export default {
             li.rooms4:before {
                 content: '\e90c',
             }
+
         }
     }
     .realty {
@@ -264,4 +310,10 @@ export default {
                 margin:0;
             }
         }
+    .back-to-plan{
+        cursor: pointer;
+    }
+    .back-to-floor{
+        cursor: pointer;
+    }
 </style>

@@ -71,7 +71,7 @@ export default {
                 }
                 .info {
                     font-size: 24px;
-                    font-family: direct_Regular;
+                    font-family: direct-Bold;
                     font-weight: 700;
                     line-height: 27px;
                 }

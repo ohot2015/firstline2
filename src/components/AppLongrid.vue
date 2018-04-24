@@ -100,10 +100,10 @@ export default {
                     options: {
                         iconLayout: 'default#image',
                         iconImageHref: 'src/assets/img/logo.png',
-                        iconImageSize: [30, 42],
-                        iconImageOffset: [-5, -38]
+                        iconImageSize: [64, 64],
+                        iconImageOffset: [-30, -70]
                     }, // define options here
-                    balloonTemplate: '<div>"Your custom template"</div>',
+//                    balloonTemplate: '<div>"Your custom template"</div>',
                     callbacks: { click: function() {} }
             }]
         }
@@ -136,9 +136,10 @@ export default {
         background: white;
     }
     .longrid {
-        background: white;
         font-weight: 400;
         font-family: direct-Regular;
+        padding-top: 68px;
+        background: white;
     }
     .silence {
         .logo {

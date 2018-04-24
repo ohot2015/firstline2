@@ -66,7 +66,7 @@ $lg: 1920px;
             font-size: 18px;
             text-align: center;
             line-height: 30px;
-            font-family: direct-Regular;
+            font-family: direct-Bold;
             font-weight: 700;
             @media screen and (min-width: $sm) {
                 font-size: 23px;
@@ -82,7 +82,7 @@ $lg: 1920px;
             }
         }
         .second-line{
-            font-family: direct-Regular;
+            font-family: RobotoCondensed-Regular;
             font-size: 9px;
             text-align: center;
             line-height: 2px;

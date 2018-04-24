@@ -9,10 +9,10 @@
         </div>
         <nav>
             <ul>
-                <li><router-link :to="{ name: 'home'}">Главная страница</router-link></li>
-                <li><router-link to="gallery">Галерея</router-link></li>
-                <li><router-link to="home">Проектные декларации</router-link></li>
-                <li><router-link to="about">Контакты</router-link></li>
+                <li class="home"><router-link :to="{ name: 'home'}">Главная страница</router-link></li>
+                <li class="gallery"><router-link :to="{name:'gallery'}">Галерея</router-link></li>
+                <li class="declaration"><router-link :to="{name:'declaration'}">Проектные декларации</router-link></li>
+                <li class="about"><router-link :to="{name:'about'}">Контакты</router-link></li>
             </ul>
         </nav>
     </div>

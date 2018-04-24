@@ -56,8 +56,8 @@ export default {
                 this.tooltip = {
                     width : 130,
                     height : 37,
-                    offsetY : e.offsetY - 50,
-                    offsetX : e.offsetX,
+                    offsetY : e.offsetY + 140,
+                    offsetX : e.offsetX + 190,
                     show : !this.tooltip.show,
                 }
             },0)
@@ -75,11 +75,15 @@ export default {
 .wrap {
     width: 100%;
     height: 100%;
+    padding-top: 200px;
 }
  .wrap-svg {
-            width: 100%;
+            /*width: 100%;*/
             position: relative;
-            height: 100%;
+            /*height: 100%;*/
+             width: 450px;
+             height: 450px;
+             margin: auto;
             img {
                     //width: 100%;
                     // position: absolute;
@@ -89,7 +93,7 @@ export default {
                     position: absolute;
                     left:0;
                     top:0;
-                    width: 100%;
+                    width: 450px;
                     height: 420px;
                     z-index: 3;
                 }

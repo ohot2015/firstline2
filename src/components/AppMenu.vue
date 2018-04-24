@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scopd>
+<style lang="scss" scoped>
     $button-border-color: blue;
     .dropdown {
         position: absolute;
@@ -87,6 +87,7 @@ export default {
                     height: 41px;
                     display: inline-block;
                     text-indent: 53px;
+                    font-family: RobotoCondensed-Regular;
                 }
                 &:after {
                     position: absolute;
@@ -95,6 +96,18 @@ export default {
                     height: 21px;
                     left: 16px;
                     top: 11px;
+                }
+                &:before{
+                    position: absolute;
+                    content: '';
+                    width: 203px;
+                    height: 1px;
+                    background-color: #959595;
+                    left: 15px;
+
+                }
+                &:first-child:before{
+                    display: none;
                 }
                 &.home:after {
                     background: url(../assets/img/menu_home.png) no-repeat center;
@@ -121,13 +134,13 @@ export default {
         z-index: 999;
         background: rgba(255,255,255,.9);
         .work-spaces {
-            width: 940px;
+            width: 960px;
             @media screen and (min-width: 1366px) {
-                width: 1200px;
+                width: 1170px;
             }
-            @media screen and (min-width: 1920px) {
-                width: 1800px;
-            }
+            /*@media screen and (min-width: 1920px) {*/
+                /*width: 1170px;*/
+            /*}*/
             height: 66px;
             margin: 0 auto;
             display:flex;
@@ -176,6 +189,7 @@ export default {
                 display:none;
             }
             .contact {
+                cursor:default;
                 .wrap {
                     float: right;
                     width: 153px;
@@ -188,10 +202,12 @@ export default {
                 .digit {
                     font-size: 30px;
                     line-height: 20px;
-                    font-family: direct_Bold;
+                    font-family: direct-Bold;
                 }
                 .desc {
+                    font-family: "RobotoCondensed-Regular";
                     font-size: 12px;
+                    padding-top: 5px;
                 }
             }
         }

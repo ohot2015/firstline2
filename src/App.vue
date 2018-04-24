@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <app-menu></app-menu>
-    <div class="content">
+    <!--<div class="content">-->
         <router-view></router-view>
-    </div>
+    <!--</div>-->
   </div>
 </template>
 
@@ -77,9 +77,13 @@ export default {
   }
   .content{
     padding-top: 68px;
-    width: 100%;
+    /*width: 100%;*/
     height: calc(100% - 68px);
     background: white;
+    width: 960px;
+    @media screen and (min-width: 1366px) {
+      width: 1170px;
+    }
   }
   #app {
     width : 100%;
