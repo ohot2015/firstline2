@@ -140,7 +140,7 @@ export default {
             this.$router.push({name:'house',params:{id:14}});
         },
         backToFloor: function() {
-            this.$router.push({name:'floor',params:{id:14}});
+            this.$router.push({name:'floor',params:{id:14,floor:1}});
         }
     },
     created () {

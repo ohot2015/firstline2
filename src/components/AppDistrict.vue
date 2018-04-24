@@ -74,7 +74,7 @@ export default {
         toFloor(id,e) {
             this.$store.dispatch('getRealtysByHouseId', id)
             this.$store.dispatch('getFloorsByHouseId', id);
-            this.$router.push({name:'floor',params:{id:id}});
+            this.$router.push({name:'floor',params:{id:id,floor:1}});
         },
         tooltipChange(e) {
             this.tooltip = {

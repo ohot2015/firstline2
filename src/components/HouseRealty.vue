@@ -1,5 +1,5 @@
 <template>
-  <div class='house-realty' :class="color" v-on:click="setEvent" >
+  <div class='house-realty' :class="color + reserv" v-on:click="setEvent" >
     <div class="first-line" >{{ line1 }}</div>
     <div class="second-line" >{{ line2 }}</div>
   </div>
@@ -16,7 +16,9 @@ export default {
     },
     props: ['color','line1','line2','data'],
     computed: {
-
+        reserv() {
+            return (!this.line1 && !this.line2 ) ? ' reserv':'';
+        },
     },
     methods: {
         setEvent: function(e){
@@ -32,8 +34,7 @@ export default {
         }
     },
     created () {
-        this.line1 = this.line1;
-        this.line2 = this.line2;
+        //this.checkReserv();
        //console.log(this.realty);
         //this.bigMess = this.line1
     }
@@ -131,6 +132,11 @@ $lg: 1920px;
         }
         &.active {
             background: #a3cdf9;
+        }
+        &.reserv {
+            background: url('../assets/img/lock.png') no-repeat , #c6c3dc;
+            background-position: center
+
         }
     }
 </style>

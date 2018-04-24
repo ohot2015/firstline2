@@ -10,7 +10,7 @@
                     :line2="'этаж'"
                     :key="index"
                     :data="item"
-                    :class="index == 0 ? 'active':''"
+                    :class="index + 1 == floor ? 'active':''"
                     @eventHouseRealty="clickHouseRealty"
                 >
                 </house-realty>
@@ -58,13 +58,13 @@ export default {
             //selectedSlider:'',
             selected: false,
             //realtys:[],
-            floor:1,
             rooms: {
                 1: 'Однокомнатная',
                 2: 'Двухкомнатная',
                 3: 'Трёхкомнатная',
                 4: 'Четырёхкомнатная',
             },
+            floor:1,
             huelem:'123',
             realtys:'',
         }
@@ -81,6 +81,7 @@ export default {
                 //return [...Array(parseInt(this.house.floor_count)).keys()].map((c)=> c + 1).reverse();
             }
         },
+
         selectedSlider: {
             set: function(val) {
                 this.selectedSlider[0] = val;
@@ -103,6 +104,7 @@ export default {
             let floor = _.first(this.selectedSlider).floor
             return this.$store.getters.getRealtyByFloorByHouseId(floor,this.houseId);
         },
+
     },
     methods: {
         setRealtys(){
@@ -135,6 +137,9 @@ export default {
             if (target) {
                 target[0].classList.add('active')
             }
+        },
+        loadFloor() {
+            this.floor = parseInt(this.$route.params.floor)
         }
     },
     components: {
@@ -144,6 +149,7 @@ export default {
         planSvg
     },
     created() {
+        this.loadFloor()
         this.houseId = parseInt(this.$route.params.id);
         this.setRealtys();
     }

@@ -1,12 +1,14 @@
 <template>
   <div class='house'>
-    <div class="floor-block" @click="clickFloor">
+    <div class="floor-block">
         <house-realty class="realty"
             v-for="(item, index) in floor"
             :color="'white'"
             :line1=" item"
             :line2="'этаж'"
             :key="item.id"
+            :data="item"
+            @eventHouseRealty="clickFloor"
         ></house-realty>
         <div class="help">
             <img src="src/assets/img/help.png" alt="">
@@ -25,8 +27,8 @@
                     :key="item.id"
                     :id="'realty_'+item.id"
                     :color="getColor(item)"
-                    :line1="item.rooms + 'к'"
-                    :line2="item.square + ' м²'"
+                    :line1="checkStatus(item) ? item.rooms + 'к':''"
+                    :line2="checkStatus(item) ? item.square + ' м²':''"
                     @eventHouseRealty="clickHouseRealty"
                 ></house-realty>
 
@@ -42,6 +44,7 @@
 <script>
 import HouseRealty from './HouseRealty.vue'
 import _ from 'underscore'
+                    //:line1="item.rooms + 'к'"
 
 export default {
     name:'house',
@@ -58,17 +61,22 @@ export default {
         HouseRealty
     },
     computed: {
-
+        checkStatus:() => (realty) => {
+            return realty.status == 'free' && !realty.reserv;
+        }
     },
     methods: {
-        getRealtysByHouseId: function() {
+        // checkStatus(realty) {
+        //     return =
+        // },
+        getRealtysByHouseId() {
           this.$http.get(this.endpoint).then(function(response){
              this.house = response.data.response.house
              this.realtys = response.data.response.realty
              this.section = _.range(1,this.house.section_count)
              this.floor = _.range(this.house.floor_count ,0,-1)
           },
-          function(error){
+          (err)=>{
 
           })
         },
@@ -93,8 +101,8 @@ export default {
         clickHouseRealty: function(id) {
             this.$router.push({name:'realty',params:{id:id}});
         },
-        clickFloor() {
-            this.$router.push({name:'house',params:{id:this.house.id}});
+        clickFloor: function(floor) {
+            this.$router.push({name:'floor',params:{id:14,floor:floor}});
         }
     },
     created: function() {

@@ -47,7 +47,7 @@ var router = new VueRouter({
         {path: '/',  name: 'home', component: AppLongrid},
         {path: '/scrollTo/:scrollTo',  name: 'district', component: AppLongrid},
         {path: '/house/:id', name:'house', component: AppHouse},
-        {path: '/floor/:id',name:'floor', component: AppFloor},
+        {path: '/floor/:id/:floor',name:'floor', component: AppFloor},
         {path: '/realty/:id', name:'realty', component: AppRealty},
         {path: '/gallery', name:'gallery', component: AppGallery},
         {path: '/declaration', name:'declaration', component: AppDeclaration},
