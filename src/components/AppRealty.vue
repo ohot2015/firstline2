@@ -1,37 +1,38 @@
 <template>
-    <div class="realty">
-
-        <div class="type-slider" >
-            <house-realty
-                v-for="(item, index) in nav"
-                :color="'white'"
-                :line1="item.line1"
-                :line2="item.line2"
-                :key="index"
-                :data="item.type"
-                :class="index == 0 ? 'active':''"
-                @eventHouseRealty="clickHouseRealty"
-            >
-            </house-realty>
+    <div class="wrap-all">
+        <div class="realty">
+            <div class="type-slider" >
+                <house-realty
+                    v-for="(item, index) in nav"
+                    :color="'white'"
+                    :line1="item.line1"
+                    :line2="item.line2"
+                    :key="index"
+                    :data="item.type"
+                    :class="index == 0 ? 'active':''"
+                    @eventHouseRealty="clickHouseRealty"
+                >
+                </house-realty>
+            </div>
+            <div class="slider">
+                <carousel
+                    :per-page="1"
+                    :mouse-drag="false"
+                    :navigationEnabled="true"
+                    :paginationEnabled="false"
+                    :key="'qwe12323'"
+                >
+                <slide v-for="(item, index) in selectedSlider" :key="index" >
+                  <img :src="'http://' + item.img_path" alt="">
+                </slide>
+              </carousel>
+              <div class="block-nav">
+                <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
+                <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану этажа</div>
+              </div>
+            </div>
+            <realty-info-board :realtyId="rId" :infoBoard="infoBoard"></realty-info-board>
         </div>
-        <div class="slider">
-            <carousel
-                :per-page="1"
-                :mouse-drag="false"
-                :navigationEnabled="true"
-                :paginationEnabled="false"
-                :key="'qwe12323'"
-            >
-            <slide v-for="(item, index) in selectedSlider" :key="index" >
-              <img :src="'http://' + item.img_path" alt="">
-            </slide>
-          </carousel>
-          <div class="block-nav">
-            <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
-            <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану этажа</div>
-          </div>
-        </div>
-        <realty-info-board :realtyId="rId" :infoBoard="infoBoard"></realty-info-board>
     </div>
 </template>
 <script>
@@ -164,13 +165,23 @@ export default {
     .VueCarousel {
         height: 100%;
     }
-    .realty {
+
+    .wrap-all{
+        width: 100%;
+        height: 100%;
         background: #e7e4ff;
+    }
+    .realty {
+        margin: 0 auto;
         display: flex;
         justify-content: center;
        // height: 100%;
-        padding-top: 25px;
-        min-height: 100%;
+        padding-top: 93px;
+        min-height: calc(100% - 93px);
+        width: 960px;
+        @media screen and (min-width: 1366px) {
+            width: 1170px;
+        }
     }
     .type-slider {
         .house-realty {
@@ -178,15 +189,29 @@ export default {
         }
     }
     .slider {
-
         background: #e7e4ff;
-        width: 560px;
+        /*width: 560px;*/
+        width: calc(100% - 369px);
         min-height: 420px;
         height: 100%;
         margin: 0 20px;
-        img {
-            width: 100%;
+
+        .VueCarousel-slide{
+            background-size: cover;
+            height: 420px;
+            overflow: hidden;
+            text-align: center;
+
+            img {
+                height: 100%;
+                width: auto;
+                max-width: 100%;
+            }
         }
+
+        /*img {*/
+            /*width: 100%;*/
+        /*}*/
     }
     .block-nav {
         margin-top: 12px;

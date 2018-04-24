@@ -52,7 +52,8 @@ export default {
 
 <style lang="scss" scoped>
     .wrap{
-        height: 100%;
+        height: calc(100% - 68px);
+        padding-top: 68px;
         background: #e7e4ff;
         h1 {
             margin:0;

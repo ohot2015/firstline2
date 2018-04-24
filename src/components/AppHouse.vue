@@ -115,8 +115,8 @@ export default {
         display: flex;
         overflow: auto;
         justify-content: center;
-        padding-top: 17px;
-        min-height: calc(100% - 17px);
+        padding-top: 85px;
+        min-height: calc(100% - 85px);
         .section {
             margin-right:5px;
             display: inline-block;

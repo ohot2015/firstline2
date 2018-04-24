@@ -25,7 +25,8 @@ export default {
 
 <style lang="scss" scoped>
     .wrap{
-        height: 100%;
+        height: calc(100% - 68px);
+        padding-top: 68px;
     }
 
     #homemap {

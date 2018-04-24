@@ -157,13 +157,14 @@ export default {
     .VueCarousel {
         background: white;
     }
+
+</style>
+<style lang="scss" scoped>
     .prev, .next {
         width: 20px;
         height: 20px;
         background: url(../assets/img/strelka_levaya.png);
     }
-</style>
-<style lang="scss" scoped>
     .content {
         background:  #e7e4ff;
     }
