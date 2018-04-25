@@ -31,7 +31,7 @@
             </div>
         </section>
         <section class="dvor">
-            <h2>БЕЗОПАСНЫЙ ДВОР</h2>
+            <h2>ОХРАНЯЕМАЯ ТЕРРИТОРИЯ</h2>
             <p class="first">
                 Территория комплекса закрыта от посторонних.
             </p>
@@ -121,7 +121,6 @@ export default {
         }
     },
     created(){
-        console.log();
     },
     components: {
         yandexMap,

@@ -90,6 +90,8 @@ export default {
     },
     created () {
         this.$store.dispatch('getHousesByDistrictId')
+        this.$store.dispatch('getFloorsByHouseId')
+        this.$store.dispatch('getRealtysByHouseId')
         this.houses = this.$store.getters.houses;
     }
 }

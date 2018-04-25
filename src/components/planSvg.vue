@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <tooltip class="tooltip" :options="tooltip">
+        <tooltip class="tooltip" :options="tooltip" v-if="rh">
             <header>{{rh.rooms}} комн. <span class="delimiter">/</span> №  {{rh.num}}</header>
             <div class="body">
                 {{rh.square}} м2
@@ -12,8 +12,9 @@
                     <polygon
                         v-for="poly in plan.polygon"
                         :points="poly.points"
-                        :fill="polyfill"
+                        :fill="poly.color"
                         class="poly"
+                        :class="poly.reserv || 'reserv'"
                         @mouseenter="tooltipChange(poly.realty,$event)"
                         @mouseleave="tooltipChange(poly.realty,$event)"
                         @click="clickPoly"
@@ -39,11 +40,8 @@ export default {
                 show: false
             },
             polyfill:'rgba(0,0,0,.1)',
-            rh:{},
+            rh:'',
         }
-    },
-    computed: {
-
     },
     props: ['plan','floor'],
     components: {
@@ -52,16 +50,24 @@ export default {
     methods: {
         tooltipChange(rId,e) {
             this.rh = this.$store.getters.realty(rId);
-            setTimeout(()=>{
-                this.tooltip = {
-                    width : 130,
-                    height : 37,
-                    offsetY : e.offsetY + 140,
-                    offsetX : e.offsetX + 190,
-                    show : !this.tooltip.show,
+            if (this.rh.status == 'free' && !this.rh.reserv) {
+                setTimeout(()=>{
+                    this.tooltip = {
+                        width : 130,
+                        height : 37,
+                        offsetY : e.offsetY + 140,
+                        offsetX : e.offsetX + 190,
+                        show : !this.tooltip.show,
+                    }
+                },0)
+
+                for(let el in this.plan.polygon) {
+                    if (this.plan.polygon[el].realty == rId) {
+                        this.plan.polygon[el].color = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
+                    }
                 }
-            },0)
-            e.target.style.fill = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
+
+            }
             this.$emit('eventMouseEnter',rId);
         },
         clickPoly (){
@@ -69,7 +75,6 @@ export default {
         }
     },
     created(){
-        console.log(this.plan);
     }
 }
 </script>
@@ -99,6 +104,9 @@ export default {
                     width: 450px;
                     height: 420px;
                     z-index: 3;
+                    .poly.reserv {
+                        background: black;
+                    }
                 }
         }
 

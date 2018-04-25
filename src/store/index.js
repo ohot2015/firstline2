@@ -20,7 +20,7 @@ const store = new Vuex.Store({
     mutations: {
         set(state, {type, items}) {
             state[type] = items
-        }
+        },
     },
     getters: {
         houses(state) {
@@ -34,7 +34,13 @@ const store = new Vuex.Store({
             return state.floors;
         },
         floorByNum:(state) => (num = 1) => {
-            return _.find(state.floors.floors,{floor:parseInt(num)});
+            let floor = _.find(state.floors.floors,{floor:parseInt(num)});
+            _.each(floor.polygon,(el)=> {
+                let realty = this.a.getters.realty(el.realty);
+                el.color = (realty.status == 'free' && !realty.reserv)?'rgba(0,0,0,0)':'rgba(198,195,220,.8)';
+                el.reserv = (realty.status == 'free' && !realty.reserv);
+            })
+            return floor
         },
         realty:(state) => (id) => {
             var id = parseInt(id);

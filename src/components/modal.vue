@@ -53,7 +53,6 @@ export default {
       maskedInput
   },
   created(){
-        console.log(this.realtyId);
   }
 }
 

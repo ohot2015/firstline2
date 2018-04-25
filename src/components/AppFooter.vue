@@ -3,9 +3,13 @@
     <div class="work-spaces">
         <div class="logo"></div>
         <div class="social">
-            <div class="vk"></div>
+            <a href="https://vk.com/firstline12" class="vk" target="_blank"></a>
+            <a href="https://fb.me/firstline12" class="fb" target="_blank"></a>
+            <a href="https://ok.ru/group/54056149319852" class="ok" target="_blank"></a>
+            <a href="https://www.instagram.com/firstline12/" class="in" target="_blank"></a>
+            <!-- <div class="vk"></div>
             <div class="fb"></div>
-            <div class="in"></div>
+            <div class="in"></div> -->
         </div>
         <nav>
             <ul>
@@ -53,13 +57,17 @@ export default {
                 background-size: contain;
             }
             .social {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 133px;
+                // display: flex;
+                // justify-content: space-between;
+                // align-items: center;
+
+                width: 138px;
                 margin-left: 23px;
-                & > div {
+                & > a {
+                    float: left;
+                    display: block;
                     width: 34px;
+                    margin-top:23px;
                     height: 40px;
                 }
                 .vk {

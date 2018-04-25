@@ -32,11 +32,7 @@ export default {
             if (!form) {
                 return this.showModal = false;
             }
-
-            console.log(form);
-
             this.$http.get(this.endpoint, {params: form}).then(function(response){
-                console.log(response.data);
             },
             function(error){
 
@@ -49,7 +45,6 @@ export default {
         modal
     },
     created(){
-        console.log(this.realtyId);
     }
 }
 
