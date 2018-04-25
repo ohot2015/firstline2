@@ -16,15 +16,24 @@
                 </house-realty>
             </div>
             <div class="slider">
+            <!-- замочег в виде глифа  -->
                 <plan-svg
                     :plan="selectFloor"
+                    :tmp="tmp"
                     @eventMouseEnter="mouseEnterPolly"
                 ></plan-svg>
             </div>
             <div class="info-plan">
                 <ul>
-                    <li v-for="item in realtys" :key="item.id" :ref="'realty-'+item.id"  :class="'rooms'+item.rooms">
-                        {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
+                    <li
+                        v-for="item in realtys"
+                        :key="item.id"
+                        :ref="'realty-'+item.id"
+                        :class="'rooms'+item.rooms"
+                        @mouseenter="hoverRealty(item,$event)"
+                        @mouseleave="hoverRealty(item,$event)"
+                    >
+                       {{rooms[item.rooms]}} / <span>{{item.square}} м²</span>
                     </li>
                 </ul>
             </div>
@@ -61,6 +70,7 @@ export default {
                 3: 'Трёхкомнатная',
                 4: 'Четырёхкомнатная',
             },
+            tmp:1,
         }
     },
     computed: {
@@ -78,6 +88,14 @@ export default {
         },
     },
     methods: {
+        hoverRealty(relaty,e){
+            for(let el in this.selectFloor.polygon) {
+                if (this.selectFloor.polygon[el].realty == relaty.id && this.selectFloor.polygon[el].reserv) {
+                    this.selectFloor.polygon[el].color = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
+                }
+            }
+            this.tmp = relaty.id;
+        },
         backToPlan () {
             this.$router.push({name:'house',params:{id:this.houseId}});
         },
