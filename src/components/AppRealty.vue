@@ -44,7 +44,7 @@ import { Carousel, Slide } from 'vue-carousel';
 function getInfoBoard(realty,house) {
     return [
         {
-            info: `${realty.rooms} комн. / №${realty.num}`,
+            info: `${realty.rooms} комн. <span class="delimeter">/</span> №${realty.num}`,
             label: 'количество комнат и номер квартиры',
         },
         {
@@ -60,7 +60,7 @@ function getInfoBoard(realty,house) {
             label: 'высота потолков',
         },
         {
-            info: `${realty.floor} - ${house.floor_count} этаж `,
+            info: `${realty.floor} этаж (из ${house.floor_count})`,
             label: 'расположение квартир данной планировки',
         },
         {
@@ -151,6 +151,7 @@ export default {
 <style lang="scss">
     .VueCarousel-wrapper {
         background: white;
+        border-radius: 5px;
     }
     .VueCarousel{
         .prev, .next {
@@ -158,6 +159,9 @@ export default {
             height: 20px;
             background: url(../assets/img/strelka_levaya.png);
         }
+    }
+    .delimeter{
+        color: #a3cdf9;
     }
 
 </style>
