@@ -21,7 +21,12 @@ export default {
         },
     },
     methods: {
-        setEvent: function(e){
+        setEvent: function(e) {
+            if (!this.line1 && !this.line2 ) {
+                e.preventDefault()
+                return false;
+            }
+
             this.$emit('eventHouseRealty',this.data);
             let els = document.querySelectorAll('.house-realty');
             els.forEach((el)=> {
@@ -135,7 +140,11 @@ $lg: 1920px;
         }
         &.reserv {
             background: url('../assets/img/lock.png') no-repeat , #c6c3dc;
-            background-position: center
+            background-position: center;
+            &:hover {
+                background: url('../assets/img/lock.png') no-repeat , #c6c3dc;
+                background-position: center;
+            }
 
         }
     }

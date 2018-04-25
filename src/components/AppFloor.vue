@@ -6,11 +6,11 @@
                     class="realty"
                     v-for="(item, key, index) in floors"
                     :color="'white'"
-                    :line1="item.floor"
+                    :line1="house.floor_count - key + 1"
                     :line2="'этаж'"
                     :key="index"
                     :data="item"
-                    :class="index + 1 == selectFloorNum ? 'active':''"
+                    :class="key + 1 == selectFloorNum ? 'active':''"
                     @eventHouseRealty="clickHouseRealty"
                 >
                 </house-realty>
@@ -67,8 +67,8 @@ export default {
         house() {
             return this.$store.getters.house(this.houseId);
         },
-        floors(){
-            return  this.$store.getters.floors.floors;
+        floors() {
+            return this.$store.getters.floors.floors;
         },
         selectFloor(){
             return this.$store.getters.floorByNum(this.selectFloorNum);
@@ -85,7 +85,7 @@ export default {
             this.$router.push({name:'district',params:{scrollTo:'scrolltodistrict'}});
         },
         clickHouseRealty(floor) {
-            this.selectFloorNum = floor.floor;
+            this.selectFloorNum = this.$store.getters.house(this.houseId).floor_count - floor.floor +1;
         },
         mouseEnterPolly(id) {
             let els = document.querySelectorAll('.info-plan ul li');

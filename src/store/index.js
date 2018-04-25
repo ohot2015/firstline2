@@ -26,7 +26,7 @@ const store = new Vuex.Store({
         houses(state) {
             return state.houses;
         },
-        house:(state) => (id) => {
+        house:(state) => (id = 14) => {
             var id = parseInt(id);
             return _.find(state.houses,{id:id});
         },
