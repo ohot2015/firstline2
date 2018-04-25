@@ -190,6 +190,7 @@ export default {
     }
     .slider {
         background: white;
+        border-radius: 5px;
         width: calc(100% - 345px);
         min-height: 420px;
         /*height: 420px;*/
@@ -205,6 +206,7 @@ export default {
     }
     .info-plan {
         width: 250px;
+        border-radius: 5px;
         background: white;
 
         ul {

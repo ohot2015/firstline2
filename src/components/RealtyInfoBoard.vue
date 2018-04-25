@@ -2,7 +2,7 @@
     <div id="info-board">
         <div class="wrap-info">
             <div class="wrap" v-for="item in infoBoard">
-                <div class="info">{{item.info}}</div>
+                <div v-html="item.info" class="info"></div>
                 <div class="label">{{item.label}}</div>
             </div>
         </div>
@@ -64,11 +64,16 @@ export default {
                     left: 9px;
                     bottom: 7px;
                 }
+
                 .info {
                     font-size: 24px;
                     font-family: direct-Bold;
                     font-weight: 700;
                     line-height: 27px;
+
+                    span{
+                        color: #a3cdf9;
+                    }
                 }
                 .label {
                     font-size: 12px;

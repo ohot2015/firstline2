@@ -77,10 +77,11 @@ export default {
             this.$router.push({name:'floor',params:{id:id,floor:1}});
         },
         tooltipChange(e) {
+
             this.tooltip = {
                 width : 107,
                 height : 65,
-                offsetY : e.offsetY,
+                offsetY : e.clientY - (e.pageY - e.target.ownerDocument.scrollingElement.scrollTop) + 240,
                 offsetX : e.pageX,
             }
             if (e.type == "mouseenter") {
@@ -170,7 +171,7 @@ export default {
                 position: absolute;
                 left: calc(50% - 960px);
                 top:0;
-                width: 100%;
+                width: 150%;
                 z-index: 3;
                 height: 820px;
 
