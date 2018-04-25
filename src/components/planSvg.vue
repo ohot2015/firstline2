@@ -14,6 +14,7 @@
                         :points="poly.points"
                         :fill="poly.color"
                         class="poly"
+                        :datatmp="tmp"
                         :class="poly.reserv || 'reserv'"
                         @mouseenter="tooltipChange(poly.realty,$event)"
                         @mouseleave="tooltipChange(poly.realty,$event)"
@@ -43,7 +44,7 @@ export default {
             rh:'',
         }
     },
-    props: ['plan','floor'],
+    props: ['plan','floor','tmp'],
     components: {
         tooltip
     },
