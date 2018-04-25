@@ -5,8 +5,10 @@
       <div class="block-menu">
         <div class="buter" @click="click">
             <template id="drop-down" >
-                <div class="dropdown" v-show="active">
-                    <ul>
+                <div class="dropdown" v-show="active"
+
+                >
+                    <ul @mouseleave="active = !active">
                         <li class="home"><router-link :to="{ name: 'home'}">Главная страница</router-link></li>
                         <li class="gallery"><router-link :to="{name:'gallery'}">Галерея</router-link></li>
                         <li class="declaration"><router-link :to="{name:'declaration'}">Проектные декларации</router-link></li>
