@@ -56,6 +56,8 @@ export default {
         height: calc(100% - 68px);
         padding-top: 68px;
         background: #e7e4ff;
+        font-family: RobotoCondensed-Regular;
+
         h1 {
             margin:0;
             padding: 20px 0 ;

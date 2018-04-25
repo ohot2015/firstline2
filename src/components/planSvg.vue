@@ -52,11 +52,12 @@ export default {
             this.rh = this.$store.getters.realty(rId);
             if (this.rh.status == 'free' && !this.rh.reserv) {
                 setTimeout(()=>{
+
                     this.tooltip = {
                         width : 130,
                         height : 37,
-                        offsetY : e.offsetY + 140,
-                        offsetX : e.offsetX + 190,
+                        offsetY : e.layerY + 140,
+                        offsetX : e.layerX + 190,
                         show : !this.tooltip.show,
                     }
                 },0)
