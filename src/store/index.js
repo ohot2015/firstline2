@@ -35,11 +35,11 @@ const store = new Vuex.Store({
         },
         floorByNum:(state) => (num = 1) => {
             let floor = _.find(state.floors.floors,{floor:parseInt(num)});
-            _.each(floor.polygon,(el)=> {
-                let realty = this.a.getters.realty(el.realty);
-                el.color = (realty.status == 'free' && !realty.reserv)?'rgba(0,0,0,0)':'rgba(198,195,220,.8)';
-                el.reserv = (realty.status == 'free' && !realty.reserv);
-            })
+            // _.each(floor.polygon,(el)=> {
+            //     let realty = this.a.getters.realty(el.realty);
+            //     el.color = (realty.status == 'free' && !realty.reserv)?'rgba(0,0,0,0)':'rgba(198,195,220,.8)';
+            //     el.reserv = (realty.status == 'free' && !realty.reserv);
+            // })
             return floor
         },
         realty:(state) => (id) => {
@@ -72,6 +72,13 @@ const store = new Vuex.Store({
             let endpoint = 'src/api/getFloorsByHouseId.php'
             Vue.http.get(endpoint, {params: {id: house_id}}).then((response) => {
                 let data = response.data.response;
+                _.each(data.floors,(floor)=> {
+                    _.each(floor.polygon,(el)=> {
+                        let realty = this.getters.realty(el.realty);
+                        el.color = (realty.status == 'free' && !realty.reserv)?'rgba(0,0,0,0)':'rgba(198,195,220,.8)';
+                        el.reserv = (realty.status == 'free' && !realty.reserv);
+                    })
+                })
                 commit('set',{type:'floors', items:data});
             },(err) => { throw err });
         },

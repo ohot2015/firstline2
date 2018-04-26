@@ -23,10 +23,10 @@ import AppDeclaration from './components/AppDeclaration.vue'
 
 import YmapPlugin from 'vue-yandex-maps'
 import VueScrollTo from 'vue-scrollto'
-
 Vue.use(YmapPlugin)
 Vue.use(VueRouter)
 Vue.component('AppMenu', AppMenu);
+
 
 // You can also pass in the default options
 Vue.use(VueScrollTo, {

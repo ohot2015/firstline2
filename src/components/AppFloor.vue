@@ -19,7 +19,7 @@
             <!-- замочег в виде глифа  -->
                 <plan-svg
                     :plan="selectFloor"
-                    :tmp="tmp"
+
                     @eventMouseEnter="mouseEnterPolly"
                 ></plan-svg>
             </div>
@@ -54,7 +54,7 @@ import { Carousel, Slide } from 'vue-carousel';
 
 import planSvg from './planSvg'
 import Vue from 'vue'
-
+ //:tmp="tmp"
 export default {
     name: 'AppFloor',
     data () {
@@ -70,7 +70,7 @@ export default {
                 3: 'Трёхкомнатная',
                 4: 'Четырёхкомнатная',
             },
-            tmp:1,
+           // tmp:1,
         }
     },
     computed: {
@@ -89,12 +89,16 @@ export default {
     },
     methods: {
         hoverRealty(relaty,e){
+            let els = document.querySelectorAll('.info-plan ul li');
+            els.forEach((el)=> {
+                el.classList.remove('active')
+            })
+
             for(let el in this.selectFloor.polygon) {
                 if (this.selectFloor.polygon[el].realty == relaty.id && this.selectFloor.polygon[el].reserv) {
                     this.selectFloor.polygon[el].color = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
                 }
             }
-            this.tmp = relaty.id;
         },
         backToPlan () {
             this.$router.push({name:'house',params:{id:this.houseId}});
@@ -105,7 +109,7 @@ export default {
         clickHouseRealty(floor) {
             this.selectFloorNum = this.$store.getters.house(this.houseId).floor_count - floor.floor +1;
         },
-        mouseEnterPolly(id) {
+        mouseEnterPolly(id,e) {
             let els = document.querySelectorAll('.info-plan ul li');
             els.forEach((el)=> {
                 el.classList.remove('active')
@@ -113,6 +117,9 @@ export default {
             let target = this.$refs['realty-'+id];
             if (target) {
                 target[0].classList.add('active')
+                if (e.type == 'mouseleave') {
+                    target[0].classList.remove('active')
+                }
             }
         },
     },

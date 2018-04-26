@@ -1,11 +1,8 @@
 <template>
   <div :class="{ 'vue-lightbox' : !resetstyles }">
-   <div class="container">
-       <div class="photo">
-            <img :src="imgprev" :alt="caption" @click="clickImage(0)">
-       </div>
-        <div class="desc"><span v-if="title">{{ title }}</span></div>
-   </div>
+    <span @click="clickImage(0)">
+      <slot></slot>
+    </span>
     <div class="lightbox-overlay" v-if="overlayActive" @click.self="closeOverlay">
       <div class="holder">
         <img :src="images[currentImage].src"/>
@@ -19,10 +16,8 @@
      </div>
   </div>
 </template>
-
 <script>
-      //<li v-for="(image, index) in images">
-
+  //<li v-for="(image, index) in images">
 export default {
   props: {
     resetstyles: {
@@ -158,9 +153,6 @@ export default {
         }
       }
 
-
-
-
 .vue-lightbox ul {
 	list-style: none;
 	margin: 0 auto;
@@ -195,20 +187,30 @@ export default {
     z-index: 999999999999;
 
 	.holder {
-		max-width: 600px;
-		margin: 0 auto;
-		position: relative;
-        max-height: 100vh;
-        margin-top: 100px;
+      height: 90%;
+      overflow: hidden;
+      text-align: center;
+      padding-top: 2%;
+      img {
+          height: 100%;
+          width: auto;
+          max-width: 100%;
+      }
 
-		img {
-			width: 100%;
-			max-width: 600px;
-			cursor: pointer;
-			box-sizing: border-box;
-			display: block;
-            max-height: 100vh;
-		}
+		// max-width: 600px;
+		// margin: 0 auto;
+		// position: relative;
+  //       max-height: 100vh;
+  //       margin-top: 100px;
+
+		// img {
+		// 	width: 100%;
+		// 	max-width: 600px;
+		// 	cursor: pointer;
+		// 	box-sizing: border-box;
+		// 	display: block;
+  //           max-height: 100vh;
+		// }
 
 		p {
 			color: #ffffff;
