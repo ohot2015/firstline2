@@ -14,10 +14,10 @@
           <div class="modal-body">
             <slot name="body">
                 <label for="name-modal">Ваше имя</label>
-                <input required type="text" id="name-modal" name="name" v-model="form.name"><br>
+                <input required type="text" id="name-modal" name="name" class="ym-disable-keys" v-model="form.name"><br>
                 <label for="phone-modal">Ваш телефон</label>
-                <masked-input id="phone-modal" name="phone" v-model="form.phone" mask="\+\7 (111) 111-1111" placeholder="Номер телефона" type="tel" />
-                <input type="hidden" name="realty_id" v-model="form.rId">
+                <masked-input id="phone-modal" name="phone" class="ym-disable-keys" v-model="form.phone" mask="\+\7 (111) 111-1111" placeholder="Номер телефона" type="tel" />
+                <input type="hidden" name="realty_id"  class="ym-disable-keys" v-model="form.rId">
             </slot>
           </div>
 
