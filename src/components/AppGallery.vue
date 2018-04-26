@@ -14,6 +14,12 @@
                     :imgprev="stream[0].src"
                     v-if="false"
                     >
+                    <div class="container">
+                       <div class="photo">
+                            <img :src="imgprev" :alt="caption" @click="clickImage(0)">
+                       </div>
+                        <div class="desc"><span v-if="title">{{ title }}</span></div>
+                   </div>
                 </lightbox>
                 <lightbox
                     v-for="(month, index) in img"
@@ -23,6 +29,12 @@
                     :title="month.title"
                     :imgprev="month.imgPrev"
                     >
+                    <div class="container">
+                       <div class="photo">
+                            <img :src="month.imgPrev">
+                       </div>
+                        <div class="desc"><span v-if="month.title">{{ month.title }}</span></div>
+                   </div>
                 </lightbox>
             </div>
         </div>
@@ -37,7 +49,7 @@
 import AppFooter from './AppFooter.vue'
 import _ from 'underscore'
 import lightbox from './Lightbox.vue';
-
+//@click="clickImage(0)"
 export default {
     name: 'gallery',
     data () {

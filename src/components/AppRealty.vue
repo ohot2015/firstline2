@@ -18,12 +18,19 @@
                 <carousel
                     :per-page="1"
                     :mouse-drag="false"
-                    :navigationEnabled="true"
+                    :navigationEnabled="false"
                     :paginationEnabled="false"
                     :key="'qwe12323'"
                 >
                 <slide v-for="(item, index) in selectedSlider" :key="index" >
-                  <img :src="'http://' + item.img_path" alt="">
+                    <lightbox
+                    :loop="false"
+                    :images="[{src:'http://' + item.img_path}]"
+                    >
+                        <div class="wrap">
+                            <img :src="'http://' + item.img_path" alt="">
+                        </div>
+                    </lightbox>
                 </slide>
               </carousel>
               <div class="block-nav">
@@ -39,8 +46,10 @@
 
 import HouseRealty from './HouseRealty.vue'
 import RealtyInfoBoard from './RealtyInfoBoard.vue'
+import lightbox from './Lightbox.vue'
 import _ from 'underscore'
 import { Carousel, Slide } from 'vue-carousel';
+
 function getInfoBoard(realty,house) {
     return [
         {
@@ -107,7 +116,8 @@ export default {
         HouseRealty,
         Carousel,
         Slide,
-        RealtyInfoBoard
+        RealtyInfoBoard,
+        lightbox,
     },
     methods: {
         clickHouseRealty(typeSlider){
@@ -153,12 +163,13 @@ export default {
         background: white;
         border-radius: 5px;
     }
-    .VueCarousel{
-        .prev, .next {
-            width: 20px;
-            height: 20px;
-            background: url(../assets/img/strelka_levaya.png);
-        }
+    .VueCarousel-inner{
+        transform: inherit !important;
+        // .prev, .next {
+        //     width: 20px;
+        //     height: 20px;
+        //     background: url(../assets/img/strelka_levaya.png);
+        // }
     }
     .delimeter{
         color: #a3cdf9;
@@ -201,15 +212,17 @@ export default {
         margin: 0 20px;
 
         .VueCarousel-slide{
-            background-size: cover;
-            height: 420px;
-            overflow: hidden;
-            text-align: center;
-
-            img {
-                height: 100%;
-                width: auto;
-                max-width: 100%;
+            .wrap{
+                background-size: cover;
+                height: 420px;
+                overflow: hidden;
+                text-align: center;
+                img {
+                    cursor: pointer;
+                    height: 100%;
+                    width: auto;
+                    max-width: 100%;
+                }
             }
         }
 

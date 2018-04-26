@@ -14,7 +14,6 @@
                         :points="poly.points"
                         :fill="poly.color"
                         class="poly"
-                        :datatmp="tmp"
                         :class="poly.reserv || 'reserv'"
                         @mouseenter="tooltipChange(poly.realty,$event)"
                         @mouseleave="tooltipChange(poly.realty,$event)"
@@ -28,6 +27,7 @@
     </div>
 </template>
 <script>
+                        //:datatmp="tmp"
 import tooltip from './tooltip'
 export default {
     name: 'planSvg',
@@ -44,7 +44,7 @@ export default {
             rh:'',
         }
     },
-    props: ['plan','floor','tmp'],
+    props: ['plan','floor'/*,'tmp'*/],
     components: {
         tooltip
     },
@@ -53,7 +53,6 @@ export default {
             this.rh = this.$store.getters.realty(rId);
             if (this.rh.status == 'free' && !this.rh.reserv) {
                 setTimeout(()=>{
-
                     this.tooltip = {
                         width : 130,
                         height : 37,
@@ -70,7 +69,7 @@ export default {
                 }
 
             }
-            this.$emit('eventMouseEnter',rId);
+            this.$emit('eventMouseEnter',rId,e);
         },
         clickPoly (){
             this.$router.push({name:'realty',params:{id:this.rh.id} });
