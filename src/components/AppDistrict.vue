@@ -118,8 +118,11 @@ export default {
                 margin-left: 66px;
                 & > div {
                     width: 137px;
-                    height: 26px;
-                    letter-spacing: -1.5px;
+                    height: 20px;
+                    line-height: 17px;
+                    font-family: RobotoCondensed-Regular;
+                    font-size: 12px;
+
                 }
                 & > div:first-child {
                     position: relative;

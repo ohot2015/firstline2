@@ -218,7 +218,7 @@ export default {
         flex-direction: column;
         justify-content: space-between;
         @media screen and (min-width: 1366px) {
-            min-height: 500px;
+            min-height: 440px;
         }
 
     }

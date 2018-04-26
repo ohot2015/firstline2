@@ -51,17 +51,22 @@ export default {
     methods: {
         tooltipChange(rId,e) {
             this.rh = this.$store.getters.realty(rId);
-            if (this.rh.status == 'free' && !this.rh.reserv) {
+            if (this.rh.status === 'free' && !this.rh.reserv) {
                 setTimeout(()=>{
+                    var padding_top = window.getComputedStyle(e.target.parentNode.parentNode.parentElement.parentElement, null).getPropertyValue('padding-top').replace('px', '') - 55,
+                        wrap_width = window.getComputedStyle(e.target.parentNode.parentNode.parentElement.parentElement.parentElement, null).getPropertyValue('width').replace('px', '')/2 - 220;
+
+                        console.log(wrap_width);
 
                     this.tooltip = {
                         width : 130,
                         height : 37,
-                        offsetY : e.layerY + 140,
-                        offsetX : e.layerX + 190,
+                        offsetY : e.layerY + padding_top,
+//                        offsetY: e.clientY - 140,
+                        offsetX : e.layerX + wrap_width,
                         show : !this.tooltip.show,
                     }
-                },0)
+                },200)
 
                 for(let el in this.plan.polygon) {
                     if (this.plan.polygon[el].realty == rId) {
@@ -86,6 +91,9 @@ export default {
     width: 100%;
     height: 100%;
     padding-top: 200px;
+    @media screen and (max-width: 1366px) {
+        padding-top: 90px;
+    }
 }
  .wrap-svg {
             /*width: 100%;*/
