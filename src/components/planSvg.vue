@@ -17,7 +17,7 @@
                         :class="poly.reserv || 'reserv'"
                         @mouseenter="tooltipChange(poly.realty,$event)"
                         @mouseleave="tooltipChange(poly.realty,$event)"
-                        @click="clickPoly"
+                        @click="clickPoly(poly.realty)"
                         >
                     </polygon>
                 </g>
@@ -55,7 +55,7 @@ export default {
                 setTimeout(()=>{
                     var padding_top = window.getComputedStyle(e.target.parentNode.parentNode.parentElement.parentElement, null).getPropertyValue('padding-top').replace('px', '') - 55,
                         wrap_width = window.getComputedStyle(e.target.parentNode.parentNode.parentElement.parentElement.parentElement, null).getPropertyValue('width').replace('px', '')/2 - 220;
-                        
+
 
                     this.tooltip = {
                         width : 130,
@@ -76,8 +76,11 @@ export default {
             }
             this.$emit('eventMouseEnter',rId,e);
         },
-        clickPoly (){
-            this.$router.push({name:'realty',params:{id:this.rh.id} });
+        clickPoly (rId){
+            let realty = this.$store.getters.realty(rId);
+            if (realty.status === 'free' && !realty.reserv) {
+                this.$router.push({name:'realty',params:{id:this.rh.id} });
+            }
         }
     },
     created(){
