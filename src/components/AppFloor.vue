@@ -70,7 +70,6 @@ export default {
                 3: 'Трёхкомнатная',
                 4: 'Четырёхкомнатная',
             },
-           // tmp:1,
         }
     },
     computed: {
@@ -84,6 +83,7 @@ export default {
             return this.$store.getters.floorByNum(this.selectFloorNum);
         },
         realtys() {
+            console.log(this.$store.getters.getRealtyByFloorByHouseId(this.selectFloorNum,this.houseId));
             return this.$store.getters.getRealtyByFloorByHouseId(this.selectFloorNum,this.houseId);
         },
     },
@@ -130,6 +130,7 @@ export default {
         planSvg
     },
     created() {
+
         this.houseId = parseInt(this.$route.params.id);
         this.selectFloorNum = this.$route.params.floor;
     }

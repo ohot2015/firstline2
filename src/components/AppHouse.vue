@@ -2,11 +2,11 @@
   <div class='house'>
     <div class="floor-block">
         <house-realty class="realty"
-            v-for="(item, index) in floor"
+            v-for="(item, key, index) in floors"
             :color="'white'"
-            :line1=" item"
+            :line1="house.floor_count - key + 1"
             :line2="'этаж'"
-            :key="item.id"
+            :key="index"
             :data="item"
             @eventHouseRealty="clickFloor"
         ></house-realty>
@@ -15,14 +15,14 @@
         </div>
     </div>
     <div class="section"
-        v-for="item_section in house.section_count"
+        v-for="item_section in house.sections_count"
     >
         <div class="wrap-floor">
             <div class="floor-line"
-                v-for="item_floor in floor "
+                v-for="item_floor in floors "
             >
                 <house-realty class="realty"
-                    v-for="(item, index) in getRealtyInFloor(item_floor, item_section)"
+                    v-for="(item, index) in getSection(item_floor.floor,item_section) "
                     :data="item.id"
                     :key="item.id"
                     :id="'realty_'+item.id"
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="floor-desc">
-            <div class="first-line">{{item_section}}/{{house.section_count}}</div>
+            <div class="first-line">{{item_section}}/{{house.sections_count}}</div>
             <div class="second-line">подъезд</div>
         </div>
     </div>
@@ -50,10 +50,6 @@ export default {
     name:'house',
     data () {
         return {
-            house: [],
-            section: 0,
-            floor: [],
-            realtys: [],
             endpoint: 'src/api/getRealtysByHouseId.php',
         }
     },
@@ -63,23 +59,18 @@ export default {
     computed: {
         checkStatus:() => (realty) => {
             return realty.status == 'free' && !realty.reserv;
-        }
+        },
+        house(){
+            return this.$store.getters.house();
+        },
+        realtys(){
+            return this.$store.getters.getRealtysByHouseId();
+        },
+        floors() {
+            return this.$store.getters.floors.floors;
+        },
     },
     methods: {
-        // checkStatus(realty) {
-        //     return =
-        // },
-        getRealtysByHouseId() {
-          this.$http.get(this.endpoint).then(function(response){
-             this.house = response.data.response.house
-             this.realtys = response.data.response.realty
-             this.section = _.range(1,this.house.section_count)
-             this.floor = _.range(this.house.floor_count ,0,-1)
-          },
-          (err)=>{
-
-          })
-        },
         getColor: function(realty) {
             switch(realty.rooms) {
               case 1: return 'orange';
@@ -89,26 +80,18 @@ export default {
               case 0: return 'white';
             }
         },
-        getRealtyInFloor: function(floor=null,section=null) {
-            let arr = [];
-            for(let realty of this.realtys) {
-                if (realty.section == section && realty.floor == floor) {
-                    arr.push(realty);
-                }
-            }
-            return arr;
+        getSection(floor,section) {
+           // console.log(floor,section);
+            return this.$store.getters.getRealtyInFloor(floor,section);
         },
         clickHouseRealty: function(id) {
             this.$router.push({name:'realty',params:{id:id}});
         },
         clickFloor: function(floor) {
-            this.$router.push({name:'floor',params:{id:14,floor:floor}});
+            this.$router.push({name:'floor',params:{id:14,floor:floor.floor}});
         }
-    },
-    created: function() {
-        this.beforeShow = '';
-        this.getRealtysByHouseId();
     }
+
 }
 </script>
 

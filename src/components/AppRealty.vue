@@ -109,7 +109,7 @@ export default {
                 3: [{img_path:''}]
             },
             selectedSlider:[],
-            endpoint: 'src/api/realty.php'
+            endpoint: 'src/api/realty'
         }
     },
     components: {
@@ -118,6 +118,9 @@ export default {
         Slide,
         RealtyInfoBoard,
         lightbox,
+    },
+    computed: {
+
     },
     methods: {
         clickHouseRealty(typeSlider){
@@ -128,7 +131,6 @@ export default {
           this.$http.get(this.endpoint, {params: {realty_id: this.rId}}).then(function(response){
             let house = response.data.house;
             let realty = response.data.realty;
-        //   console.log(response.data);
 
             this.infoBoard = getInfoBoard(realty,house);
             // при перовй загрузки страницы

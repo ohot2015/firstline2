@@ -90,9 +90,11 @@ export default {
         },
     },
     created () {
+        this.$store.dispatch('getRealtysByHouseId').then(response => {
+            this.$store.dispatch('getFloorsByHouseId')
+        }, err => { throw err });
         this.$store.dispatch('getHousesByDistrictId')
-        this.$store.dispatch('getFloorsByHouseId')
-        this.$store.dispatch('getRealtysByHouseId')
+
         this.houses = this.$store.getters.houses;
     }
 }

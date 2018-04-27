@@ -110,14 +110,12 @@ export default {
     },
     mounted(){
         if (this.$route.params.scrollTo) {
-            this.$scrollTo('#scrolltodistrict', 500, {
-     easing: "ease-in-out",})
+            this.$scrollTo('#scrolltodistrict', 500, {easing: "ease-in-out",})
         }
     },
     updated(){
         if (this.$route.params.scrollTo) {
-            this.$scrollTo('#scrolltodistrict', 500, {
-     easing: "ease-in-out",})
+            this.$scrollTo('#scrolltodistrict', 500, {easing: "ease-in-out",})
         }
     },
     created(){
