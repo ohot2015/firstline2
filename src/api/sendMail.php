@@ -22,7 +22,7 @@ $tempalte = <<<END
     </table>
 END;
 
- $rs = @mail( 'ohot2015@gmail.com' , 'первая линия' , $tempalte, "From: banel1ng@yahoo.com\r\n"
+ $rs = @mail( 'info@line12.ru' , 'Первая линия' , $tempalte, "From:noreply@line12.ru\r\n"
     ."Content-type: text/html; charset=utf-8\r\n"
     ."X-Mailer: PHP mail script" );
 echo json_encode($rs);

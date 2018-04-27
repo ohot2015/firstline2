@@ -10,7 +10,7 @@
                     :line2="'этаж'"
                     :key="index"
                     :data="item"
-                    :class="key + 1 == selectFloorNum ? 'active':''"
+                    :class="house.floor_count - key + 1 == selectFloorNum ? 'active':''"
                     @eventHouseRealty="clickHouseRealty"
                 >
                 </house-realty>
@@ -131,7 +131,7 @@ export default {
     },
     created() {
         this.houseId = parseInt(this.$route.params.id);
-        this.selectFloorNum = parseInt(this.$route.params.floor);
+        this.selectFloorNum = this.$route.params.floor;
     }
 }
 </script>
@@ -159,12 +159,13 @@ export default {
     $md: 1366px;
     $lg: 1920px;
     .wrap-all {
-        min-height: calc(100% - 68px);
         width: 100%;
         background: #e7e4ff;
-        height: calc(100% - 68px);
         padding-top: 68px;
-
+        height:calc(100vh - 68px);
+        @media screen and (max-height: 821px) {
+            height:calc(100% - 68px);
+        }
     }
     .floor {
         background: #e7e4ff;

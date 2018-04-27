@@ -183,8 +183,11 @@ export default {
 
     .wrap-all{
         width: 100%;
-        height: 100%;
         background: #e7e4ff;
+        height: 100vh;
+        @media screen and (max-height: 589px) {
+            height: 100%;
+        }
     }
     .realty {
         margin: 0 auto;
@@ -219,9 +222,10 @@ export default {
                 text-align: center;
                 img {
                     cursor: pointer;
-                    height: 100%;
+                    height: calc(100% - 20px);
                     width: auto;
                     max-width: 100%;
+                    padding:10px;
                 }
             }
         }

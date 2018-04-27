@@ -90,14 +90,15 @@ export default {
                     display: inline-block;
                     text-indent: 53px;
                     font-family: RobotoCondensed-Regular;
-                }
-                &:after {
-                    position: absolute;
-                    content: ' ';
-                    width: 21px;
-                    height: 21px;
-                    left: 16px;
-                    top: 11px;
+                    width: 100%;
+                    &:after {
+                        position: absolute;
+                        content: ' ';
+                        width: 21px;
+                        height: 21px;
+                        left: 16px;
+                        top: 11px;
+                    }
                 }
                 &:before{
                     position: absolute;
@@ -111,16 +112,16 @@ export default {
                 &:first-child:before{
                     display: none;
                 }
-                &.home:after {
+                &.home a:after {
                     background: url(../assets/img/menu_home.png) no-repeat center;
                 }
-                &.gallery:after {
+                &.gallery a:after {
                     background: url(../assets/img/menu_gallery.png) no-repeat center;
                 }
-                &.declaration:after {
+                &.declaration a:after {
                     background: url(../assets/img/menu_declaration.png) no-repeat center;
                 }
-                &.about:after {
+                &.about a:after {
                     background: url(../assets/img/menu_contact.png) no-repeat center;
                 }
             }

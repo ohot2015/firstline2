@@ -84,11 +84,14 @@
 
 <style lang="scss" scoped>
     .wrap {
-        height: calc(100% - 68px);
+
         padding-top: 68px;
         background: #e7e4ff;
         font-family: RobotoCondensed-Regular;
-
+        height: calc(100vh - 68px);
+        @media screen and (max-height: 821px) {
+            height: calc(100% - 68px);
+        }
         h1 {
             margin: 0;
             padding: 20px 0;

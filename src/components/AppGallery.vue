@@ -122,9 +122,10 @@ export default {
 <style lang="scss" scoped>
   $background: #e7e4ff;
   #gallery {
-        min-height: calc(100% - 68px);
+        //min-height: calc(100% - 68px);
         padding-top: 68px;
         background: $background;
+        height: calc(100vh - 68px);
   }
    .container-gallery {
         width: 1024px;

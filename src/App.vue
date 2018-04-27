@@ -67,18 +67,15 @@ export default {
 </script>
 
 <style lang="scss" >
-  body,html {
-//    background: #e7e4ff;
+  body, html {
     background: white;
     color:#252525;
     margin:0;
     width : 100%;
-    height: 100%
+
   }
-  .content{
+  .content {
     padding-top: 68px;
-    /*width: 100%;*/
-    height: calc(100% - 68px);
     background: white;
     width: 960px;
     @media screen and (min-width: 1366px) {
@@ -87,7 +84,7 @@ export default {
   }
   #app {
     width : 100%;
-    height: 100%;
+//    height: 100vh
   }
   a:link,
   a:visited ,

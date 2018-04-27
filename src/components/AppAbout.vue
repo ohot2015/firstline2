@@ -25,13 +25,12 @@ export default {
 
 <style lang="scss" scoped>
     .wrap{
-        height: calc(100% - 68px);
         padding-top: 68px;
     }
 
     #homemap {
         width: 100%;
-        height: calc(100% - 3px);
+        height: calc(100vh - 72px);
     }
     .footer{
         position: fixed;

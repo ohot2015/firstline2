@@ -19,7 +19,7 @@
                   <!-- :coords="[56.625628, 47.892787]" -->
             <div id="yamaps">
                 <yandex-map
-                  :coords="[56.622603, 47.887130]"
+                  :coords="[56.621752, 47.897829]"
                   zoom="16"
                   style="width: 100%; height: 100%;"
                   :placemarks="placemarks"
