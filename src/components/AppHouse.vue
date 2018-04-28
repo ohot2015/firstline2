@@ -4,7 +4,7 @@
         <house-realty class="realty"
             v-for="(item, key, index) in floors"
             :color="'white'"
-            :line1="house.floor_count - key + 1"
+            :line1="item"
             :line2="'этаж'"
             :key="index"
             :data="item"
@@ -22,7 +22,7 @@
                 v-for="item_floor in floors "
             >
                 <house-realty class="realty"
-                    v-for="(item, index) in getSection(item_floor.floor,item_section) "
+                    v-for="(item, index) in getSection(item_floor,item_section) "
                     :data="item.id"
                     :key="item.id"
                     :id="'realty_'+item.id"
@@ -67,7 +67,7 @@ export default {
             return this.$store.getters.getRealtysByHouseId();
         },
         floors() {
-            return this.$store.getters.floors.floors;
+            return [...Array(parseInt(this.$store.getters.house().floor_count)).keys()].map((c)=> c + 1).reverse();
         },
     },
     methods: {
@@ -81,14 +81,13 @@ export default {
             }
         },
         getSection(floor,section) {
-           // console.log(floor,section);
             return this.$store.getters.getRealtyInFloor(floor,section);
         },
         clickHouseRealty: function(id) {
             this.$router.push({name:'realty',params:{id:id}});
         },
         clickFloor: function(floor) {
-            this.$router.push({name:'floor',params:{id:14,floor:floor.floor}});
+            this.$router.push({name:'floor',params:{id:14,floor:floor}});
         }
     }
 
