@@ -94,7 +94,7 @@ export default {
             this.$store.dispatch('getFloorsByHouseId')
         }, err => { throw err });
         this.$store.dispatch('getHousesByDistrictId')
-
+        this.$store.dispatch('getGallery');
         this.houses = this.$store.getters.houses;
     }
 }

@@ -16,7 +16,8 @@ const store = new Vuex.Store({
         houses:[],
         realtys: [],
         floors:[],
-        gallery:[]
+        gallery:[],
+        stream:[],
     },
     mutations: {
         set(state, {type, items}) {
@@ -24,6 +25,17 @@ const store = new Vuex.Store({
         },
     },
     getters: {
+        findAll:(state) => (entity) => {
+            return state[entity]
+        },
+        findBy:(state) => (entity, query = {}) => {
+            return _.filter(state[entity],query);
+        },
+        findByOne:(state)=>(entity, query = {}) => {
+            return _.find(state[entity],query);
+        },
+
+
         houses(state) {
             return state.houses;
         },
@@ -91,18 +103,6 @@ const store = new Vuex.Store({
                     resolve(response);
                 },(err) => { reject(error); });
             });
-            // Vue.http.get(endpoint, {params: {id: house_id}}).then((response) => {
-            //     let data = response.data.response;
-            //     _.each(data.floors,(floor)=> {
-            //         _.each(floor.polygon,(el)=> {
-            //             let realty = this.getters.realty(el.realty);
-
-            //             el.color = (realty.status == 'free' && !realty.reserv)?'rgba(0,0,0,0)':'rgba(198,195,220,.8)';
-            //             el.reserv = (realty.status == 'free' && !realty.reserv);
-            //         })
-            //     })
-            //     commit('set',{type:'floors', items:data});
-            // },(err) => { throw err });
         },
         getRealtysByHouseId({ commit }, house_id = 14){
             let endpoint = 'src/api/getRealtysByHouseId'
@@ -113,6 +113,35 @@ const store = new Vuex.Store({
                     resolve(response);
                 },(err) => {reject(error); });
             });
+        },
+        getGallery({commit}, year = 2018) {
+            let endpoint = 'src/api/gallery';
+            Vue.http.get(endpoint).then((response)=>{
+                let img = [];
+                _.each(response.data.images[2018], (el,monthName) => {
+                    let month = {
+                        title: monthName,
+                        imgPrev: el.main? el.main: el[0],
+                        images: []
+                    }
+                    _.each(el,(path) => {
+                        let obj = {
+                            src: path
+                        }
+                        month.images.push(obj);
+                    })
+                    img.push(month)
+                })
+                commit('set',{type:'gallery',items:img});
+                let stream = [];
+                _.each(response.data.stream,(path) => {
+                    let obj = {
+                        src: path
+                    }
+                    stream.push(obj);
+                })
+                commit('set',{type:'stream',items:stream});
+            },(err) => {throw err})
         }
     },
     plugins: [createPersistedState()]

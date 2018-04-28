@@ -10,7 +10,7 @@ $return='error';
 $url = explode('/', $_SERVER['REQUEST_URI']);
 $method_str = end($url);
 $method_arr = explode('?',$method_str);
-$param_str = $method_arr[1];
+$param_str = !empty($method_arr[1])?$method_arr[1]:'';
 parse_str($param_str,$param);
 $route = $method_arr[0];
 
@@ -30,7 +30,7 @@ switch ($route) {
             'id'=> 14
         ]);
         break;
-    case 'getFloorsByHouseId':
+    case 'gallery':
         $gallery  = new StreamGallery($_SERVER['DOCUMENT_ROOT'] . '/gallery', '/gallery');
         $return = ['images' => $gallery->getData(),'stream' => $gallery->getStream()];
         break;

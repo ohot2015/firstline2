@@ -54,7 +54,7 @@ export default {
     name: 'gallery',
     data () {
         return {
-            endpoint: 'src/api/index.php',
+            endpoint: 'src/api/gallery',
             gallery: [],
             img: [{
                     month: [
@@ -79,41 +79,16 @@ export default {
         }
     },
     methods: {
-        getGallery: function() {
-            this.$http.get(this.endpoint).then(function(response){
-                this.img = [];
-                _.each(response.data.images[2018], (el,monthName) => {
-                    let month = {
-                        title: monthName,
-                        imgPrev: el.main? el.main: el[0],
-                        images: []
-                    }
-                    _.each(el,(path) => {
-                        let obj = {
-                            src: path
-                        }
-                        month.images.push(obj);
-                    })
-                    this.img.push(month)
-                })
-                this.stream = [];
-                _.each(response.data.stream,(path) => {
-                        let obj = {
-                            src: path
-                        }
-                        this.stream.push(obj);
-                })
-            },
-            function(error){
-            })
-        }
     },
     components: {
       AppFooter,
       lightbox
     },
     created: function() {
-      this.getGallery();
+      this.img = this.$store.getters.findAll('gallery');
+      this.stream = this.$store.getters.findAll('stream');
+
+      //this.getGallery();
     }
 }
 
