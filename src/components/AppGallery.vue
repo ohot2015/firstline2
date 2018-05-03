@@ -12,11 +12,11 @@
                     :images="stream"
                     :title="'Сейчас'"
                     :imgprev="stream[0].src"
-                    v-if="false"
+                    v-if="true"
                     >
                     <div class="container">
                        <div class="photo">
-                            <img :src="imgprev" :alt="caption" @click="clickImage(0)">
+                            <img :src="stream[0].src" :alt="caption" @click="clickImage(0)">
                        </div>
                         <div class="desc"><span v-if="title">{{ title }}</span></div>
                    </div>
@@ -87,7 +87,7 @@ export default {
     created: function() {
       this.img = this.$store.getters.findAll('gallery');
       this.stream = this.$store.getters.findAll('stream');
-
+console.log(this.stream);
       //this.getGallery();
     }
 }

@@ -1,4 +1,3 @@
 stream:
-    camera_1: http://188.187.189.247:555/OYGNXIEJ?container=mjpeg&stream=sub
-    camera_2: http://188.187.189.247:555/OYGNXIEJ?container=mjpeg&stream=sub
-    camera_3: http://188.187.189.247:555/OYGNXIEJ?container=mjpeg&stream=sub
+    camera_1: http://77.40.53.92:555/mgvneH6n?container=mjpeg&stream=main
+    camera_2: http://77.40.53.92:555/Q3GxbKHp?container=mjpeg&stream=main
