@@ -56,7 +56,36 @@ switch ($route) {
         }
         $return = ['house'=>$house, 'realty'=>$realty];
         break;
+    case 'sendMail':
 
+        $name = $_REQUEST['name'];
+        $phone = $_REQUEST['phone'];
+        $r_id = $_REQUEST['rId'];
+$tempalte = <<<END
+    <table>
+        <tr>
+            <td>
+            <a href="http://m2metr.com/advert/$r_id" target="_blank">Оставлена заявка на бронь квартиры, посмотреть заявку </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Имя:</td>
+            <td>$name</td>
+        </tr>
+        <tr>
+            <td>Телефон:</td>
+            <td>$phone</td>
+        </tr>
+    </table>
+END;
+
+$return = @mail( 'ohot2015@gmail.com' , 'Первая линия' , $tempalte, "From:noreply@line12.ru\r\n"
+."Content-type: text/html; charset=utf-8\r\n"
+."X-Mailer: PHP mail script" );
+        $return = @mail( 'info@line12.ru' , 'Первая линия' , $tempalte, "From:noreply@line12.ru\r\n"
+            ."Content-type: text/html; charset=utf-8\r\n"
+            ."X-Mailer: PHP mail script" );
+        break;
     default:
         # code...
         break;

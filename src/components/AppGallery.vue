@@ -12,13 +12,12 @@
                     :images="stream"
                     :title="'Сейчас'"
                     :imgprev="stream[0].src"
-                    v-if="true"
                     >
                     <div class="container">
                        <div class="photo">
                             <img :src="stream[0].src" :alt="caption" @click="clickImage(0)">
                        </div>
-                        <div class="desc"><span v-if="title">{{ title }}</span></div>
+                        <div class="desc"><span>Видеонаблюдение</span></div>
                    </div>
                 </lightbox>
                 <lightbox

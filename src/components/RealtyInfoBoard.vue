@@ -24,7 +24,7 @@ export default {
         return {
             infoBoardData:{},
             showModal: false,
-            endpoint: 'src/api/sendMail.php'
+            endpoint: 'src/api/sendMail'
         }
     },
     methods: {
@@ -35,7 +35,7 @@ export default {
             this.$http.get(this.endpoint, {params: form}).then(function(response){
             },
             function(error){
-
+                throw error
             })
             return this.showModal = false;
         }
