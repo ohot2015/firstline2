@@ -75,7 +75,7 @@ export default {
       lightbox
     },
     created() {
-        if (!this.img.length && !this.stream.length) {
+        if (!(this.img.length && this.stream.length)) {
             this.$store.dispatch('getGallery');
         }
     }

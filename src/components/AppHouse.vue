@@ -11,15 +11,17 @@
             @eventHouseRealty="clickFloor"
         ></house-realty>
         <div class="help">
-            <img src="src/assets/img/help.png" alt="">
+            <img src="../assets/img/help.png" alt="">
         </div>
     </div>
     <div class="section"
-        v-for="item_section in house.sections_count"
+        v-for="item_section in sectionCount"
+        :key="item_section"
     >
         <div class="wrap-floor">
             <div class="floor-line"
                 v-for="item_floor in floors "
+                :key="item_floor"
             >
                 <house-realty class="realty"
                     v-for="(item, index) in getSection(item_floor,item_section) "
@@ -44,8 +46,6 @@
 <script>
 import HouseRealty from './HouseRealty.vue'
 import _ from 'underscore'
-                    //:line1="item.rooms + 'к'"
-
 export default {
     name:'house',
     data () {
@@ -66,8 +66,14 @@ export default {
         realtys(){
             return this.$store.getters.getRealtysByHouseId();
         },
+        sectionCount(){
+            return this.house ? this.house.sections_count : [];
+        },
         floors() {
-            return [...Array(parseInt(this.$store.getters.house().floor_count)).keys()].map((c)=> c + 1).reverse();
+            if (this.$store.getters.house()){
+                return [...Array(parseInt(this.$store.getters.house().floor_count)).keys()].map((c)=> c + 1).reverse();
+            }
+            return [];
         },
     },
     methods: {
@@ -88,6 +94,12 @@ export default {
         },
         clickFloor: function(floor) {
             this.$router.push({name:'floor',params:{id:14,floor:floor}});
+        }
+    },
+    created() {
+        if (!(this.house && this.realtys.length)) {
+            this.$store.dispatch('getHousesByDistrictId');
+            this.$store.dispatch('getRealtysByHouseId');
         }
     }
 

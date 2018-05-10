@@ -10,9 +10,10 @@
             <svg>
                 <g>
                     <polygon
-                        v-for="poly in plan.polygon"
+                        v-for="poly in polygon1"
                         :points="poly.points"
                         :fill="poly.color"
+                        :key="poly.id"
                         class="poly"
                         :class="poly.reserv || 'reserv'"
                         @mouseenter="tooltipChange(poly.realty,$event)"
@@ -22,12 +23,11 @@
                     </polygon>
                 </g>
             </svg>
-            <img :src="'http://'+plan.path" alt="">
+            <img :src="'http://'+path" alt="">
         </div>
     </div>
 </template>
 <script>
-                        //:datatmp="tmp"
 import tooltip from './tooltip'
 export default {
     name: 'planSvg',
@@ -44,7 +44,7 @@ export default {
             rh:'',
         }
     },
-    props: ['plan','floor'/*,'tmp'*/],
+    props: ['polygon1','floor','path'],
     components: {
         tooltip
     },
@@ -66,10 +66,11 @@ export default {
                         show : !this.tooltip.show,
                     }
                 },200)
-
-                for(let el in this.plan.polygon) {
-                    if (this.plan.polygon[el].realty == rId) {
-                        this.plan.polygon[el].color = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
+    
+    
+                for(let el in this.polygon1) {
+                    if (this.polygon1[el].realty == rId) {
+                        this.polygon1[el].color = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
                     }
                 }
 

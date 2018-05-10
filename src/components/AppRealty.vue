@@ -109,7 +109,7 @@ export default {
                 3: [{img_path:''}]
             },
             selectedSlider:[],
-            endpoint: 'src/api/realty'
+            
         }
     },
     components: {
@@ -120,7 +120,9 @@ export default {
         lightbox,
     },
     computed: {
-
+        endpoint(){
+            return this.$store.getters.findAll('absPath')+'/src/api/realty';
+        } 
     },
     methods: {
         clickHouseRealty(typeSlider){
@@ -131,22 +133,18 @@ export default {
           this.$http.get(this.endpoint, {params: {realty_id: this.rId}}).then(function(response){
             let house = response.data.house;
             let realty = response.data.realty;
-
             this.infoBoard = getInfoBoard(realty,house);
             // при перовй загрузки страницы
             let selectedSlider = _.find(realty.img,{type:1}) || _.find(realty.img,{type:2});
             if (selectedSlider) {
                 this.selectedSlider = [selectedSlider];
             }
-
             // подставляю значения для навигации
             this.sliders[1] = _.filter(realty.img,{type:1})
             this.sliders[2] = _.filter(realty.img,{type:2})
             this.sliders[3] = _.filter(realty.img,{type:3})
           },
-          function(error){
-
-          })
+          (err)=>{ throw err })
         },
         backToPlan: function() {
             this.$router.push({name:'house',params:{id:14}});

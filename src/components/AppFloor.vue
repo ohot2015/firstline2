@@ -18,8 +18,8 @@
             <div class="slider">
             <!-- замочег в виде глифа  -->
                 <plan-svg
-                    :plan="selectFloor"
-
+                    :polygon1="polygon1"
+                    :path="pathPoly"
                     @eventMouseEnter="mouseEnterPolly"
                 ></plan-svg>
             </div>
@@ -83,9 +83,15 @@ export default {
             return this.$store.getters.floorByNum(this.selectFloorNum);
         },
         realtys() {
-            console.log(this.$store.getters.getRealtyByFloorByHouseId(this.selectFloorNum,this.houseId));
             return this.$store.getters.getRealtyByFloorByHouseId(this.selectFloorNum,this.houseId);
         },
+        polygon1() {
+            let poly = this.$store.getters.floorByNum(this.selectFloorNum);
+            return poly ? poly.polygon:'';
+        },
+        pathPoly(){
+            return this.selectFloor? this.selectFloor.path:'';
+        }
     },
     methods: {
         hoverRealty(relaty,e){
@@ -93,7 +99,6 @@ export default {
             els.forEach((el)=> {
                 el.classList.remove('active')
             })
-
             for(let el in this.selectFloor.polygon) {
                 if (this.selectFloor.polygon[el].realty == relaty.id && this.selectFloor.polygon[el].reserv) {
                     this.selectFloor.polygon[el].color = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
@@ -130,9 +135,16 @@ export default {
         planSvg
     },
     created() {
-
         this.houseId = parseInt(this.$route.params.id);
         this.selectFloorNum = this.$route.params.floor;
+        console.log();
+        
+        if (!(this.house && this.floors && this.selectFloor && this.realtys.length)) {
+            this.$store.dispatch('getRealtysByHouseId').then(response => {
+                this.$store.dispatch('getFloorsByHouseId')
+            }, err => { throw err });
+            this.$store.dispatch('getHousesByDistrictId')
+        }
     }
 }
 </script>

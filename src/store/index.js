@@ -18,6 +18,7 @@ const store = new Vuex.Store({
         floors:[],
         gallery:[],
         stream:[],
+        absPath: location.origin,
     },
     mutations: {
         set(state, {type, items}) {
@@ -72,7 +73,7 @@ const store = new Vuex.Store({
     },
     actions: {
         getHousesByDistrictId({ commit }, districtId = 15) {
-            let endpoint = 'src/api/getHousesByDistrictId'
+            let endpoint = this.getters.findAll('absPath') + '/src/api/getHousesByDistrictId'
             Vue.http.get(endpoint, {params: {id: districtId}}).then((response) => {
                 let data = response.data.response;
                 let district = {
@@ -84,7 +85,7 @@ const store = new Vuex.Store({
             },(err) => { throw err });
         },
         getFloorsByHouseId({ commit }, house_id = 14) {
-            let endpoint = 'src/api/getFloorsByHouseId'
+            let endpoint = this.getters.findAll('absPath')+'/src/api/getFloorsByHouseId';
             return new Promise((resolve, reject) => {
                 Vue.http.get(endpoint, {params: {id: house_id}}).then((response) => {
                     let data = response.data.response;
@@ -101,7 +102,7 @@ const store = new Vuex.Store({
             });
         },
         getRealtysByHouseId({ commit }, house_id = 14){
-            let endpoint = 'src/api/getRealtysByHouseId'
+            let endpoint = this.getters.findAll('absPath')+ '/src/api/getRealtysByHouseId'
             return new Promise((resolve, reject) => {
                 Vue.http.get(endpoint, {params: {id: house_id}}).then((response) => {
                     let data = response.data.response.realty
@@ -111,7 +112,7 @@ const store = new Vuex.Store({
             });
         },
         getGallery({commit}, year = 2018) {
-            let endpoint = '../src/api/gallery';
+            let endpoint = this.getters.findAll('absPath') + '/src/api/gallery';
             Vue.http.get(endpoint).then((response)=>{
                 let img = [];
                 _.each(response.data.images[2018], (el,monthName) => {
