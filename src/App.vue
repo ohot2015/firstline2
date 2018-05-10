@@ -43,6 +43,9 @@ Vue.use(VueScrollTo, {
  })
 
 var router = new VueRouter({
+    hashbang: false,
+    history: true,
+    mode: 'history',
     routes: [
         {path: '/',  name: 'home', component: AppLongrid},
         {path: '/scrollTo/:scrollTo',  name: 'district', component: AppLongrid},

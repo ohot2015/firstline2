@@ -50,16 +50,6 @@ export default {
         }
     },
     computed: {
-        // houses() {
-        //     let houses = this.$store.getters.houses;
-        //     console.log(houses);
-        //     if (houses) {
-        //         return houses;
-        //     }
-        //     else {
-        //        return 0
-        //     }
-        // },
         districtImg(){
             return this.$store.getters.districtImg;
         },
@@ -94,7 +84,7 @@ export default {
             this.$store.dispatch('getFloorsByHouseId')
         }, err => { throw err });
         this.$store.dispatch('getHousesByDistrictId')
-        this.$store.dispatch('getGallery');
+       // this.$store.dispatch('getGallery');
         this.houses = this.$store.getters.houses;
     }
 }

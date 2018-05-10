@@ -16,16 +16,16 @@
                     </ul>
                 </div>
             </template>
-            <img src="src/assets/img/buter_1024.png" alt="" class="ico"><!-- <div>меню</div> -->
+            <img src="../assets/img/buter_1024.png" alt="" class="ico"><!-- <div>меню</div> -->
         </div>
         <button @click="chanageRealty">
             Выбрать квартиру
         </button>
       </div>
-      <div class="logo"><a href=""><img src="src/assets/img/logo-menu.png" alt=""></a></div>
+      <div class="logo"><a href=""><img src="../assets/img/logo-menu.png" alt=""></a></div>
       <div class="contact">
         <div class="wrap">
-          <img src="src/assets/img/phone_1024.png" alt="" class="logo-phone">
+          <img src="../assets/img/phone_1024.png" alt="" class="logo-phone">
           <div class="phone">
               <div class="digit">{{ phone }}</div>
               <div class="desc">телефон отдела продаж</div>

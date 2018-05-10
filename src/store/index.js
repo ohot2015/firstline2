@@ -34,12 +34,10 @@ const store = new Vuex.Store({
         findByOne:(state)=>(entity, query = {}) => {
             return _.find(state[entity],query);
         },
-
-
         houses(state) {
             return state.houses;
         },
-        house:(state) => (id = 14) => {
+        house:(state, actions) => (id = 14) => {
             var id = parseInt(id);
             return _.find(state.houses,{id:id});
         },
@@ -53,13 +51,12 @@ const store = new Vuex.Store({
         getRealtyInFloor:(state) =>(floor,section)=> {
             let floor1 = parseInt(floor),
              section1 = parseInt(section);
-            return  _.filter(state.realtys,{section:section1,floor:floor1})
+            return _.filter(state.realtys,{section:section1,floor:floor1});
         },
         realty:(state) => (id) => {
             var id = parseInt(id);
             return _.find(state.realtys,{id:id});
         },
-
         getRealtysByHouseId:(state, getters) => (houseId = 14) => {
             var houseId = parseInt(houseId);
             return _.filter(state.realtys,{house_id: houseId});
@@ -67,7 +64,6 @@ const store = new Vuex.Store({
         getRealtyByFloorByHouseId:(state, getters)=>(floorNum,houseId)=>{
             var floorNum = parseInt(floorNum),
                 houseId = parseInt(houseId);
-
             return _.filter(state.realtys,{floor:floorNum, house_id:houseId});
         },
         districtImg(state) {
@@ -115,7 +111,7 @@ const store = new Vuex.Store({
             });
         },
         getGallery({commit}, year = 2018) {
-            let endpoint = 'src/api/gallery';
+            let endpoint = '../src/api/gallery';
             Vue.http.get(endpoint).then((response)=>{
                 let img = [];
                 _.each(response.data.images[2018], (el,monthName) => {

@@ -11,11 +11,11 @@
                     :loop="false"
                     :images="stream"
                     :title="'Сейчас'"
-                    :imgprev="stream[0].src"
+                    :imgprev="streamPrev"
                     >
                     <div class="container">
                        <div class="photo">
-                            <img :src="stream[0].src" :alt="caption" @click="clickImage(0)">
+                            <img :src="streamPrev"  @click="clickImage(0)">
                        </div>
                         <div class="desc"><span>Видеонаблюдение</span></div>
                    </div>
@@ -48,46 +48,36 @@
 import AppFooter from './AppFooter.vue'
 import _ from 'underscore'
 import lightbox from './Lightbox.vue';
-//@click="clickImage(0)"
+
 export default {
     name: 'gallery',
     data () {
         return {
-            endpoint: 'src/api/gallery',
-            gallery: [],
-            img: [{
-                    month: [
-                        {
-                            title: 'январь',
-                            imgPrev: 'https://unsplash.it/500',
-                            images: [
-                                {
-                                    src: 'https://unsplash.it/500',
-                                },
-                                {
-                                    src: 'https://unsplash.it/400',
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            stream: [{
-                src:''
-            }]
         }
     },
     methods: {
+    },
+    computed: {
+        img() {
+            return this.$store.getters.findAll('gallery');
+        },
+        stream() {
+            return this.$store.getters.findAll('stream');
+        },
+        streamPrev(){
+            let prev = _.first(this.$store.getters.findAll('stream'));
+            return prev ? prev.src : '' ;
+        }
+
     },
     components: {
       AppFooter,
       lightbox
     },
-    created: function() {
-      this.img = this.$store.getters.findAll('gallery');
-      this.stream = this.$store.getters.findAll('stream');
-console.log(this.stream);
-      //this.getGallery();
+    created() {
+        if (!this.img.length && !this.stream.length) {
+            this.$store.dispatch('getGallery');
+        }
     }
 }
 
@@ -140,6 +130,5 @@ console.log(this.stream);
       margin: 0 auto;
       text-align: center;
     }
-
   }
 </style>
