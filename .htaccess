@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule !.(gif|jpg|css|js|png|pdf|ttf|otf)$ index.html
