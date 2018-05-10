@@ -84,13 +84,13 @@
 
 <style lang="scss" scoped>
     .wrap {
-
         padding-top: 68px;
         background: #e7e4ff;
         font-family: RobotoCondensed-Regular;
         height: calc(100vh - 68px);
+        width: 100%;
         @media screen and (max-height: 821px) {
-            height: calc(100% - 68px);
+            height: 800px;
         }
         h1 {
             margin: 0;
@@ -98,7 +98,6 @@
             width: 100%;
             text-align: center;
         }
-        width: 100%;
         .declaration {
             width: 960px;
             margin: 0 auto;
@@ -106,7 +105,6 @@
                 width: 1170px;
             }
         }
-
         a {
             display: block;
             height: 40px;

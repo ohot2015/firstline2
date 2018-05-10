@@ -16,15 +16,15 @@
             <p>Расположенный на набережной Малой Кокшаги, комплекс обладает рядом эксклюзивных особенностей: необычная архитектура зданий, многофункциональный внутренний двор с развитой инфраструктура и детским садом, закрытая охраняемая территория и, конечно, захватывающие панорамные виды на речную акваторию, лесопарковые массивы и архитектурные объекты столицы.</p>
         </section>
         <section class="wrap-map">
-                  <!-- :coords="[56.625628, 47.892787]" -->
+                <!-- :coords="[56.625628, 47.892787]" -->
             <div id="yamaps">
                 <yandex-map
-                  :coords="[56.621752, 47.897829]"
-                  zoom="16"
-                  style="width: 100%; height: 100%;"
-                  :placemarks="placemarks"
-                  :controls="['zoomControl']"
-                  :behaviors="['drag', 'dblClickZoom', 'rightMouseButtonMagnifier', 'multiTouch']"
+                :coords="[56.621752, 47.897829]"
+                zoom="16"
+                style="width: 100%; height: 100%;"
+                :placemarks="placemarks"
+                :controls="['zoomControl']"
+                :behaviors="['drag', 'dblClickZoom', 'rightMouseButtonMagnifier', 'multiTouch']"
                 >
                 </yandex-map>
             <div class="wave"></div>
@@ -129,6 +129,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
     .content {
         background: white;
     }
