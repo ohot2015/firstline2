@@ -25,10 +25,11 @@
                 <slide v-for="(item, index) in selectedSlider" :key="index" >
                     <lightbox
                     :loop="false"
+                    :tmp="realty.id"
                     :images="[{src:'http://' + item.img_path}]"
                     >
                         <div class="wrap">
-                            <img :src="'http://' + item.img_path" alt="">
+                            <img :src="'http://' + item.img_path" :key="item.img_path" alt="">
                         </div>
                     </lightbox>
                 </slide>
@@ -83,9 +84,7 @@ export default {
     name: 'AppRealty',
     data () {
         return {
-            rId: this.$route.params.id,
-            infoBoard: {
-            },
+            rId: this.$route.params.id,            
             nav:[
                 {
                     line1: '2D',
@@ -103,12 +102,12 @@ export default {
                     type: '3'
                 },
             ],
-            sliders:{
-                1: [{img_path: ''}],
-                2: [{img_path:''}],
-                3: [{img_path:''}]
-            },
-            selectedSlider:[],
+            // sliders:{
+            //     1: [{img_path: ''}],
+            //     2: [{img_path:''}],
+            //     3: [{img_path:''}]
+            // },
+            selected:1,
             
         }
     },
@@ -120,31 +119,38 @@ export default {
         lightbox,
     },
     computed: {
-        endpoint(){
+        endpoint() {
             return this.$store.getters.findAll('absPath')+'/src/api/realty';
-        } 
+        },
+        realty() {
+            return this.$store.getters.realty(this.rId);
+        },
+        house(){
+            return this.$store.getters.house();
+        },
+        infoBoard() {
+            if (this.realty){
+                return getInfoBoard(this.realty,this.house);
+            }
+            return {};
+        },
+        sliders(){
+            if (this.realty) {
+                return {
+                    1: _.filter(this.realty.img,{type:1}),
+                    2: _.filter(this.realty.img,{type:2}),
+                    3: _.filter(this.realty.img,{type:3})
+                }  
+            }
+            return {};
+        },
+        selectedSlider() {
+            return this.sliders[this.selected]
+        }
     },
     methods: {
-        clickHouseRealty(typeSlider){
-            this.selectedSlider = this.sliders[typeSlider];
-        },
-        getRealtysByHouseId: function() {
-
-          this.$http.get(this.endpoint, {params: {realty_id: this.rId}}).then(function(response){
-            let house = response.data.house;
-            let realty = response.data.realty;
-            this.infoBoard = getInfoBoard(realty,house);
-            // при перовй загрузки страницы
-            let selectedSlider = _.find(realty.img,{type:1}) || _.find(realty.img,{type:2});
-            if (selectedSlider) {
-                this.selectedSlider = [selectedSlider];
-            }
-            // подставляю значения для навигации
-            this.sliders[1] = _.filter(realty.img,{type:1})
-            this.sliders[2] = _.filter(realty.img,{type:2})
-            this.sliders[3] = _.filter(realty.img,{type:3})
-          },
-          (err)=>{ throw err })
+        clickHouseRealty(typeSlider = 1){
+           this.selected = typeSlider;
         },
         backToPlan: function() {
             this.$router.push({name:'house',params:{id:14}});
@@ -154,7 +160,11 @@ export default {
         }
     },
     created () {
-        this.getRealtysByHouseId();
+        if (!(this.house && this.realty)){
+            this.$store.dispatch('getRealtysByHouseId');
+            this.$store.dispatch('getHousesByDistrictId');
+        }
+        this.clickHouseRealty();
     }
 }
 </script>
@@ -180,7 +190,6 @@ export default {
     .VueCarousel {
         height: 100%;
     }
-
     .wrap-all{
         width: 100%;
         background: #e7e4ff;
