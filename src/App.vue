@@ -4,6 +4,7 @@
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
+    <killer-call></killer-call>
   </div>
 </template>
 
@@ -20,12 +21,14 @@ import AppFloor from './components/AppFloor.vue'
 import AppRealty from './components/AppRealty.vue'
 import AppAbout from './components/AppAbout.vue'
 import AppDeclaration from './components/AppDeclaration.vue'
+import killerCall from './components/killerCall.vue'
 
 import YmapPlugin from 'vue-yandex-maps'
 import VueScrollTo from 'vue-scrollto'
 Vue.use(YmapPlugin)
 Vue.use(VueRouter)
 Vue.component('AppMenu', AppMenu);
+Vue.component('killerCall', killerCall);
 
 
 // You can also pass in the default options

@@ -44,7 +44,7 @@ export default {
       form: {
         name:'',
         phone:'',
-        rId:this.realtyId,
+        rId:this.realtyId?this.realtyId:'',
       }
     }
   },

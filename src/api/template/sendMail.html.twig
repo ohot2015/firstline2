@@ -1,0 +1,19 @@
+<table>
+    <tr>
+        <td>
+        {% if rId|default() %}
+            <a href="http://m2metr.com/advert/$r_id" target="_blank">Оставлена заявка на бронь квартиры, посмотреть заявку </a>
+        {% else %}
+            Заказ звонка
+        {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>Имя:</td>
+        <td>{{name}}</td>
+    </tr>
+    <tr>
+        <td>Телефон:</td>
+        <td>{{phone}}</td>
+    </tr>
+</table>

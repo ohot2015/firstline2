@@ -16,18 +16,10 @@ $route = $method_arr[0];
 
 switch ($route) {
     case 'getHousesByDistrictId':
-        $return = $crm->api('getHousesByDistrictId', [
-            'id'=> 15
-        ]);
-        break;
     case 'getFloorsByHouseId':
-        $return = $crm->api('getFloorsByHouseId', [
-            'id'=> 14
-        ]);
-        break;
     case 'getRealtysByHouseId':
-        $return = $crm->api('getRealtysByHouseId', [
-            'id'=> 14
+        $return = $crm->api($route, [
+            'id'=> 15
         ]);
         break;
     case 'gallery':
@@ -61,27 +53,23 @@ switch ($route) {
         $name = $_REQUEST['name'];
         $phone = $_REQUEST['phone'];
         $r_id = $_REQUEST['rId'];
-$tempalte = <<<END
-    <table>
-        <tr>
-            <td>
-            <a href="http://m2metr.com/advert/$r_id" target="_blank">Оставлена заявка на бронь квартиры, посмотреть заявку </a>
-            </td>
-        </tr>
-        <tr>
-            <td>Имя:</td>
-            <td>$name</td>
-        </tr>
-        <tr>
-            <td>Телефон:</td>
-            <td>$phone</td>
-        </tr>
-    </table>
-END;
 
-$return = @mail( 'ohot2015@gmail.com' , 'Первая линия' , $tempalte, "From:noreply@line12.ru\r\n"
-."Content-type: text/html; charset=utf-8\r\n"
-."X-Mailer: PHP mail script" );
+        $loader = new Twig_Loader_Filesystem('template');
+        $twig = new Twig_Environment($loader, array(
+            'cache' => '../../var/twig/cache',
+            'debug' => true
+        ));
+        $twig->addExtension(new Twig_Extension_Debug());
+
+        $template = $twig->render('sendMail.html.twig', [
+            'name' => $name,
+            'phone' => $phone,
+            'rId' => $r_id
+        ]);
+       
+        $return = @mail( 'ohot2015@gmail.com' , 'Первая линия' , $tempalte, "From:noreply@line12.ru\r\n"
+        ."Content-type: text/html; charset=utf-8\r\n"
+        ."X-Mailer: PHP mail script" );
         $return = @mail( 'info@line12.ru' , 'Первая линия' , $tempalte, "From:noreply@line12.ru\r\n"
             ."Content-type: text/html; charset=utf-8\r\n"
             ."X-Mailer: PHP mail script" );

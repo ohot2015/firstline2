@@ -24,7 +24,7 @@ export default {
         return {
             infoBoardData:{},
             showModal: false,
-            endpoint: 'src/api/sendMail'
+            endpoint: this.$store.getters.findAll('absPath')+'/src/api/sendMail'
         }
     },
     methods: {
