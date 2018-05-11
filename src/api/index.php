@@ -18,18 +18,15 @@ switch ($route) {
     case 'getHousesByDistrictId':
     case 'getFloorsByHouseId':
     case 'getRealtysByHouseId':
-        $return = $crm->api($route, [
-            'id'=> 15
-        ]);
+    
+        $return = $crm->api($route, $param);
         break;
     case 'gallery':
         $gallery  = new StreamGallery($_SERVER['DOCUMENT_ROOT'] . '/gallery', '/gallery');
         $return = ['images' => $gallery->getData(),'stream' => $gallery->getStream()];
         break;
     case 'realty':
-        $rs = $crm->api('getRealtysByHouseId', [
-            'id'=> 14
-        ]);
+        $rs = $crm->api('getRealtysByHouseId', $param);
 
         if (empty($rs['response']) && $_REQUEST['realty_id']) {
             $return = ('server error');
@@ -67,10 +64,10 @@ switch ($route) {
             'rId' => $r_id
         ]);
        
-        $return = @mail( 'ohot2015@gmail.com' , 'Первая линия' , $tempalte, "From:noreply@line12.ru\r\n"
+        $return = @mail( 'ohot2015@gmail.com' , 'Первая линия' , $template, "From:noreply@line12.ru\r\n"
         ."Content-type: text/html; charset=utf-8\r\n"
         ."X-Mailer: PHP mail script" );
-        $return = @mail( 'info@line12.ru' , 'Первая линия' , $tempalte, "From:noreply@line12.ru\r\n"
+        $return = @mail( 'info@line12.ru' , 'Первая линия' , $template, "From:noreply@line12.ru\r\n"
             ."Content-type: text/html; charset=utf-8\r\n"
             ."X-Mailer: PHP mail script" );
         break;
@@ -78,6 +75,7 @@ switch ($route) {
         # code...
         break;
 }
+
 echo json_encode($return);
 
 ?>
