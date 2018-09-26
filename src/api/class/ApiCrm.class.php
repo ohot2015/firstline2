@@ -48,7 +48,7 @@ class ApiCrm {
     }
 
     private function Env () {
-        $this->crm_url = ($this->dev) ?  'http://crm/app_dev.php/api/' :'http://crm.m2metr.com/api/';
+        $this->crm_url = ($this->dev) ?  'https://crm/app_dev.php/api/' :'https://crm.m2metr.com/api/';
     }
     /**
      * Destructor.
