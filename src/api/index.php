@@ -18,7 +18,7 @@ switch ($route) {
     case 'getHousesByDistrictId':
     case 'getFloorsByHouseId':
     case 'getRealtysByHouseId':
-    
+    case 'getFasadByHouseId':
         $return = $crm->api($route, $param);
         break;
     case 'gallery':

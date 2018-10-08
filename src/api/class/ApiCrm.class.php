@@ -4,7 +4,7 @@ class ApiCrm {
     private $var_cache = '';
     private $time_cahe_live = 60*10;
 
-    private $dev = false;
+    private $dev = true;
     private $cache_on = false;
     private $access_token;
     private $crm_url;
@@ -48,7 +48,7 @@ class ApiCrm {
     }
 
     private function Env () {
-        $this->crm_url = ($this->dev) ?  'https://crm/app_dev.php/api/' :'https://crm.m2metr.com/api/';
+        $this->crm_url = ($this->dev) ?  'http://crm/app_dev.php/api/' :'https://crm.m2metr.com/api/';
     }
     /**
      * Destructor.
@@ -152,7 +152,8 @@ class ApiCrm {
             CURLOPT_POSTFIELDS => $postfields,
             CURLOPT_URL => $url
         ));
-
-        return curl_exec($this->ch);
+        $dump = curl_exec($this->ch);
+        //var_dump($dump);
+        return $dump;
     }
 }

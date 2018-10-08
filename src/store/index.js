@@ -19,6 +19,7 @@ const store = new Vuex.Store({
         gallery:[],
         stream:[],
         absPath: location.origin,
+        fasads:[],
     },
     mutations: {
         set(state, {type, items}) {
@@ -42,6 +43,7 @@ const store = new Vuex.Store({
             var id = parseInt(id);
             return _.find(state.houses,{id:id});
         },
+
         floors(state) {
             return state.floors;
         },
@@ -69,6 +71,9 @@ const store = new Vuex.Store({
         },
         districtImg(state) {
             return state.district.img;
+        },
+        fasadImg:(state) => (photoId = 0) => {
+            return state.fasads.fasads[photoId];
         }
     },
     actions: {
@@ -97,6 +102,27 @@ const store = new Vuex.Store({
                         })
                     })
                     commit('set',{type:'floors', items:data});
+                    resolve(response);
+                },(err) => { reject(error); });
+            });
+        },
+        getFasadByHouseId({ commit }, house_id = 14) {
+            let endpoint = this.getters.findAll('absPath')+'/src/api/getFasadByHouseId';
+            return new Promise((resolve, reject) => {
+                Vue.http.get(endpoint, {params: {id: house_id}}).then((response) => {
+                    let data = response.data.response;
+
+                    // for(let fasad in data.fasads ) {
+                    //     let img = new Image();
+                    //     img.src = 'http://' + data.fasads[fasad].url;
+                    //     img.onload = function() {
+                    //         data.fasads[fasad]['imgW'] = this.width;
+                    //         data.fasads[fasad]['imgH'] = this.height;
+                    //         console.log(2)
+                    //     };
+                    // }
+                     console.log(data)
+                    commit('set',{type:'fasads', items:data});
                     resolve(response);
                 },(err) => { reject(error); });
             });

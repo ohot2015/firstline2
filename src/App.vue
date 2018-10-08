@@ -14,7 +14,8 @@ import VueRouter from 'vue-router'
 
 import AppMenu from './components/AppMenu.vue'
 
-import AppLongrid from './components/AppLongrid.vue'
+//import AppLongrid from './components/AppLongrid.vue'
+import PageFasad from './components/Fasad/PageFasad.vue'
 import AppHouse from './components/AppHouse.vue'
 import AppGallery from './components/AppGallery.vue'
 import AppFloor from './components/AppFloor.vue'
@@ -50,8 +51,9 @@ var router = new VueRouter({
     history: true,
     mode: 'history',
     routes: [
-        {path: '/',  name: 'home', component: AppLongrid},
-        {path: '/scrollTo/:scrollTo',  name: 'district', component: AppLongrid},
+       // {path: '/',  name: 'home', component: AppLongrid},
+        {path: '/',  name: 'home', component: PageFasad},
+        {path: '/scrollTo/:scrollTo',  name: 'district', component: PageFasad},
         {path: '/house/:id', name:'house', component: AppHouse},
         {path: '/floor/:id/:floor',name:'floor', component: AppFloor},
         {path: '/realty/:id', name:'realty', component: AppRealty},
@@ -69,7 +71,6 @@ export default {
   },
   updated(){
     if (this.$router.currentRoute.name == 'home'){
-      console.log('home');
     }
   },
   router,
