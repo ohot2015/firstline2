@@ -1,5 +1,11 @@
 <template>
     <transition>
+        <tooltip class="tooltip" :options="tooltip" v-if="rh">
+            <header>{{rh.rooms}} комн. <span class="delimiter">/</span> №  {{rh.num}}</header>
+            <div class="body">
+                {{rh.square}} м2
+            </div>
+        </tooltip>
         <carousel
                 :per-page="1"
                 :mouse-drag="true"
@@ -7,9 +13,9 @@
                 :paginationEnabled="false"
                 :key="'qwe12323'"
                 :style="'height:100%;'"
-                :autoplay="true"
+                :autoplay="false"
         >
-             <slide v-for="(fasad, index) in  fasads" :key="index" >
+             <slide v-for="(fasad, index) in  $store.getters.fasadFilterRoom(changedRoom)" :key="index" >
                  <div class="wrap">
                      <div class="qwe">{{fasad.imgW }}</div>
                      <svg :style="'background-image: url(http://'+fasad.url+'); background-repeat: no-repeat; width:' +
@@ -21,7 +27,9 @@
                                      data-floor="item.floor"
                                      data-queue="item.queue"
                                      data-pod="item.pod"
-                                     fill="rgba(255,255,255,0.5)"
+                                     :fill="item.fill"
+                                     @mouseenter="tooltipChange(poly.realty,$event)"
+                                     @mouseleave="tooltipChange(poly.realty,$event)"
                              >
                              </polygon>
                          </g>
@@ -33,13 +41,21 @@
 </template>
 <script>
 import { Carousel, Slide } from 'vue-carousel';
-
+import _ from 'underscore'
 export default {
     name: 'Fasad',
     data () {
         return {
+            tooltip: {
+                width:'',
+                height:'',
+                offsetX: "",
+                offsetY: "",
+                show: false
+            },
         }
     },
+    props:['changedRoom'],
     computed: {
         fasads() {
             return this.$store.getters.findAll('fasads').fasads;

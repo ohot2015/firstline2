@@ -27,53 +27,71 @@ const store = new Vuex.Store({
         },
     },
     getters: {
-        findAll:(state) => (entity) => {
+        findAll: (state) => (entity) => {
             return state[entity]
         },
-        findBy:(state) => (entity, query = {}) => {
-            return _.filter(state[entity],query);
+        findBy: (state) => (entity, query = {}) => {
+            return _.filter(state[entity], query);
         },
-        findByOne:(state)=>(entity, query = {}) => {
-            return _.find(state[entity],query);
+        findByOne: (state) => (entity, query = {}) => {
+            return _.find(state[entity], query);
         },
         houses(state) {
             return state.houses;
         },
-        house:(state, actions) => (id = 14) => {
+        house: (state, actions) => (id = 14) => {
             var id = parseInt(id);
-            return _.find(state.houses,{id:id});
+            return _.find(state.houses, {id: id});
         },
 
         floors(state) {
             return state.floors;
         },
-        floorByNum:(state) => (num = 1) => {
-            let floor = _.find(state.floors.floors,{floor:parseInt(num)});
+        floorByNum: (state) => (num = 1) => {
+            let floor = _.find(state.floors.floors, {floor: parseInt(num)});
             return floor
         },
-        getRealtyInFloor:(state) =>(floor,section)=> {
+        getRealtyInFloor: (state) => (floor, section) => {
             let floor1 = parseInt(floor),
-             section1 = parseInt(section);
-            return _.filter(state.realtys,{section:section1,floor:floor1});
+                section1 = parseInt(section);
+            return _.filter(state.realtys, {section: section1, floor: floor1});
         },
-        realty:(state) => (id) => {
+        realty: (state) => (id) => {
             var id = parseInt(id);
-            return _.find(state.realtys,{id:id});
+            return _.find(state.realtys, {id: id});
         },
-        getRealtysByHouseId:(state, getters) => (houseId = 14) => {
+        getRealtysByHouseId: (state, getters) => (houseId = 14) => {
             var houseId = parseInt(houseId);
-            return _.filter(state.realtys,{house_id: houseId});
+            return _.filter(state.realtys, {house_id: houseId});
         },
-        getRealtyByFloorByHouseId:(state, getters)=>(floorNum,houseId)=>{
+        getRealtyByFloorByHouseId: (state, getters) => (floorNum, houseId) => {
             var floorNum = parseInt(floorNum),
                 houseId = parseInt(houseId);
-            return _.filter(state.realtys,{floor:floorNum, house_id:houseId});
+            return _.filter(state.realtys, {floor: floorNum, house_id: houseId});
         },
         districtImg(state) {
             return state.district.img;
         },
-        fasadImg:(state) => (photoId = 0) => {
-            return state.fasads.fasads[photoId];
+        fasadFilterRoom: (state, getters) => (room = [1, 2, 3, 4]) => {
+            console.log(room);
+            let realtys = _.filter(state.realtys, (item) => {
+                return room.indexOf(item.rooms) !== -1
+            });
+
+            let fasad1 = state.fasads.fasads;
+            for (let j in fasad1) {
+                for (let i in fasad1[j]) {
+                    let fasad = fasad1[j][i];
+                    if ( typeof fasad === 'object') {
+                        fasad.fill = 'rgba(255,255,255,0)';
+                        if (_.filter(realtys, {floor: fasad.floor, section: fasad.pod}).length) {
+                            fasad.fill = 'rgba(255,255,255,.5)';
+                        }
+                    }
+                }
+            }
+            return fasad1;
+
         }
     },
     actions: {
