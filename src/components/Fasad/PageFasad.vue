@@ -1,31 +1,23 @@
 <template>
-    <transition>
+    <div class="wrap-page-fasad">
         <div class="fasad">
             <div class="container">
-                <FilterFasad @eventRoomClick="RoomClick"></FilterFasad>
+                <FilterFasad></FilterFasad>
             </div>
-            <fasad :changedRoom="changedRoom"></fasad>
+            <fasad></fasad>
         </div>
-    </transition>
+        <app-footer></app-footer>
+    </div>
 </template>
 <script>
 
 import AppFooter from 'components/AppFooter.vue'
 import Fasad from './Fasad.vue'
 import FilterFasad from './FilterFasad.vue'
-
 export default {
     name: 'PageFasad',
-    data () {
-        return {
-            changedRoom: [1,2,3,4]
-        }
-    },
-    methods: {
-        RoomClick(num) {
-            this.changedRoom = num;
-        }
-    },
+
+
     mounted(){
         if (this.$route.params.scrollTo) {
             this.$scrollTo('#scrolltodistrict', 500, {easing: "ease-in-out",})
@@ -42,7 +34,7 @@ export default {
     components: {
         AppFooter,
         Fasad,
-        FilterFasad
+        FilterFasad,
     },
 }
 </script>

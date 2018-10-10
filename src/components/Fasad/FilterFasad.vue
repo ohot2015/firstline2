@@ -15,22 +15,21 @@ export default {
     name:'FilterFasad',
     data () {
         return {
-            selectedButton:[],
         }
     },
     methods: {
         buttonClick(num, e) {
-            let index = this.selectedButton.indexOf(num);
+            let selectedButton = this.$store.getters.findAll('selectedButton');
+            let index = selectedButton[num];
 
-            if (index  === -1) {
-                this.selectedButton.push(num)
-                e.target.classList.add("active");
-            }
-            else {
-                delete this.selectedButton[index];
+            if (index && index !== undefined) {
+                selectedButton[num] = false;
                 e.target.classList.remove("active");
             }
-            this.$emit('eventRoomClick', this.selectedButton);
+            else {
+                selectedButton[num] = true;
+                e.target.classList.add("active");
+            }
             return true ;
         }
     }
@@ -51,15 +50,15 @@ export default {
             button {
                 font: inherit;
                 color: #252525;
-                border:1px solid #252525;
+                border: 1px solid #252525;
                 width: 30px;
                 height: 30px;
                 -webkit-border-radius: 2px;
                 -moz-border-radius: 2px;
                 border-radius: 2px;
-                background-color: transparent;
+                background-color: rgba(231, 228, 255,0.5);
                 &.active {
-                    color: #e7e4ff;
+
                     border-color: #e7e4ff;
                 }
                 &:active {

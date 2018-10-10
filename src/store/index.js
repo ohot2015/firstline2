@@ -20,6 +20,13 @@ const store = new Vuex.Store({
         stream:[],
         absPath: location.origin,
         fasads:[],
+        selectedButton:{
+            1:false,
+            2:false,
+            3:false,
+            4:false
+        },
+
     },
     mutations: {
         set(state, {type, items}) {
@@ -72,12 +79,11 @@ const store = new Vuex.Store({
         districtImg(state) {
             return state.district.img;
         },
-        fasadFilterRoom: (state, getters) => (room = [1, 2, 3, 4]) => {
-            console.log(room);
+        fasadFilterRoom(state) {
+            console.log('fasadFilterRoom');
             let realtys = _.filter(state.realtys, (item) => {
-                return room.indexOf(item.rooms) !== -1
+                return state.selectedButton[item.rooms] && item.status == 'free' && !item.reserv;
             });
-
             let fasad1 = state.fasads.fasads;
             for (let j in fasad1) {
                 for (let i in fasad1[j]) {
@@ -90,6 +96,7 @@ const store = new Vuex.Store({
                     }
                 }
             }
+
             return fasad1;
 
         }
@@ -185,7 +192,8 @@ const store = new Vuex.Store({
             },(err) => {throw err})
         }
     },
-    plugins: [createPersistedState()]
+    plugins: [createPersistedState()],
+
 });
 
 export default store
