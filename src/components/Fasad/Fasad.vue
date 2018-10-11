@@ -199,19 +199,35 @@ export default {
             li.VueCarousel-dot--active {
                 button{
                     border: 1px solid white;
-                    color :#252525;
+                    color :black;
+                    background: rgba(255, 255, 255, 0.6)!important;
+                    border-color: black;
                 }
 
             }
             button {
-                width: 100px !important;
-                height:20px !important;
-                background: rgba(231, 228, 255,0.5)!important;
-                border: 1px solid #252525;
-                -webkit-border-radius: 2px;
-                -moz-border-radius: 2px;
-                border-radius: 2px;
-
+                width: auto !important;
+                min-width: 10px;
+                padding: 0 10px;
+                font-size: 14px;
+                font-family: direct-Bold;
+                height: 33px !important;
+                background: rgba(0, 0, 0, 0.6)!important;
+                box-sizing: border-box;
+                border: 1px solid transparent;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                color:white;
+                &:focus {
+                    outline:0;
+                }
+                &:hover {
+                    border: 1px solid white;
+                    color :black;
+                    background: rgba(255, 255, 255, 0.6)!important;
+                    border-color: black;
+                }
             }
         }
 

@@ -1,11 +1,11 @@
 <template>
     <div class="filter-fasad">
-        <div class="desc">кол-во комнат</div>
+        <div class="desc">количество комнат</div>
         <div class="wrap-button">
-            <button @click="buttonClick(1, $event)" >1</button>
-            <button @click="buttonClick(2, $event)" >2</button>
-            <button @click="buttonClick(3, $event)" >3</button>
-            <button @click="buttonClick(4, $event)" >4+</button>
+            <button @click="buttonClick(1, $event)" class="active" >1</button>
+            <button @click="buttonClick(2, $event)" class="active" >2</button>
+            <button @click="buttonClick(3, $event)" class="active" >3</button>
+            <button @click="buttonClick(4, $event)" class="active" >4+</button>
         </div>
     </div>
 </template>
@@ -21,7 +21,7 @@ export default {
         buttonClick(num, e) {
             let selectedButton = this.$store.getters.findAll('selectedButton');
             let index = selectedButton[num];
-
+            console.log(num, index,selectedButton[num])
             if (index && index !== undefined) {
                 selectedButton[num] = false;
                 e.target.classList.remove("active");
@@ -43,31 +43,43 @@ export default {
         left: 0;
         top: 20px;
         .desc {
-            //text-transform: uppercase;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-family: RobotoCondensed-Regular;
         }
         .wrap-button {
             margin-top: 5px;
             button {
                 font: inherit;
-                color: #252525;
-                border: 1px solid #252525;
-                width: 30px;
-                height: 30px;
-                -webkit-border-radius: 2px;
-                -moz-border-radius: 2px;
-                border-radius: 2px;
-                background-color: rgba(231, 228, 255,0.5);
-                &.active {
+                font-size: 22px;
+                font-family: direct-Bold;
+                color: white;
+                border: 1px solid transparent;
+                box-sizing: border-box;
+                width: 37px;
+                height: 33px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                background-color: rgba(0, 0, 0,0.6);
 
+                &.active {
                     border-color: #e7e4ff;
+                    color: black;
+                    border-color: black;
+                    background-color: rgba(255, 255, 255, .6);
                 }
-                &:active {
-                    transform: translateY(1px);
-                    filter: saturate(150%);
+                &:active{
+                    transform: translateY(2px);
+                    outline: none;
+                }
+                &:focus{
+                    outline: none;
                 }
                 &:hover {
-                    color: #e7e4ff;
-                    border-color: #e7e4ff;
+                    color: black;
+                    border-color: white;
+                    background-color: rgba(255, 255, 255, .6);
                 }
             }
         }

@@ -21,10 +21,10 @@ const store = new Vuex.Store({
         absPath: location.origin,
         fasads:[],
         selectedButton:{
-            1:false,
-            2:false,
-            3:false,
-            4:false
+            1:true,
+            2:true,
+            3:true,
+            4:true
         },
 
     },
