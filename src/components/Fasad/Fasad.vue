@@ -39,6 +39,7 @@
                                      @mouseenter="tooltipChange(item.floor,item.pod, $event)"
                                      @mouseleave="tooltipChange(item.floor,item.pod, $event)"
                                      @click="backToFloor(item.floor, $event)"
+                                     :onload="onload = true"
                              >
                              </polygon>
                          </g>
@@ -68,6 +69,7 @@ export default {
                 freeFlat: 0,
                 flats: {1:0,2:0,3:0,4:0}
             },
+            onload: false
         }
     },
     computed: {
@@ -128,40 +130,45 @@ export default {
 
     },
     mounted(){
+
         document.querySelector('section.VueCarousel').style.overflow = 'hidden';
         // todo костыльt
-
-        setTimeout(()=>{
-
+        let promise = new Promise((resolve, reject) => {
+            let id = setInterval(()=>{
+                if (this.onload == true) {
+                    clearInterval(id)
+                    resolve('loadCarusel');
+                }
+            },10);
+        });
+        promise.then(loadCarusel => {
             let dot = document.querySelectorAll('.VueCarousel-pagination button');
             let fasads = this.fasads;
             dot.forEach((e,i) => {
                 let iter = 0;
                 for (let j in fasads){
-                   if (i == iter++ ) {
-                       e.innerHTML = fasads[j].description
-                   }
+                    if (i == iter++ ) {
+                        e.innerHTML = fasads[j].description
+                    }
                 }
             });
-        },500)
+        })
 
-//        let tmp = this.$store.getters.preloader
-//        tmp.state = false;
-//        console.log(123,this.$store.getters.preloader.state)
 
 //      document.querySelector('.VueCarousel-wrapper').style.overflowX = 'inherit';
 //      document.querySelector('.VueCarousel-wrapper').style.overflowY = 'inherit';
     },
     created() {
-
-
-        console.log('fasad')
+        if (!this.$store.getters.findAll('fasads').fasads) {
+            this.$store.dispatch('getFasadByHouseId', 14);
+        }
     }
 }
 
 </script>
 
 <style lang="scss" >
+
     .wrap-fasad {
         .tooltip {
             header {
@@ -255,4 +262,8 @@ export default {
             }
         }
     }
+    /*.footer{*/
+        /*position: absolute;*/
+        /*bottom: 0;*/
+    /*}*/
 </style>

@@ -178,6 +178,7 @@ export default {
                 width:500px;
                 justify-content: flex-start;
                 flex-grow:1;
+                margin-left:26px;
                 button {
                     appearance: none;
                     background: linear-gradient(to left, #48cad8,#00aeef);
@@ -188,7 +189,7 @@ export default {
                     font-family: "RobotoCondensed-Regular";
                     font-size: 12px;
                     height: 37px;
-                    margin-left:40px;
+                    margin-left:20px;
                     text-transform: uppercase;
                     width: 150px;
                     color:white;

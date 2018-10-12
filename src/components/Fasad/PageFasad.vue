@@ -40,8 +40,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .wrap-page-fasad {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+    }
 .fasad {
     margin-top:68px;
+    min-height: (calc(100vh - 100px));
     .container {
         position: relative;
         width: 1170px;

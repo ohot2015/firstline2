@@ -21,10 +21,10 @@ const store = new Vuex.Store({
         absPath: location.origin,
         fasads:{},
         selectedButton:{
-            1:true,
-            2:true,
-            3:true,
-            4:true
+            1:false,
+            2:false,
+            3:false,
+            4:false
         },
         // preloader:{
         //     state:true
@@ -86,8 +86,18 @@ const store = new Vuex.Store({
             return state.district.img;
         },
         fasadFilterRoom(state) {
+
+            let selectedButton = state.selectedButton;
+            if (!selectedButton[1]
+                && !selectedButton[2]
+                && !selectedButton[3]
+                && !selectedButton[4]
+            ) {
+                selectedButton = {1:1,2:1,3:1,4:1}
+            }
+
             let realtys = _.filter(state.realtys, (item) => {
-                return state.selectedButton[item.rooms] && item.status == 'free' && !item.reserv;
+                return selectedButton[item.rooms] && item.status == 'free' && !item.reserv;
             });
             let fasad1 = state.fasads.fasads;
 
