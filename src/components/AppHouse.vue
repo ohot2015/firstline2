@@ -94,7 +94,7 @@ export default {
         },
         clickFloor: function(floor) {
             this.$router.push({name:'floor',params:{id:14,floor:floor}});
-        }
+        },
     },
     created() {
         if (!(this.house && this.realtys.length)) {

@@ -19,13 +19,16 @@ const store = new Vuex.Store({
         gallery:[],
         stream:[],
         absPath: location.origin,
-        fasads:[],
+        fasads:{},
         selectedButton:{
             1:true,
             2:true,
             3:true,
             4:true
         },
+        // preloader:{
+        //     state:true
+        // },
 
     },
     mutations: {
@@ -34,6 +37,9 @@ const store = new Vuex.Store({
         },
     },
     getters: {
+        preloader(state){
+            return state.preloader;
+        },
         findAll: (state) => (entity) => {
             return state[entity]
         },
@@ -80,15 +86,15 @@ const store = new Vuex.Store({
             return state.district.img;
         },
         fasadFilterRoom(state) {
-            console.log('fasadFilterRoom');
             let realtys = _.filter(state.realtys, (item) => {
                 return state.selectedButton[item.rooms] && item.status == 'free' && !item.reserv;
             });
             let fasad1 = state.fasads.fasads;
+
             for (let j in fasad1) {
                 for (let i in fasad1[j]) {
                     let fasad = fasad1[j][i];
-                    if ( typeof fasad === 'object') {
+                    if ( typeof fasad === 'object' && fasad != null) {
                         fasad.fill = 'rgba(255,255,255,0)';
                         if (_.filter(realtys, {floor: fasad.floor, section: fasad.pod}).length) {
                             fasad.fill = 'rgba(255,255,255,.5)';
@@ -96,7 +102,6 @@ const store = new Vuex.Store({
                     }
                 }
             }
-
             return fasad1;
 
         }
@@ -146,7 +151,7 @@ const store = new Vuex.Store({
                     //         console.log(2)
                     //     };
                     // }
-                     console.log(data)
+
                     commit('set',{type:'fasads', items:data});
                     resolve(response);
                 },(err) => { reject(error); });

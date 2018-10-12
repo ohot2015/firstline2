@@ -153,7 +153,7 @@ class ApiCrm {
             CURLOPT_URL => $url
         ));
         $dump = curl_exec($this->ch);
-        //var_dump($dump);
+        //var_dump($url,$dump);
         return $dump;
     }
 }

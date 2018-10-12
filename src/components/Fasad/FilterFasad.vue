@@ -2,10 +2,10 @@
     <div class="filter-fasad">
         <div class="desc">количество комнат</div>
         <div class="wrap-button">
-            <button @click="buttonClick(1, $event)" class="active" >1</button>
-            <button @click="buttonClick(2, $event)" class="active" >2</button>
-            <button @click="buttonClick(3, $event)" class="active" >3</button>
-            <button @click="buttonClick(4, $event)" class="active" >4+</button>
+            <button @click="buttonClick(1, $event)" :class="$store.getters.findAll('selectedButton')[1]?'active':''" >1</button>
+            <button @click="buttonClick(2, $event)" :class="$store.getters.findAll('selectedButton')[2]?'active':''" >2</button>
+            <button @click="buttonClick(3, $event)" :class="$store.getters.findAll('selectedButton')[3]?'active':''" >3</button>
+            <button @click="buttonClick(4, $event)" :class="$store.getters.findAll('selectedButton')[4]?'active':''" >4+</button>
         </div>
     </div>
 </template>
@@ -21,7 +21,7 @@ export default {
         buttonClick(num, e) {
             let selectedButton = this.$store.getters.findAll('selectedButton');
             let index = selectedButton[num];
-            console.log(num, index,selectedButton[num])
+
             if (index && index !== undefined) {
                 selectedButton[num] = false;
                 e.target.classList.remove("active");

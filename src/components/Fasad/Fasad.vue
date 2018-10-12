@@ -1,7 +1,7 @@
 <template>
     <div class="wrap-fasad">
         <tooltip class="tooltip" :options="tooltip" >
-            <header> {{tooltip.floor}} Этаж </header>
+            <header> {{tooltip.floor}} Этаж, {{tooltip.pod}} Подъезд </header>
             <div class="body">
             Свободных помещений: {{tooltip.freeFlat}}
                 <div class="wrap-h-realty">
@@ -31,11 +31,11 @@
                          <g>
                              <polygon
                                      v-for="item in fasad"
-                                     :points="item.polygon"
+                                     :points="item ? item.polygon:''"
                                      data-floor="item.floor"
                                      data-queue="item.queue"
                                      data-pod="item.pod"
-                                     :fill="item.fill"
+                                     :fill="item ? item.fill:''"
                                      @mouseenter="tooltipChange(item.floor,item.pod, $event)"
                                      @mouseleave="tooltipChange(item.floor,item.pod, $event)"
                                      @click="backToFloor(item.floor, $event)"
@@ -129,8 +129,10 @@ export default {
     },
     mounted(){
         document.querySelector('section.VueCarousel').style.overflow = 'hidden';
-        // todo костыль
+        // todo костыльt
+
         setTimeout(()=>{
+
             let dot = document.querySelectorAll('.VueCarousel-pagination button');
             let fasads = this.fasads;
             dot.forEach((e,i) => {
@@ -140,20 +142,20 @@ export default {
                        e.innerHTML = fasads[j].description
                    }
                 }
-            })
+            });
         },500)
 
+//        let tmp = this.$store.getters.preloader
+//        tmp.state = false;
+//        console.log(123,this.$store.getters.preloader.state)
 
 //      document.querySelector('.VueCarousel-wrapper').style.overflowX = 'inherit';
 //      document.querySelector('.VueCarousel-wrapper').style.overflowY = 'inherit';
     },
     created() {
-        this.$store.dispatch('getRealtysByHouseId').then(response => {
-            this.$store.dispatch('getFloorsByHouseId')
-        }, err => { throw err });
-        this.$store.dispatch('getHousesByDistrictId')
-        this.$store.dispatch('getFasadByHouseId', 14);
-        this.$store.dispatch('getGallery');
+
+
+        console.log('fasad')
     }
 }
 

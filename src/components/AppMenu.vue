@@ -18,10 +18,18 @@
             </template>
             <img src="../assets/img/buter_1024.png" alt="" class="ico"><!-- <div>меню</div> -->
         </div>
-        <button @click="chanageRealty">
-            Выбрать квартиру
-        </button>
       </div>
+        <nav class="view">
+            <button @click="routFasad">
+                фасады
+            </button>
+            <button @click="routHouse">
+                шахматка
+            </button>
+            <button @click="routFloor">
+                планировки
+            </button>
+        </nav>
       <div class="logo"><a href=""><img src="../assets/img/logo-menu.png" alt=""></a></div>
       <div class="contact">
         <div class="wrap">
@@ -55,8 +63,14 @@ export default {
         click() {
             this.active = this.active ? false : true;
         },
-        chanageRealty() {
+        routFasad() {
+            this.$router.push({name:'home'});
+        },
+        routHouse() {
             this.$router.push({name:'house',params:{id:14}});
+        },
+        routFloor() {
+            this.$router.push({name:'floor',params:{id:14,floor:1}});
         }
 
     },
@@ -150,20 +164,20 @@ export default {
             justify-content: space-between;
             align-items: center;
             &>div {
-                width:300px;
+                //width:300px;
                 height: 35px;
                 cursor:pointer;
             }
             .block-menu {
                 .buter {
-                    float:left;
                     position: relative;
-
-                    //div {
-                    //     font-size: 12px;
-                    //     text-transform:uppercase;
-                    // }
                 }
+            }
+            nav.view {
+                display: flex;
+                width:500px;
+                justify-content: flex-start;
+                flex-grow:1;
                 button {
                     appearance: none;
                     background: linear-gradient(to left, #48cad8,#00aeef);
@@ -179,7 +193,7 @@ export default {
                     width: 150px;
                     color:white;
 
-                            //                    -webkit-transition: all 4s ease-in-out 1s;
+                    //                    -webkit-transition: all 4s ease-in-out 1s;
                     &:hover {
                         background: linear-gradient(to left, #00aeef,#48cad8);
                     }
