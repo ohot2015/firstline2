@@ -1,5 +1,6 @@
 <template>
-  <div class='house'>
+    <div class="wrap-house">
+  <div class='house' ref="house">
     <div class="floor-block">
         <house-realty class="realty"
             v-for="(item, key, index) in floors"
@@ -42,6 +43,7 @@
         </div>
     </div>
   </div>
+    </div>
 </template>
 <script>
 import HouseRealty from './HouseRealty.vue'
@@ -92,8 +94,8 @@ export default {
         clickHouseRealty: function(id) {
             this.$router.push({name:'realty',params:{id:id}});
         },
-        clickFloor: function(floor) {
-            this.$router.push({name:'floor',params:{id:14,floor:floor}});
+        clickFloor(floor) {
+            this.$router.push({name:'floor',params:{id:this.$store.state.houseId ,floor:floor}});
         },
     },
     created() {
@@ -101,6 +103,10 @@ export default {
             this.$store.dispatch('getHousesByDistrictId');
             this.$store.dispatch('getRealtysByHouseId');
         }
+    },
+    mounted(){
+        let width = this.$refs.house.offsetWidth;
+        console.log(width)
     }
 
 }
@@ -111,12 +117,17 @@ export default {
     $sm: 1024px;
     $md: 1366px;
     $lg: 1920px;
+    .wrap-house {
+        display: flex;
+        justify-content: center;
+        background: #e7e4ff;
+    }
     .house {
         background: #e7e4ff;
         font-family: direct-Regular;
         display: flex;
         overflow: auto;
-        justify-content: center;
+      //  justify-content: center;
         padding-top: 85px;
         min-height: calc(100% - 85px);
         .section {
@@ -127,6 +138,7 @@ export default {
             flex-direction: column;
             align-items:stretch;
             justify-content:space-between;
+            flex-basis: 200px;
             @media screen and (min-width: $sm) {
                  margin-right:6px;
             }

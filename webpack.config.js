@@ -85,9 +85,9 @@ module.exports = {
     noInfo: true,
     overlay: true,
     port: 8080,
-    host: "firstline2",
+    host: "local.ch29.ras12.ru",
     proxy: {
-      "/src/api": "http://firstline2"
+      "/src/api": "http://local.ch29.ras12.ru"
     }
   },
   performance: {

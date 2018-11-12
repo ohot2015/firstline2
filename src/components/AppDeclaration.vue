@@ -27,7 +27,8 @@
                     },
                     {
                         src: 'http://m2metr.com/uploads/document/0dfdd8be24f674b990c64bbd663c26ef.pdf',
-                        name: 'Разрешение на строительство от 13.02.2018 Ширяйково поз.3.1', date: '13.02.2018'
+                        name: 'Разрешение на строительство от 13.02.2018 Ширяйково поз.3.1',
+                        date: '13.02.2018'
                     },
                     {
                         src: 'http://m2metr.com/uploads/document/47fd11e465e5f4b2e8efb0d47700f959.pdf',
@@ -36,7 +37,8 @@
                     },
                     {
                         src: 'http://m2metr.com/uploads/document/6fdde369f0d44daf6861195cded0a1bf.pdf',
-                        name: 'Заключение экспертизы от 23.01.2018 Ширяйково поз. 3/1', date: '23.01.2018'
+                        name: 'Заключение экспертизы от 23.01.2018 Ширяйково поз. 3/1',
+                        date: '23.01.2018'
                     },
                     {
                         src: 'http://m2metr.com/uploads/document/4a6dbf6bb80408274ace926b89524e3e.pdf',

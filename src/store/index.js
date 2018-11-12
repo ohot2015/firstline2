@@ -26,10 +26,8 @@ const store = new Vuex.Store({
             3:false,
             4:false
         },
-        // preloader:{
-        //     state:true
-        // },
-
+        districtId: 18,
+        houseId: 18,
     },
     mutations: {
         set(state, {type, items}) {
@@ -52,9 +50,10 @@ const store = new Vuex.Store({
         houses(state) {
             return state.houses;
         },
-        house: (state, actions) => (id = 14) => {
-            var id = parseInt(id);
-            return _.find(state.houses, {id: id});
+        house: (state, actions) => (houseId = 0) => {
+            houseId = houseId ? houseId : state.houseId;
+            houseId = parseInt(houseId);
+            return _.find(state.houses, {id: houseId});
         },
 
         floors(state) {
@@ -73,8 +72,9 @@ const store = new Vuex.Store({
             var id = parseInt(id);
             return _.find(state.realtys, {id: id});
         },
-        getRealtysByHouseId: (state, getters) => (houseId = 14) => {
-            var houseId = parseInt(houseId);
+        getRealtysByHouseId: (state, getters) => (houseId = 0) => {
+            houseId = houseId ? houseId : state.houseId;
+            houseId = parseInt(houseId);
             return _.filter(state.realtys, {house_id: houseId});
         },
         getRealtyByFloorByHouseId: (state, getters) => (floorNum, houseId) => {
@@ -117,8 +117,11 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        getHousesByDistrictId({ commit }, districtId = 15) {
+        getHousesByDistrictId({ commit }, districtId = 0) {
             let endpoint = this.getters.findAll('absPath') + '/src/api/getHousesByDistrictId'
+
+            districtId = districtId ? districtId : this.state.districtId;
+
             Vue.http.get(endpoint, {params: {id: districtId}}).then((response) => {
                 let data = response.data.response;
                 let district = {
@@ -129,16 +132,21 @@ const store = new Vuex.Store({
                 commit('set',{type:'houses', items:data.houses});
             },(err) => { throw err });
         },
-        getFloorsByHouseId({ commit }, house_id = 14) {
+        getFloorsByHouseId({ commit }, house_id = 0) {
             let endpoint = this.getters.findAll('absPath')+'/src/api/getFloorsByHouseId';
+
+            house_id = house_id ? house_id : this.state.houseId;
+
             return new Promise((resolve, reject) => {
                 Vue.http.get(endpoint, {params: {id: house_id}}).then((response) => {
                     let data = response.data.response;
                     _.each(data.floors,(floor)=> {
                         _.each(floor.polygon,(el)=> {
                             let realty = this.getters.realty(el.realty);
-                            el.color = (realty.status == 'free' && !realty.reserv)?'rgba(0,0,0,0)':'rgba(198,195,220,.8)';
-                            el.reserv = (realty.status == 'free' && !realty.reserv);
+                            if (realty) {
+                                el.color = (realty.status == 'free' && !realty.reserv)?'rgba(0,0,0,0)':'rgba(198,195,220,.8)';
+                                el.reserv = (realty.status == 'free' && !realty.reserv);
+                            }
                         })
                     })
                     commit('set',{type:'floors', items:data});
@@ -146,12 +154,14 @@ const store = new Vuex.Store({
                 },(err) => { reject(error); });
             });
         },
-        getFasadByHouseId({ commit }, house_id = 14) {
+        getFasadByHouseId({ commit }, house_id = 0) {
             let endpoint = this.getters.findAll('absPath')+'/src/api/getFasadByHouseId';
+
+            house_id = house_id ? house_id : this.state.houseId;
+
             return new Promise((resolve, reject) => {
                 Vue.http.get(endpoint, {params: {id: house_id}}).then((response) => {
                     let data = response.data.response;
-
                     // for(let fasad in data.fasads ) {
                     //     let img = new Image();
                     //     img.src = 'http://' + data.fasads[fasad].url;
@@ -167,8 +177,9 @@ const store = new Vuex.Store({
                 },(err) => { reject(error); });
             });
         },
-        getRealtysByHouseId({ commit }, house_id = 14){
-            let endpoint = this.getters.findAll('absPath')+ '/src/api/getRealtysByHouseId'
+        getRealtysByHouseId({ commit }, house_id = 0){
+            let endpoint = this.getters.findAll('absPath')+ '/src/api/getRealtysByHouseId';
+            house_id = house_id ? house_id : this.state.houseId;
             return new Promise((resolve, reject) => {
                 Vue.http.get(endpoint, {params: {id: house_id}}).then((response) => {
                     let data = response.data.response.realty

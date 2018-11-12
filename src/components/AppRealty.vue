@@ -153,10 +153,10 @@ export default {
            this.selected = typeSlider;
         },
         backToPlan: function() {
-            this.$router.push({name:'house',params:{id:14}});
+            this.$router.push({name:'house',params:{id:this.$store.getters.findAll('houseId')}});
         },
         backToFloor: function() {
-            this.$router.push({name:'floor',params:{id:14,floor:1}});
+            this.$router.push({name:'floor',params:{id:this.$store.getters.findAll('houseId'),floor:1}});
         }
     },
     created () {

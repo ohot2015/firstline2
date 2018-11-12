@@ -1,13 +1,18 @@
 <?php
+use ApiCrmException;
 class ApiCrm {
 
     private $var_cache = '';
     private $time_cahe_live = 60*10;
 
-    private $dev = false;
     private $cache_on = true;
     private $access_token;
     private $crm_url;
+    private $urls = [
+        'local' => 'http://crm/app_dev.php/api/',
+        'dev' => 'http://devcrm.m2metr.com/api/',
+        'prod' => 'https://crm.m2metr.com/api/',
+    ];
     /**
      * Authorization status.
      * @var bool
@@ -27,9 +32,9 @@ class ApiCrm {
      * @param   string $access_token
      * @throws  VKException
      */
-    public function __construct($access_token = null)
+    public function __construct($access_token = null, $mode = "dev")
     {
-        $this->Env();
+        $this->Env($mode);
         $this->setAccessToken($access_token);
         $this->setCacheDir('/var/cache/apiCrm/');
         $this->ch = curl_init();
@@ -47,9 +52,21 @@ class ApiCrm {
         $this->cache_on = $on;
     }
 
-    private function Env () {
-        $this->crm_url = ($this->dev) ?  'http://crm/app_dev.php/api/' :'https://crm.m2metr.com/api/';
+    private function Env ($mode) {
+        if (!empty($mode)) {
+            $mods = array_keys($this->urls);
+            if (in_array($mode,$mods)) {
+                $this->crm_url = $this->urls[$mode];
+            }
+            else {
+                throw new ApiCrmException('mode does not exist' );
+            }
+        }
+        else {
+            throw new ApiCrmException('mode does not exist');
+        }
     }
+
     /**
      * Destructor.
      */

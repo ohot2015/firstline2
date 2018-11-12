@@ -13,7 +13,7 @@ export default {
             }, err => { throw err });
         }, err => { throw err });
         this.$store.dispatch('getHousesByDistrictId')
-        this.$store.dispatch('getFasadByHouseId', 14);
+        this.$store.dispatch('getFasadByHouseId', this.$store.getters.findAll('houseId'));
 
         this.$store.dispatch('getGallery');
     }

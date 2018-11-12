@@ -76,6 +76,10 @@ export default {
         fasads() {
             return this.$store.getters.findAll('fasads').fasads;
         },
+        houseId(){
+            console.log(this.$store.getters.findAll('houseId'))
+            return this.$store.getters.findAll('houseId');
+        }
     },
     components: {
         Carousel,
@@ -85,7 +89,7 @@ export default {
     },
     methods: {
         backToFloor(floor,e) {
-            this.$router.push({name:'floor',params:{id:14, floor:floor}});
+            this.$router.push({name:'floor',params:{id:this.houseId, floor:floor}});
         },
         tooltipChange(floor,pod,e) {
 
@@ -160,7 +164,7 @@ export default {
     },
     created() {
         if (!this.$store.getters.findAll('fasads').fasads) {
-            this.$store.dispatch('getFasadByHouseId', 14);
+            this.$store.dispatch('getFasadByHouseId', this.houseId);
         }
     }
 }
@@ -240,9 +244,9 @@ export default {
             }
         }
 
-        .wrap   {
+        .wrap {
             background-size:contain;
-            height: calc(100vh - 68px);
+            height: calc(100vh - 174px);
             position: relative;
             display: flex;
             justify-content: center;

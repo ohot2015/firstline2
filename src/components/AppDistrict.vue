@@ -54,7 +54,7 @@ export default {
             return this.$store.getters.districtImg;
         },
         house(){
-            return this.$store.getters.house(14);
+            return this.$store.getters.house(this.$store.getters.findAll('houseId'));
         }
     },
     components: {

@@ -3,7 +3,13 @@ require_once '../../vendor/autoload.php';
 require_once 'class/_autoload.php';
 $config = Symfony\Component\Yaml\Yaml::parseFile('../../config/config.yaml');
 
-$crm = new ApiCrm($config['crm_api_token']);
+try {
+    $crm = new ApiCrm($config['crm_api_token'], $config['env']);
+} catch (ApiCrmException $exception) {
+    if ($config['env'] === 'dev' || $config['env'] === 'local') {
+        dump($exception->getMessage());exit;
+    }
+}
 
 $return='error';
 
@@ -13,6 +19,7 @@ $method_arr = explode('?',$method_str);
 $param_str = !empty($method_arr[1])?$method_arr[1]:'';
 parse_str($param_str,$param);
 $route = $method_arr[0];
+
 
 switch ($route) {
     case 'getHousesByDistrictId':

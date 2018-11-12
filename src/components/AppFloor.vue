@@ -74,7 +74,7 @@ export default {
     },
     computed: {
         house() {
-            return this.$store.getters.house(this.houseId);
+            return this.$store.getters.house();
         },
         floors() {
             return this.$store.getters.floors.floors;
