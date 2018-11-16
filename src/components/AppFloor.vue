@@ -1,17 +1,34 @@
 <template>
     <div class="wrap-all">
+        <!--<div class="test">-->
+            <!--{{selectSectionNum}}, {{selectFloorNum}} {{floors.length}}-->
+        <!--</div>-->
+        <div class="section">
+            <house-realty
+                    class="realty"
+                    v-for="(item, key, index) in range"
+                    :color="'white'"
+                    :line1="key +1"
+                    :line2="'подъезд'"
+                    :key="index"
+                    :data="item + 1"
+                    :class="key + 1 == selectSectionNum ? 'active':''"
+                    @eventHouseRealty="changeSection"
+            >
+            </house-realty>
+        </div>
         <div class="floor">
             <div class="floors-count">
                 <house-realty
                     class="realty"
                     v-for="(item, key, index) in floors"
                     :color="'white'"
-                    :line1="house.floor_count - key + 1"
+                    :line1="getLine2(item)"
                     :line2="'этаж'"
                     :key="index"
                     :data="item"
-                    :class="house.floor_count - key + 1 == selectFloorNum ? 'active':''"
-                    @eventHouseRealty="clickHouseRealty"
+                    :class="activeFloor(item)"
+                    @eventHouseRealty="changeFloor"
                 >
                 </house-realty>
             </div>
@@ -63,7 +80,8 @@ export default {
                 points:'',
             },
             houseId:0,
-            selectFloorNum:1,
+            selectFloorNum:2,
+            selectSectionNum:1,
             rooms: {
                 1: 'Однокомнатная',
                 2: 'Двухкомнатная',
@@ -73,27 +91,46 @@ export default {
         }
     },
     computed: {
+
+        range() {
+            return _.range(this.house.sections_count)
+        },
         house() {
             return this.$store.getters.house();
         },
         floors() {
-            return this.$store.getters.floors.floors;
+            let floors = this.$store.getters.floors.floors
+
+            let tmp =[]
+            Object.keys(floors).forEach((key,id)=> {
+                tmp.push(floors[key])
+            })
+
+            return tmp.reverse();
         },
-        selectFloor(){
-            return this.$store.getters.floorByNum(this.selectFloorNum);
+        selectFloor() {
+            console.log(this.selectFloorNum, this.selectSectionNum)
+            return this.$store.getters.floorSectionByNum(this.selectFloorNum, this.selectSectionNum);
         },
         realtys() {
-            return this.$store.getters.getRealtyByFloorByHouseId(this.selectFloorNum,this.houseId);
+            return this.$store.getters.getRealtyByFloorByHouseId(this.selectFloorNum, this.selectSectionNum, this.houseId);
         },
         polygon1() {
-            let poly = this.$store.getters.floorByNum(this.selectFloorNum);
-            return poly ? poly.polygon:'';
+            console.log(this.selectFloorNum, this.selectSectionNum)
+            let poly = this.$store.getters.floorSectionByNum(this.selectFloorNum, this.selectSectionNum);
+            return poly ? poly.polygon : '';
         },
-        pathPoly(){
-            return this.selectFloor? this.selectFloor.path:'';
+        pathPoly() {
+            return this.selectFloor ? this.selectFloor.path:'';
         }
     },
     methods: {
+        activeFloor(item) {
+            if (item[this.selectSectionNum]) {
+                return item[this.selectSectionNum].floor == this.selectFloorNum ? 'active':''
+            }
+            return "";
+        },
         hoverRealty(relaty,e){
             let els = document.querySelectorAll('.info-plan ul li');
             els.forEach((el)=> {
@@ -105,14 +142,21 @@ export default {
                 }
             }
         },
+        getLine2(item){
+            return item[Object.keys(item)[0]].floor
+        },
         backToPlan () {
             this.$router.push({name:'house',params:{id:this.houseId}});
         },
         backToFloor: function() {
             this.$router.push({name:'district',params:{scrollTo:'scrolltodistrict'}});
         },
-        clickHouseRealty(floor) {
-            this.selectFloorNum = this.$store.getters.house(this.houseId).floor_count - floor.floor +1;
+        changeFloor(floor) {
+            this.selectFloorNum  = floor[this.selectSectionNum] ? floor[this.selectSectionNum].floor:''
+        },
+        changeSection(section) {
+            console.log(section,'changesection')
+            this.selectSectionNum = section
         },
         mouseEnterPolly(id,e) {
             let els = document.querySelectorAll('.info-plan ul li');
@@ -136,9 +180,8 @@ export default {
     },
     created() {
         this.houseId = parseInt(this.$route.params.id);
-        this.selectFloorNum = this.$route.params.floor;
-        console.log();
-        
+        this.selectFloorNum = parseInt(this.$route.params.floor);
+
         if (!(this.house && this.floors && this.selectFloor && this.realtys.length)) {
             this.$store.dispatch('getRealtysByHouseId').then(response => {
                 this.$store.dispatch('getFloorsByHouseId')
@@ -180,11 +223,46 @@ export default {
             height:calc(100% - 68px);
         }
     }
+
+    .section {
+        width: 960px;
+        display: flex;
+        justify-content: left;
+        margin: 0 auto;
+        padding-left: calc((45px ) * 2);
+        padding-top: 15px;
+        @media screen and (min-width: $sm) {
+            width: 960px;
+            padding-left: calc((55px + 22px)  * 2);
+        }
+        @media screen and (min-width: $md) {
+            width: 1170px;
+            padding-left: calc((66px + 22px)  * 2);
+
+        }
+        @media screen and (min-width: $lg) {
+            padding-left: calc((77px + 22px)  * 2);
+            width: 1170px;
+        }
+        .realty{
+            margin-right: 10px;
+            margin-bottom: 20px;
+            @media screen and (min-width: $sm) {
+                margin-right: 12px;
+            }
+            @media screen and (min-width: $sm) {
+                margin-right: 14px;
+            }
+            @media screen and (min-width: $lg) {
+                margin-right: 16px;
+            }
+        }
+    }
     .floor {
         background: #e7e4ff;
         display: flex;
         justify-content: center;
-        padding-top: 25px;
+
         margin: 0 auto;
         /*width: 100%;*/
 

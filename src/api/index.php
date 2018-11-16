@@ -70,13 +70,17 @@ switch ($route) {
             'phone' => $phone,
             'rId' => $r_id
         ]);
-       
-        $return = @mail( 'ohot2015@gmail.com' , 'Первая линия' , $template, "From:noreply@line12.ru\r\n"
-        ."Content-type: text/html; charset=utf-8\r\n"
-        ."X-Mailer: PHP mail script" );
-        $return = @mail( 'info@line12.ru' , 'Первая линия' , $template, "From:noreply@line12.ru\r\n"
-            ."Content-type: text/html; charset=utf-8\r\n"
-            ."X-Mailer: PHP mail script" );
+
+        if ($config['env'] ==='prod') {
+            $return = @mail( $config['test_email'] , 'c' , $template, "From:noreply@line12.ru\r\n"
+                ."Content-type: text/html; charset=utf-8\r\n"
+                ."X-Mailer: PHP mail script" );
+        }
+        else {
+            $return = @mail( $config['test_email'] , 'Первая линия' , $template, "From:noreply@line12.ru\r\n"
+                ."Content-type: text/html; charset=utf-8\r\n"
+                ."X-Mailer: PHP mail script" );
+        }
         break;
     default:
         # code...

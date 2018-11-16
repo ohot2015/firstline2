@@ -59,9 +59,12 @@ const store = new Vuex.Store({
         floors(state) {
             return state.floors;
         },
-        floorByNum: (state) => (num = 1) => {
-            let floor = _.find(state.floors.floors, {floor: parseInt(num)});
-            return floor
+        floorSectionByNum: (state) => (floorNum = 1, sectionNum = 1) => {
+            let floor = [];
+            if (state.floors.floors[parseInt(floorNum )]) {
+                floor = state.floors.floors[parseInt(floorNum )][parseInt(sectionNum)]
+            }
+            return floor;
         },
         getRealtyInFloor: (state) => (floor, section) => {
             let floor1 = parseInt(floor),
@@ -77,10 +80,11 @@ const store = new Vuex.Store({
             houseId = parseInt(houseId);
             return _.filter(state.realtys, {house_id: houseId});
         },
-        getRealtyByFloorByHouseId: (state, getters) => (floorNum, houseId) => {
+        getRealtyByFloorByHouseId: (state, getters) => (floorNum, sectionNum, houseId) => {
             var floorNum = parseInt(floorNum),
-                houseId = parseInt(houseId);
-            return _.filter(state.realtys, {floor: floorNum, house_id: houseId});
+                houseId = parseInt(houseId),
+                sectionNum = parseInt(sectionNum);
+            return _.filter(state.realtys, {floor: floorNum, section: sectionNum, house_id: houseId});
         },
         districtImg(state) {
             return state.district.img;
@@ -141,12 +145,14 @@ const store = new Vuex.Store({
                 Vue.http.get(endpoint, {params: {id: house_id}}).then((response) => {
                     let data = response.data.response;
                     _.each(data.floors,(floor)=> {
-                        _.each(floor.polygon,(el)=> {
-                            let realty = this.getters.realty(el.realty);
-                            if (realty) {
-                                el.color = (realty.status == 'free' && !realty.reserv)?'rgba(0,0,0,0)':'rgba(198,195,220,.8)';
-                                el.reserv = (realty.status == 'free' && !realty.reserv);
-                            }
+                        _.each(floor,(pod)=> {
+                            _.each(pod.polygon, (el) => {
+                                let realty = this.getters.realty(el.realty);
+                                if (realty) {
+                                    el.color = (realty.status == 'free' && !realty.reserv) ? 'rgba(0,0,0,0)' : 'rgba(198,195,220,.8)';
+                                    el.reserv = (realty.status == 'free' && !realty.reserv);
+                                }
+                            })
                         })
                     })
                     commit('set',{type:'floors', items:data});

@@ -54,11 +54,11 @@ export default {
             if (this.rh.status === 'free' && !this.rh.reserv) {
                 setTimeout(()=>{
                     var padding_top = window.getComputedStyle(e.target.parentNode.parentNode.parentElement.parentElement, null).getPropertyValue('padding-top').replace('px', '') - 55,
-                        wrap_width = window.getComputedStyle(e.target.parentNode.parentNode.parentElement.parentElement.parentElement, null).getPropertyValue('width').replace('px', '')/2 - 220;
+                        wrap_width = window.getComputedStyle(e.target.parentNode.parentNode.parentElement.parentElement.parentElement, null).getPropertyValue('width').replace('px', '')/2 - 420;
 
 
                     this.tooltip = {
-                        width : 130,
+                        width : 135,
                         height : 37,
                         offsetY : e.layerY + padding_top,
 //                        offsetY: e.clientY - 140,
@@ -66,8 +66,8 @@ export default {
                         show : !this.tooltip.show,
                     }
                 },200)
-    
-    
+
+
                 for(let el in this.polygon1) {
                     if (this.polygon1[el].realty == rId) {
                         this.polygon1[el].color = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
@@ -93,34 +93,36 @@ export default {
 .wrap {
     width: 100%;
     height: 100%;
-    padding-top: 200px;
+    //padding-top: 200px;
     @media screen and (max-width: 1366px) {
         padding-top: 90px;
     }
 }
- .wrap-svg {
+     .wrap-svg {
             /*width: 100%;*/
             position: relative;
             /*height: 100%;*/
-             width: 450px;
-             height: 450px;
-             margin: auto;
+            max-width: 800px;
+            height: 450px;
+            margin: auto;
+            padding-top:5px;
             img {
-                    //width: 100%;
+                    max-width: 800px;
+                    max-height: 758px;
                     // position: absolute;
                     // z-index: 2
                 }
-                svg {
-                    position: absolute;
-                    left:0;
-                    top:0;
-                    width: 450px;
-                    height: 420px;
-                    z-index: 3;
-                    .poly.reserv {
-                        background: black;
-                    }
+            svg {
+                position: absolute;
+                left:0;
+                top:5px;
+                width: 800px;
+                height:660px;
+                z-index: 3;
+                .poly.reserv {
+                    background: black;
                 }
+            }
         }
 
     .tooltip{

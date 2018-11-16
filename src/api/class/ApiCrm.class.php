@@ -1,11 +1,10 @@
 <?php
-use ApiCrmException;
 class ApiCrm {
 
     private $var_cache = '';
     private $time_cahe_live = 60*10;
 
-    private $cache_on = true;
+    private $cache_on;
     private $access_token;
     private $crm_url;
     private $urls = [
@@ -57,6 +56,12 @@ class ApiCrm {
             $mods = array_keys($this->urls);
             if (in_array($mode,$mods)) {
                 $this->crm_url = $this->urls[$mode];
+                if ($this->crm_url === 'prod') {
+                    $this->cache_on = true;
+                }
+                else {
+                    $this->cache_on = false;
+                }
             }
             else {
                 throw new ApiCrmException('mode does not exist' );

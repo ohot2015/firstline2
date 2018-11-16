@@ -9,7 +9,7 @@
 
                 >
                     <ul @mouseleave="active = !active">
-                        <li class="home"><router-link :to="{ name: 'home'}">Главная страница</router-link></li>
+                        <li class="home"><router-link :to="{ name: 'preloader'}">Главная страница</router-link></li>
                         <li class="gallery"><router-link :to="{name:'gallery'}">Галерея</router-link></li>
                         <li class="declaration"><router-link :to="{name:'declaration'}">Проектные декларации</router-link></li>
                         <li class="about"><router-link :to="{name:'about'}">Контакты</router-link></li>
@@ -70,7 +70,7 @@ export default {
             this.$router.push({name:'house',params:{id:this.$store.getters.findAll('houseId')}});
         },
         routFloor() {
-            this.$router.push({name:'floor',params:{id:this.$store.getters.findAll('houseId'),floor:1}});
+            this.$router.push({name:'floor',params:{id:this.$store.getters.findAll('houseId'),floor:2}});
         }
 
     },

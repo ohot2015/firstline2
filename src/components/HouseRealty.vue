@@ -33,6 +33,7 @@ export default {
                 el.classList.remove('active')
             })
             e.target.parentElement.classList.add('active')
+
         },
         toggle(num) {
            //console.log($el);
