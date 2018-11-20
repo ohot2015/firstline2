@@ -152,11 +152,11 @@ export default {
         clickHouseRealty(typeSlider = 1){
            this.selected = typeSlider;
         },
-        backToPlan: function() {
+        backToPlan() {
             this.$router.push({name:'house',params:{id:this.$store.getters.findAll('houseId')}});
         },
-        backToFloor: function() {
-            this.$router.push({name:'floor',params:{id:this.$store.getters.findAll('houseId'),floor:1}});
+        backToFloor() {
+            this.$router.push({name:'floor',params:{id:this.$store.getters.findAll('houseId'),floor:this.realty.floor}});
         }
     },
     created () {

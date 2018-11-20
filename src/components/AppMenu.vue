@@ -10,8 +10,8 @@
                 >
                     <ul @mouseleave="active = !active">
                         <li class="home"><router-link :to="{ name: 'preloader'}">Главная страница</router-link></li>
-                        <li class="gallery"><router-link :to="{name:'gallery'}">Галерея</router-link></li>
-                        <li class="declaration"><router-link :to="{name:'declaration'}">Проектные декларации</router-link></li>
+                        <!--<li class="gallery"><router-link :to="{name:'gallery'}">Галерея</router-link></li>-->
+                        <!--<li class="declaration"><router-link :to="{name:'declaration'}">Проектные декларации</router-link></li>-->
                         <li class="about"><router-link :to="{name:'about'}">Контакты</router-link></li>
                     </ul>
                 </div>
@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         getPhone() {
-            return '430-800';
+            return '469-998';
         },
         click() {
             this.active = this.active ? false : true;
@@ -85,7 +85,7 @@ export default {
     .dropdown {
         position: absolute;
         width: 233px;
-        height: 167px;
+        height: 87px;
         margin-top: 51px;
         left: -12px;
         border: 1px solid black;

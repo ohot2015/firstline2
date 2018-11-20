@@ -3,16 +3,16 @@
     <div class="work-spaces">
         <div class="logo"></div>
         <div class="social">
-            <a href="https://vk.com/firstline12" class="vk" target="_blank"></a>
-            <a href="https://fb.me/firstline12" class="fb" target="_blank"></a>
-            <a href="https://ok.ru/group/54056149319852" class="ok" target="_blank"></a>
-            <a href="https://www.instagram.com/firstline12/" class="in" target="_blank"></a>
+            <a href="https://vk.com/rosagrostroj" class="vk" target="_blank"></a>
+            <!--<a href="" class="fb" target="_blank"></a>-->
+            <!--<a href="" class="ok" target="_blank"></a>-->
+            <a href="https://www.instagram.com/rosagrostroj12/" class="in" target="_blank"></a>
         </div>
         <nav>
             <ul>
                 <li class="home"><router-link :to="{ name: 'home'}">Главная страница</router-link></li>
-                <li class="gallery"><router-link :to="{name:'gallery'}">Галерея</router-link></li>
-                <li class="declaration"><router-link :to="{name:'declaration'}">Проектные декларации</router-link></li>
+                <!--<li class="gallery"><router-link :to="{name:'gallery'}">Галерея</router-link></li>-->
+                <!--<li class="declaration"><router-link :to="{name:'declaration'}">Проектные декларации</router-link></li>-->
                 <li class="about"><router-link :to="{name:'about'}">Контакты</router-link></li>
             </ul>
         </nav>
@@ -50,8 +50,9 @@ export default {
                 height: 100%;
                 width: 220px;
                 margin-left: 20px;
-                background: url(../assets/img/logo-menu.png) no-repeat center;
+                background: url(../assets/img/logo-menu-ra.png) no-repeat center;
                 background-size: contain;
+                margin-top:10px;
             }
             .social {
                 // display: flex;
@@ -66,7 +67,7 @@ export default {
                     width: 34px;
                     margin-top:23px;
                     height: 40px;
-                    margin-left:10px;
+                    margin-left:50px;
                 }
                 .vk {
                     background: url(../assets/img/vk.png) no-repeat center;
@@ -90,7 +91,7 @@ export default {
                 font-family: RobotoCondensed-Regular;
                 font-size: 15px;
                 justify-content: space-between;
-                width: 456px;
+                width: 256px;
                 align-items: center;
                 margin-left: 30px;
                 height: 100%;

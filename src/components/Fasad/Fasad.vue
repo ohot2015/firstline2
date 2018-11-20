@@ -1,19 +1,5 @@
 <template>
     <div class="wrap-fasad">
-        <tooltip class="tooltip" :options="tooltip" >
-            <header> {{tooltip.floor}} Этаж, {{tooltip.pod}} Подъезд </header>
-            <div class="body">
-            Свободных помещений: {{tooltip.freeFlat}}
-                <div class="wrap-h-realty">
-                    <house-realty class="realty"
-                                  v-for="(item, index) in tooltip.flats "
-                                  :key="index"
-                                  :line1="index + 'к'"
-                                  :line2="item + ' кв.'"
-                    ></house-realty>
-                </div>
-            </div>
-        </tooltip>
         <carousel
                 :per-page="1"
                 :mouse-drag="true"
@@ -23,9 +9,10 @@
                 :style="'height:100%;'"
                 :autoplay="false"
         >
-             <slide v-for="(fasad, index) in  $store.getters.fasadFilterRoom" :key="index" >
+             <slide v-for="(fasad, key, index) in  $store.getters.fasadFilterRoom" :key="index" >
                  <div class="wrap">
                      <div class="qwe">{{fasad.imgW }}</div>
+
                      <svg :style="'background-image: url(http://'+fasad.url+'); background-repeat: no-repeat; width:' +
                      fasad.imgW  + 'px; height:' + fasad.imgH + 'px;'">
                          <g>
@@ -36,14 +23,36 @@
                                      data-queue="item.queue"
                                      data-pod="item.pod"
                                      :fill="item ? item.fill:''"
-                                     @mouseenter="tooltipChange(item.floor,item.pod, $event)"
-                                     @mouseleave="tooltipChange(item.floor,item.pod, $event)"
+                                     @mouseenter="tooltipChange(item.floor,item.pod, item.polygon, index, $event)"
+                                     @mouseleave="tooltipChange(item.floor,item.pod, item.polygon, index, $event)"
                                      @click="backToFloor(item.floor, $event)"
                                      :onload="onload = true"
                              >
                              </polygon>
                          </g>
+                         <g id="_2619371276224" ref="tooltip" transform="translate(200,20)" v-show="tooltip.show">
+                             <path class="fil0" d="M5 0l363 0c3,0 5,2 5,5l0 174c0,3 -2,5 -5,5l-170 0 -5 9 -5 9 -5 -9 -5 -9 -173 0c-3,0 -5,-2 -5,-5l0 -174c0,-3 2,-5 5,-5z"/>
+                             <text x="23" y="43"  class="fil1 fnt0">{{tooltip.floor}} этаж, {{tooltip.pod}} подъезд</text>
+                             <text x="23" y="78"  class="fil1 fnt1">Свободных квартир: {{tooltip.freeFlat}}</text>
+                             <rect v-show="tooltip.flats[1]" class="fil2 str0" x="23" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text v-show="tooltip.flats[1]" x="37" y="134"  class="fil1 fnt2">1к</text>
+                             <text v-show="tooltip.flats[1]" x="38" y="151"  class="fil1 fnt3">10 кв.</text>
+                             <rect v-show="tooltip.flats[2]"class="fil2 str0" x="91" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text v-show="tooltip.flats[2]"x="105" y="134"  class="fil1 fnt2">2к</text>
+                             <text v-show="tooltip.flats[2]"x="107" y="151"  class="fil1 fnt3">1 кв.</text>
+                             <rect v-show="tooltip.flats[3]"class="fil2 str0" x="158" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text v-show="tooltip.flats[3]"x="172" y="134"  class="fil1 fnt2">3к</text>
+                             <text v-show="tooltip.flats[3]"x="173" y="151"  class="fil1 fnt3">10 кв.</text>
+                             <rect v-show="tooltip.flats[4]"class="fil2 str0" x="225" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text v-show="tooltip.flats[4]"x="240" y="134"  class="fil1 fnt2">4к</text>
+                             <text v-show="tooltip.flats[4]"x="240" y="151"  class="fil1 fnt3">10 кв.</text>
+                             <rect v-show="tooltip.flats[5]"class="fil2 str0" x="293" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text v-show="tooltip.flats[5]"x="299" y="134"  class="fil1 fnt2">5к+</text>
+                             <text v-show="tooltip.flats[5]"x="307" y="151"  class="fil1 fnt3">10 кв.</text>
+                         </g>
                      </svg>
+
+
                  </div>
              </slide>
         </carousel>
@@ -52,7 +61,6 @@
 <script>
 import { Carousel, Slide } from 'vue-carousel';
 import _ from 'underscore'
-import tooltip from 'components/tooltip.vue'
 import houseRealty from 'components/HouseRealty.vue'
 export default {
     name: 'Fasad',
@@ -77,21 +85,32 @@ export default {
             return this.$store.getters.findAll('fasads').fasads;
         },
         houseId(){
-            console.log(this.$store.getters.findAll('houseId'))
             return this.$store.getters.findAll('houseId');
-        }
+        },
     },
     components: {
         Carousel,
         Slide,
-        tooltip,
+
         houseRealty
     },
     methods: {
         backToFloor(floor,e) {
             this.$router.push({name:'floor',params:{id:this.houseId, floor:floor}});
         },
-        tooltipChange(floor,pod,e) {
+        realtysTooltip(floor,pod) {
+            return  this.$store.getters.findBy('realtys', {floor:floor, section:pod, status:'free', reserv:null});
+        },
+        tooltipChange(floor,pod,points,indexFasad, e) {
+            points = points.split(',');
+            let pointsY =  _.filter(points,(el,i) => i % 2);
+            let pointsX =  _.filter(points,(el,i) => !(i % 2) );
+
+            let maxValX = Math.max(...pointsX);
+            let maxValY = Math.min(...pointsY);
+            console.log(indexFasad)
+            this.$refs.tooltip[indexFasad].setAttribute('transform',`translate(${maxValX - 373 / 2},${maxValY-202})`);
+            console.log(points,pointsY, pointsX,maxValX, maxValY,this.$refs.tooltip);
 
             let realtys = this.$store.getters.findBy('realtys', {floor:floor, section:pod, status:'free', reserv:null});
 
@@ -108,28 +127,9 @@ export default {
                     freeFlat: realtys.length,
                     flats:flats
                 }
-            }
-                setTimeout(()=>{
-                    var padding_top = window.getComputedStyle(e.target.parentNode.parentNode.parentElement.parentElement, null)
-                            .getPropertyValue('padding-top').replace('px', '') - 95,
+            };
 
-                        wrap_width = window.getComputedStyle(e.target.parentNode.parentNode.parentElement.parentElement.parentElement, null)
-                            .getPropertyValue('width').replace('px', '')/2 - 220;
-
-                    this.tooltip = {
-                        ... this.tooltip,
-                        ...{
-                            width: 270,
-                            height: 150,
-                            offsetY: e.layerY + padding_top,
-
-//                            offsetX: e.layerX + wrap_width,
-                            offsetX: e.clientX,
-                            show: !this.tooltip.show,
-                        }
-                    }
-                },200)
-
+            this.tooltip.show = !this.tooltip.show;
         },
 
     },
@@ -143,7 +143,7 @@ export default {
                     clearInterval(id)
                     resolve('loadCarusel');
                 }
-            },10);
+            },100);
         });
         promise.then(loadCarusel => {
             let dot = document.querySelectorAll('.VueCarousel-pagination button');
@@ -172,7 +172,14 @@ export default {
 </script>
 
 <style lang="scss" >
-
+                     .str0 {stroke:black}
+                         .fil2 {fill:none}
+                         .fil1 {fill:black}
+                         .fil0 {fill:white}
+                         .fnt3 {font-weight:normal;font-size:13px;font-family:'Roboto Condensed'}
+                         .fnt1 {font-weight:normal;font-size:21px;font-family:'Roboto Condensed'}
+                         .fnt2 {font-weight:bold;font-size:25px;font-family:'DirectRg'}
+                         .fnt0 {font-weight:bold;font-size:27px;font-family:'DirectRg'}
     .wrap-fasad {
         .tooltip {
             header {

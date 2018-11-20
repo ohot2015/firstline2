@@ -6,20 +6,20 @@
         </div>
         <div class="gallery">
             <div class="container-gallery">
-                <lightbox
-                    :key="'streamGallery'"
-                    :loop="false"
-                    :images="stream"
-                    :title="'Сейчас'"
-                    :imgprev="streamPrev"
-                    >
-                    <div class="container">
-                       <div class="photo">
-                            <img :src="streamPrev"  @click="clickImage(0)">
-                       </div>
-                        <div class="desc"><span>Видеонаблюдение</span></div>
-                   </div>
-                </lightbox>
+                <!--<lightbox-->
+                    <!--:key="'streamGallery'"-->
+                    <!--:loop="false"-->
+                    <!--:images="stream"-->
+                    <!--:title="'Сейчас'"-->
+                    <!--:imgprev="streamPrev"-->
+                    <!--&gt;-->
+                    <!--<div class="container">-->
+                       <!--<div class="photo">-->
+                            <!--<img :src="streamPrev"  @click="clickImage(0)">-->
+                       <!--</div>-->
+                        <!--<div class="desc"><span>Видеонаблюдение</span></div>-->
+                   <!--</div>-->
+                <!--</lightbox>-->
                 <lightbox
                     v-for="(month, index) in img"
                     :key="month.title + index"
@@ -32,7 +32,7 @@
                        <div class="photo">
                             <img :src="month.imgPrev">
                        </div>
-                        <div class="desc"><span v-if="month.title">{{ month.title }}</span></div>
+                        <div class="desc"><span v-if="month.title">{{index+1}}</span></div>
                    </div>
                 </lightbox>
             </div>
@@ -48,7 +48,7 @@
 import AppFooter from './AppFooter.vue'
 import _ from 'underscore'
 import lightbox from './Lightbox.vue';
-
+//<div class="desc"><span v-if="month.title">{{ month.title }}</span></div>
 export default {
     name: 'gallery',
     data () {
