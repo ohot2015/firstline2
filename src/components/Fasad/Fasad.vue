@@ -11,8 +11,6 @@
         >
              <slide v-for="(fasad, key, index) in  $store.getters.fasadFilterRoom" :key="index" >
                  <div class="wrap">
-                     <div class="qwe">{{fasad.imgW }}</div>
-
                      <svg :style="'background-image: url(http://'+fasad.url+'); background-repeat: no-repeat; width:' +
                      fasad.imgW  + 'px; height:' + fasad.imgH + 'px;'">
                          <g>
@@ -172,14 +170,15 @@ export default {
 </script>
 
 <style lang="scss" >
-                     .str0 {stroke:black}
-                         .fil2 {fill:none}
-                         .fil1 {fill:black}
-                         .fil0 {fill:white}
-                         .fnt3 {font-weight:normal;font-size:13px;font-family:'Roboto Condensed'}
-                         .fnt1 {font-weight:normal;font-size:21px;font-family:'Roboto Condensed'}
-                         .fnt2 {font-weight:bold;font-size:25px;font-family:'DirectRg'}
-                         .fnt0 {font-weight:bold;font-size:27px;font-family:'DirectRg'}
+    .str0 {stroke:black}
+    .fil2 {fill:none}
+    .fil1 {fill:black}
+    .fil0 {fill:white}
+    .fnt3 {font-weight:normal;font-size:13px;font-family:'Roboto Condensed'}
+    .fnt1 {font-weight:normal;font-size:21px;font-family:'Roboto Condensed'}
+    .fnt2 {font-weight:bold;font-size:25px;font-family:'DirectRg'}
+    .fnt0 {font-weight:bold;font-size:27px;font-family:'DirectRg'}
+
     .wrap-fasad {
         .tooltip {
             header {
@@ -265,7 +264,6 @@ export default {
                 polygon{
                     cursor: pointer;
                     box-shadow: 10px 10px 10px rgba(0,0,0,0.5);
-
                     &:hover{
                         fill: rgba(0,0,0,.5);
                     }
