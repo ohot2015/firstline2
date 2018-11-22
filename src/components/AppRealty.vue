@@ -10,19 +10,14 @@
                     :key="index"
                     :data="item.type"
                     :class="index == 0 ? 'active':''"
+                    :parentSelector="'.type-slider'"
                     @eventHouseRealty="clickHouseRealty"
                 >
                 </house-realty>
             </div>
             <div class="slider">
-                <carousel
-                    :per-page="1"
-                    :mouse-drag="false"
-                    :navigationEnabled="false"
-                    :paginationEnabled="false"
-                    :key="'qwe12323'"
-                >
-                <slide v-for="(item, index) in selectedSlider" :key="index" >
+
+                <div class="slide" v-for="(item, index) in selectedSlider" :key="index" >
                     <lightbox
                     :loop="false"
                     :tmp="realty.id"
@@ -32,8 +27,8 @@
                             <img :src="'http://' + item.img_path" :key="item.img_path" alt="">
                         </div>
                     </lightbox>
-                </slide>
-              </carousel>
+                </div>
+
               <div class="block-nav">
                 <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
                 <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану этажа</div>
@@ -49,7 +44,7 @@ import HouseRealty from './HouseRealty.vue'
 import RealtyInfoBoard from './RealtyInfoBoard.vue'
 import lightbox from './Lightbox.vue'
 import _ from 'underscore'
-import { Carousel, Slide } from 'vue-carousel';
+
 
 function getInfoBoard(realty,house) {
     return [
@@ -113,8 +108,6 @@ export default {
     },
     components: {
         HouseRealty,
-        Carousel,
-        Slide,
         RealtyInfoBoard,
         lightbox,
     },
@@ -165,31 +158,19 @@ export default {
             this.$store.dispatch('getHousesByDistrictId');
         }
         this.clickHouseRealty();
-    }
+    },
+
 }
 </script>
 <style lang="scss">
-    .VueCarousel-wrapper {
-        background: white;
-        border-radius: 5px;
-    }
-    .VueCarousel-inner{
-        transform: inherit !important;
-        // .prev, .next {
-        //     width: 20px;
-        //     height: 20px;
-        //     background: url(../assets/img/strelka_levaya.png);
-        // }
-    }
+
     .delimeter{
         color: #a3cdf9;
     }
 
 </style>
 <style lang="scss" scoped>
-    .VueCarousel {
-        height: 100%;
-    }
+
     .wrap-all{
         width: 100%;
         background: #e7e4ff;
@@ -223,12 +204,19 @@ export default {
         height: 100%;
         margin: 0 20px;
 
-        .VueCarousel-slide{
+        .slide {
+            background: white;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
             .wrap{
                 background-size: cover;
                 height: 420px;
                 overflow: hidden;
                 text-align: center;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
                 img {
                     cursor: pointer;
                     height: calc(100% - 20px);

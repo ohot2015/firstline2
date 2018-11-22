@@ -106,7 +106,6 @@ export default {
     },
     mounted(){
         let width = this.$refs.house.offsetWidth;
-        console.log(width)
     }
 
 }

@@ -13,6 +13,7 @@
                     :key="index"
                     :data="item + 1"
                     :class="key + 1 == selectSectionNum ? 'active':''"
+                    :parentSelector="'.section'"
                     @eventHouseRealty="changeSection"
             >
             </house-realty>
@@ -28,6 +29,7 @@
                     :key="index"
                     :data="item"
                     :class="activeFloor(item)"
+                    :parentSelector="'.floors-count'"
                     @eventHouseRealty="changeFloor"
                 >
                 </house-realty>
@@ -37,6 +39,7 @@
                 <plan-svg
                     :polygon1="polygon1"
                     :path="pathPoly"
+
                     @eventMouseEnter="mouseEnterPolly"
                 ></plan-svg>
             </div>
@@ -109,14 +112,12 @@ export default {
             return tmp.reverse();
         },
         selectFloor() {
-            console.log(this.selectFloorNum, this.selectSectionNum)
             return this.$store.getters.floorSectionByNum(this.selectFloorNum, this.selectSectionNum);
         },
         realtys() {
             return this.$store.getters.getRealtyByFloorByHouseId(this.selectFloorNum, this.selectSectionNum, this.houseId);
         },
         polygon1() {
-            console.log(this.selectFloorNum, this.selectSectionNum)
             let poly = this.$store.getters.floorSectionByNum(this.selectFloorNum, this.selectSectionNum);
             return poly ? poly.polygon : '';
         },
@@ -155,10 +156,10 @@ export default {
             this.selectFloorNum  = floor[this.selectSectionNum] ? floor[this.selectSectionNum].floor:''
         },
         changeSection(section) {
-            console.log(section,'changesection')
             this.selectSectionNum = section
         },
         mouseEnterPolly(id,e) {
+
             let els = document.querySelectorAll('.info-plan ul li');
             els.forEach((el)=> {
                 el.classList.remove('active')

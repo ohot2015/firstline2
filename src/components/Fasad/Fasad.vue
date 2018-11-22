@@ -6,11 +6,14 @@
                 :navigationEnabled="true"
                 :paginationEnabled="true"
                 :key="'qwe12323'"
-
                 :autoplay="false"
+
+                :auto-init="true"
+                :refresh="initCarusel"
         >
-             <slide v-for="(fasad, key, index) in  $store.getters.fasadFilterRoom" :key="index" >
+             <slide v-for="(fasad, key, index) in  slider" :key="index+1" >
                  <div class="wrap">
+
                      <svg :style="'background-image: url(http://'+fasad.url+'); background-repeat: no-repeat;  width:' +
                      fasad.imgW  + 'px; height:' + fasad.imgH + 'px;'">
                          <g>
@@ -80,6 +83,10 @@ export default {
         }
     },
     computed: {
+        slider(){
+            console.log(this.$store.getters.fasadFilterRoom);
+          return  this.$store.getters.fasadFilterRoom
+        },
         fasads() {
             return this.$store.getters.findAll('fasads').fasads;
         },
@@ -90,10 +97,12 @@ export default {
     components: {
         Carousel,
         Slide,
-
         houseRealty
     },
     methods: {
+        initCarusel(){
+            console.log('carusel')
+        },
         backToFloor(floor,e) {
             this.$router.push({name:'floor',params:{id:this.houseId, floor:floor}});
         },
@@ -107,9 +116,8 @@ export default {
 
             let maxValX = Math.max(...pointsX);
             let maxValY = Math.min(...pointsY);
-            console.log(indexFasad)
-            this.$refs.tooltip[indexFasad].setAttribute('transform',`translate(${maxValX - 373 / 2},${maxValY-202})`);
-            console.log(points,pointsY, pointsX,maxValX, maxValY,this.$refs.tooltip);
+
+            this.$refs.tooltip[indexFasad].setAttribute('transform',`translate(${maxValX - 353 / 2},${maxValY-202})`);
 
             let realtys = this.$store.getters.findBy('realtys', {floor:floor, section:pod, status:'free', reserv:null});
 
@@ -124,44 +132,51 @@ export default {
                     floor:floor,
                     pod:pod,
                     freeFlat: realtys.length,
-                    flats:flats
+                    flats:flats,
+                    sq:realtys.square
                 }
             };
 
             this.tooltip.show = !this.tooltip.show;
         },
+        redrawPaging(){
+            document.querySelector('section.VueCarousel').style.overflow = 'hidden';
+            // todo костыльt
+            let promise = new Promise((resolve, reject) => {
+                let id = setInterval(()=>{
+                    if (this.onload == true) {
+                        clearInterval(id)
+                        resolve('loadCarusel');
+                    }
+                },10);
+            });
+
+            promise.then(loadCarusel => {
+                let dot = document.querySelectorAll('.VueCarousel-pagination button');
+                let fasads = this.fasads;
+
+                dot.forEach((e,i) => {
+                    let iter = 0;
+                    for (let j in fasads){
+                        if (i == iter++ ) {
+                            e.innerHTML = fasads[j].description
+                        }
+                    }
+                });
+            })
+        },
+    },
+    beforeUpdate(){
+        console.log('update')
+        this.redrawPaging();
 
     },
     mounted(){
-
-        document.querySelector('section.VueCarousel').style.overflow = 'hidden';
-        // todo костыльt
-        let promise = new Promise((resolve, reject) => {
-            let id = setInterval(()=>{
-                if (this.onload == true) {
-                    clearInterval(id)
-                    resolve('loadCarusel');
-                }
-            },100);
-        });
-        promise.then(loadCarusel => {
-            let dot = document.querySelectorAll('.VueCarousel-pagination button');
-            let fasads = this.fasads;
-            dot.forEach((e,i) => {
-                let iter = 0;
-                for (let j in fasads){
-                    if (i == iter++ ) {
-                        e.innerHTML = fasads[j].description
-                    }
-                }
-            });
-        })
-
-
-//      document.querySelector('.VueCarousel-wrapper').style.overflowX = 'inherit';
-//      document.querySelector('.VueCarousel-wrapper').style.overflowY = 'inherit';
+        console.log('mounted')
+        this.redrawPaging();
     },
     created() {
+
         if (!this.$store.getters.findAll('fasads').fasads) {
             this.$store.dispatch('getFasadByHouseId', this.houseId);
         }
@@ -175,10 +190,10 @@ export default {
     .fil2 {fill:none}
     .fil1 {fill:black}
     .fil0 {fill:white}
-    .fnt3 {font-weight:normal;font-size:13px;font-family:'Roboto Condensed'}
-    .fnt1 {font-weight:normal;font-size:21px;font-family:'Roboto Condensed'}
-    .fnt2 {font-weight:bold;font-size:25px;font-family:'DirectRg'}
-    .fnt0 {font-weight:bold;font-size:27px;font-family:'DirectRg'}
+    .fnt3 {font-weight:normal;font-size:13px;font-family: RobotoCondensed-Regular}
+    .fnt1 {font-weight:normal;font-size:21px;font-family: RobotoCondensed-Regular}
+    .fnt2 {font-weight:bold;font-size:25px;font-family: direct-Regular}
+    .fnt0 {font-weight:bold;font-size:27px;font-family: direct-Regular}
 
     .wrap-fasad {
         .tooltip {

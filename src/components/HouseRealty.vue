@@ -9,12 +9,9 @@ export default {
     name: 'HouseRealty',
     data () {
         return {
-            //line1:''
-            // bigMess: '3k',
-            // lowMess: 'этаж',
         }
     },
-    props: ['color','line1','line2','data'],
+    props: ['color','line1','line2','data','parentSelector'],
     computed: {
         reserv() {
             return (!this.line1 && !this.line2 ) ? ' reserv':'';
@@ -28,22 +25,21 @@ export default {
             }
 
             this.$emit('eventHouseRealty',this.data);
-            let els = document.querySelectorAll('.house-realty');
+
+            let selector = '.house-realty';
+
+            if (this.parentSelector) {
+              selector = this.parentSelector;
+            }
+
+            let els = document.querySelectorAll(selector+' .house-realty');
             els.forEach((el)=> {
                 el.classList.remove('active')
             })
             e.target.parentElement.classList.add('active')
 
         },
-        toggle(num) {
-           //console.log($el);
-        }
     },
-    created () {
-        //this.checkReserv();
-       //console.log(this.realty);
-        //this.bigMess = this.line1
-    }
 }
 </script>
 
