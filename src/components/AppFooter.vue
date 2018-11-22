@@ -1,12 +1,14 @@
 <template>
   <div class='footer'>
     <div class="work-spaces">
-        <div class="logo"></div>
-        <div class="social">
-            <a href="https://vk.com/rosagrostroj" class="vk" target="_blank"></a>
-            <!--<a href="" class="fb" target="_blank"></a>-->
-            <!--<a href="" class="ok" target="_blank"></a>-->
-            <a href="https://www.instagram.com/rosagrostroj12/" class="in" target="_blank"></a>
+        <div class="wrap">
+            <div class="logo"></div>
+            <div class="social">
+                <a href="https://vk.com/rosagrostroj" class="vk" target="_blank"></a>
+                <!--<a href="" class="fb" target="_blank"></a>-->
+                <!--<a href="" class="ok" target="_blank"></a>-->
+                <a href="https://www.instagram.com/rosagrostroj12/" class="in" target="_blank"></a>
+            </div>
         </div>
         <nav>
             <ul>
@@ -45,29 +47,30 @@ export default {
             height: 100%;
             justify-content: space-between;
             margin: 0 auto;
-            width: 960px;
+            width: 1170px;
             .logo {
+                float: left;
                 height: 100%;
-                width: 220px;
-                margin-left: 20px;
-                background: url(../assets/img/logo-menu-ra.png) no-repeat center;
+                width: 120px;
+                //margin-left: 20px;
+                background: url(../assets/img/logo-menu-ra.png) no-repeat left;
                 background-size: contain;
-                margin-top:10px;
+
             }
             .social {
                 // display: flex;
                 // justify-content: space-between;
                 // align-items: center;
-
+                float: left;
                 width: 200px;
-                margin-left: 33px;
+                margin-left:40px;
                 & > a {
                     float: left;
                     display: block;
                     width: 34px;
                     margin-top:23px;
                     height: 40px;
-                    margin-left:50px;
+                    margin-right:15px;
                 }
                 .vk {
                     background: url(../assets/img/vk.png) no-repeat center;

@@ -42,6 +42,15 @@ export default {
         position: absolute;
         left: 0;
         top: 20px;
+        @media screen and (min-width: 1024px) {
+            left: 32px;
+        }
+        @media screen and (min-width: 1366px) {
+            left: 0;
+        }
+        @media screen and (min-width: 1920px) {
+            left: 0;
+        }
         .desc {
             text-transform: uppercase;
             font-size: 12px;

@@ -92,13 +92,13 @@ const store = new Vuex.Store({
         fasadFilterRoom(state) {
 
             let selectedButton = state.selectedButton;
-            if (!selectedButton[1]
-                && !selectedButton[2]
-                && !selectedButton[3]
-                && !selectedButton[4]
-            ) {
-                selectedButton = {1:1,2:1,3:1,4:1}
-            }
+            // if (!selectedButton[1]
+            //     && !selectedButton[2]
+            //     && !selectedButton[3]
+            //     && !selectedButton[4]
+            // ) {
+            //     selectedButton = {1:1,2:1,3:1,4:1}
+            // }
 
             let realtys = _.filter(state.realtys, (item) => {
                 return selectedButton[item.rooms] && item.status == 'free' && !item.reserv;

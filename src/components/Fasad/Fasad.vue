@@ -6,12 +6,12 @@
                 :navigationEnabled="true"
                 :paginationEnabled="true"
                 :key="'qwe12323'"
-                :style="'height:100%;'"
+
                 :autoplay="false"
         >
              <slide v-for="(fasad, key, index) in  $store.getters.fasadFilterRoom" :key="index" >
                  <div class="wrap">
-                     <svg :style="'background-image: url(http://'+fasad.url+'); background-repeat: no-repeat; width:' +
+                     <svg :style="'background-image: url(http://'+fasad.url+'); background-repeat: no-repeat;  width:' +
                      fasad.imgW  + 'px; height:' + fasad.imgH + 'px;'">
                          <g>
                              <polygon
@@ -57,6 +57,7 @@
     </div>
 </template>
 <script>
+    //:style="'height:100%;'"
 import { Carousel, Slide } from 'vue-carousel';
 import _ from 'underscore'
 import houseRealty from 'components/HouseRealty.vue'
@@ -212,6 +213,15 @@ export default {
             text-align: left !important;
             width: 1170px;
             margin: 0 auto;
+            @media screen and (min-width: 1024px) {
+                left: calc(50% - 973px / 2);
+            }
+            @media screen and (min-width: 1366px) {
+                left: calc(50% - 1181px / 2);
+            }
+            @media screen and (min-width: 1920px) {
+                left: calc(50% - 1179px / 2);
+            }
             li {
                 padding-left: 5px !important;
             }
@@ -252,7 +262,7 @@ export default {
 
         .wrap {
             background-size:contain;
-            height: calc(100vh - 174px);
+            height: calc(100vh - 160px);
             position: relative;
             display: flex;
             justify-content: center;
@@ -261,6 +271,17 @@ export default {
                 top:0;
                 width: 100%;
                 z-index: 3;
+
+                @media screen and (min-width: 1024px) {
+                    transform: scale(0.8) translate(0,-92px);
+                }
+                @media screen and (min-width: 1366px) {
+                    transform: scale(0.9) translate(0,-41px);
+                }
+                @media screen and (min-width: 1920px) {
+                    transform: scale(1) translate(0,0);
+                }
+
                 polygon{
                     cursor: pointer;
                     box-shadow: 10px 10px 10px rgba(0,0,0,0.5);

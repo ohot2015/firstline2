@@ -106,12 +106,22 @@ export default {
             height: 450px;
             margin: auto;
             padding-top:5px;
+
+            @media screen and (min-width: 1024px) {
+                transform: scale(0.7) translate(-117px, -217px);
+            }
+            @media screen and (min-width: 1366px) {
+                transform: scale(0.7) translate(-117px, -217px);
+            }
+             @media screen and (min-width: 1920px) {
+                 transform: scale(1) translate(0, 0);
+             }
+
+
             img {
-                    max-width: 800px;
-                    max-height: 758px;
-                    // position: absolute;
-                    // z-index: 2
-                }
+                max-width: 800px;
+                max-height: 660px;
+            }
             svg {
                 position: absolute;
                 left:0;

@@ -1,7 +1,8 @@
 <template>
     <div class="wrap">
         <div id="homemap">
-            <iframe src="https://yandex.ru/map-widget/v1/-/CBQwMDbjoC" width="100%" height="100%" frameborder="0"></iframe>
+            <!--<iframe src="https://yandex.ru/map-widget/v1/-/CBQwMDbjoC" width="100%" height="100%" frameborder="0"></iframe>-->
+            <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=139663503929" width="100%" height="100%" frameborder="0"></iframe>
         </div>
         <div class="footer">
             <app-footer></app-footer>

@@ -223,7 +223,6 @@ export default {
             height:calc(100% - 68px);
         }
     }
-
     .section {
         width: 960px;
         display: flex;
