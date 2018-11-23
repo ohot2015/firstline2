@@ -48,6 +48,15 @@ export default {
             justify-content: space-between;
             margin: 0 auto;
             width: 1170px;
+            @media screen and (min-width: 1024px) {
+                width: 960px;
+            }
+            @media screen and (min-width: 1366px) {
+                width: 1170px;
+            }
+            @media screen and (min-width: 1920px) {
+                width: 1170px;
+            }
             .logo {
                 float: left;
                 height: 100%;

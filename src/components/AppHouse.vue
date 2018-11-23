@@ -95,6 +95,7 @@ export default {
             this.$router.push({name:'realty',params:{id:id}});
         },
         clickFloor(floor) {
+            if (floor > 1)
             this.$router.push({name:'floor',params:{id:this.$store.state.houseId ,floor:floor}});
         },
     },

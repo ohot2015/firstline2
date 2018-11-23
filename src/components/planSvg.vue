@@ -61,38 +61,39 @@ export default {
     },
     methods: {
         tooltipChange(poly,index, e) {
+
             this.realty = this.$store.getters.realty(poly.realty);
             if (this.realty.status !== 'free') {
                 return false;
             }
 
-            let points = poly.points;
-
-            points = points.split(',');
-            let pointsY =  _.filter(points,(el,i) => i % 2);
-            let pointsX =  _.filter(points,(el,i) => !(i % 2) );
-
-            let maxValX = Math.max(...pointsX);
-            let maxValY = Math.min(...pointsY);
-
-
-            this.$refs.tooltip.setAttribute('transform',`translate(${maxValX - 155 / 2},${maxValY-75})`);
-
-            this.tooltip = {
-                ...this.tooltip,
-                ...{
-                    roomsCount:this.realty.rooms,
-                    realtyNum:this.realty.num,
-                    realtySq:this.realty.square,
-                    show:!this.tooltip.show
-                }
-            }
+//            let points = poly.points;
+//
+//            points = points.split(',');
+//            let pointsY =  _.filter(points,(el,i) => i % 2);
+//            let pointsX =  _.filter(points,(el,i) => !(i % 2) );
+//
+//            let maxValX = Math.max(...pointsX);
+//            let maxValY = Math.min(...pointsY);
+//
+//
+//            this.$refs.tooltip.setAttribute('transform',`translate(${maxValX - 200 / 2},${maxValY-75})`);
+//
+//            this.tooltip = {
+//                ...this.tooltip,
+//                ...{
+//                    roomsCount:this.realty.rooms,
+//                    realtyNum:this.realty.num,
+//                    realtySq:this.realty.square,
+//                    show:!this.tooltip.show
+//                }
+//            }
             for(let el in this.polygon1) {
                 if (this.polygon1[el].realty == this.realty.id) {
                     this.polygon1[el].color = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
                 }
             }
-            this.$emit('eventMouseEnter',poly,e);
+            this.$emit('eventMouseEnter',this.realty.id,e);
         },
         clickPoly (rId){
             let realty = this.$store.getters.realty(rId);

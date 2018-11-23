@@ -1,14 +1,14 @@
 <template id="nav12">
-  <div class='main-nav'>
+  <div class='main-nav' @mouseleave="active = false">
 
     <div class="work-spaces" id="work-spaces">
-      <div class="block-menu">
-        <div class="buter" @click="click">
+      <div class="block-menu" >
+        <div class="buter" @click="click" >
             <template id="drop-down" >
                 <div class="dropdown" v-show="active"
 
                 >
-                    <ul @mouseleave="active = !active">
+                    <ul>
                         <li class="home"><router-link :to="{ name: 'preloader'}">Главная страница</router-link></li>
                         <!--<li class="gallery"><router-link :to="{name:'gallery'}">Галерея</router-link></li>-->
                         <!--<li class="declaration"><router-link :to="{name:'declaration'}">Проектные декларации</router-link></li>-->

@@ -225,14 +225,14 @@ export default {
         }
     }
     .section {
-        width: 960px;
+        width: 870px;
         display: flex;
         justify-content: left;
         margin: 0 auto;
         padding-left: calc((45px ) * 2);
         padding-top: 15px;
         @media screen and (min-width: $sm) {
-            width: 960px;
+            width: 870px;
             padding-left: calc((55px + 22px)  * 2);
         }
         @media screen and (min-width: $md) {

@@ -35,21 +35,21 @@
                              <path class="fil0" d="M5 0l363 0c3,0 5,2 5,5l0 174c0,3 -2,5 -5,5l-170 0 -5 9 -5 9 -5 -9 -5 -9 -173 0c-3,0 -5,-2 -5,-5l0 -174c0,-3 2,-5 5,-5z"/>
                              <text x="23" y="43"  class="fil1 fnt0">{{tooltip.floor}} этаж, {{tooltip.pod}} подъезд</text>
                              <text x="23" y="78"  class="fil1 fnt1">Свободных квартир: {{tooltip.freeFlat}}</text>
-                             <rect v-show="tooltip.flats[1]" class="fil2 str0" x="23" y="106" width="57" height="51" rx="4" ry="3"/>
-                             <text v-show="tooltip.flats[1]" x="37" y="134"  class="fil1 fnt2">1к</text>
-                             <text v-show="tooltip.flats[1]" x="38" y="151"  class="fil1 fnt3">10 кв.</text>
-                             <rect v-show="tooltip.flats[2]"class="fil2 str0" x="91" y="106" width="57" height="51" rx="4" ry="3"/>
-                             <text v-show="tooltip.flats[2]"x="105" y="134"  class="fil1 fnt2">2к</text>
-                             <text v-show="tooltip.flats[2]"x="107" y="151"  class="fil1 fnt3">1 кв.</text>
-                             <rect v-show="tooltip.flats[3]"class="fil2 str0" x="158" y="106" width="57" height="51" rx="4" ry="3"/>
-                             <text v-show="tooltip.flats[3]"x="172" y="134"  class="fil1 fnt2">3к</text>
-                             <text v-show="tooltip.flats[3]"x="173" y="151"  class="fil1 fnt3">10 кв.</text>
-                             <rect v-show="tooltip.flats[4]"class="fil2 str0" x="225" y="106" width="57" height="51" rx="4" ry="3"/>
-                             <text v-show="tooltip.flats[4]"x="240" y="134"  class="fil1 fnt2">4к</text>
-                             <text v-show="tooltip.flats[4]"x="240" y="151"  class="fil1 fnt3">10 кв.</text>
-                             <rect v-show="tooltip.flats[5]"class="fil2 str0" x="293" y="106" width="57" height="51" rx="4" ry="3"/>
-                             <text v-show="tooltip.flats[5]"x="299" y="134"  class="fil1 fnt2">5к+</text>
-                             <text v-show="tooltip.flats[5]"x="307" y="151"  class="fil1 fnt3">10 кв.</text>
+                             <rect :class="tooltip.flats[1] || 'not-realty' " class="fil2 str0" x="23" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text :class="tooltip.flats[1] || 'not-realty' " x="37" y="134"  class="fil1 fnt2">1к</text>
+                             <text :class="tooltip.flats[1] || 'not-realty' " x="38" y="151"  class="fil1 fnt3">{{tooltip.flats[1]}} кв.</text>
+                             <rect :class="tooltip.flats[2] || 'not-realty' "class="fil2 str0" x="91" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text :class="tooltip.flats[2] || 'not-realty' "x="105" y="134"  class="fil1 fnt2">2к</text>
+                             <text :class="tooltip.flats[2] || 'not-realty' "x="107" y="151"  class="fil1 fnt3">{{tooltip.flats[2]}}кв.</text>
+                             <rect :class="tooltip.flats[3] || 'not-realty' "class="fil2 str0" x="158" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text :class="tooltip.flats[3] || 'not-realty' "x="172" y="134"  class="fil1 fnt2">3к</text>
+                             <text :class="tooltip.flats[3] || 'not-realty' "x="173" y="151"  class="fil1 fnt3">{{tooltip.flats[3]}} кв.</text>
+                             <rect v-if="false" :class="tooltip.flats[4] || 'not-realty' "class="fil2 str0" x="225" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text v-if="false" :class="tooltip.flats[4] || 'not-realty' "x="240" y="134"  class="fil1 fnt2">4к</text>
+                             <text v-if="false" :class="tooltip.flats[4] || 'not-realty' "x="240" y="151"  class="fil1 fnt3">10 кв.</text>
+                             <rect v-if="false" :class="tooltip.flats[5] || 'not-realty' "class="fil2 str0" x="293" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text v-if="false" :class="tooltip.flats[5] || 'not-realty' "x="299" y="134"  class="fil1 fnt2">5к+</text>
+                             <text v-if="false" :class="tooltip.flats[5] || 'not-realty' "x="307" y="151"  class="fil1 fnt3">10 кв.</text>
                          </g>
                      </svg>
 
@@ -117,7 +117,7 @@ export default {
             let maxValX = Math.max(...pointsX);
             let maxValY = Math.min(...pointsY);
 
-            this.$refs.tooltip[indexFasad].setAttribute('transform',`translate(${maxValX - 353 / 2},${maxValY-202})`);
+            this.$refs.tooltip[indexFasad].setAttribute('transform',`translate(${maxValX - 400 / 2},${maxValY-202})`);
 
             let realtys = this.$store.getters.findBy('realtys', {floor:floor, section:pod, status:'free', reserv:null});
 
@@ -170,6 +170,7 @@ export default {
         console.log('update')
         this.redrawPaging();
 
+
     },
     mounted(){
         console.log('mounted')
@@ -195,6 +196,11 @@ export default {
     .fnt2 {font-weight:bold;font-size:25px;font-family: direct-Regular}
     .fnt0 {font-weight:bold;font-size:27px;font-family: direct-Regular}
 
+    .not-realty {
+
+        stroke:#ccc;
+        fill:rgba(255,255,255,.1);
+    }
     .wrap-fasad {
         .tooltip {
             header {
@@ -229,13 +235,13 @@ export default {
             width: 1170px;
             margin: 0 auto;
             @media screen and (min-width: 1024px) {
-                left: calc(50% - 973px / 2);
+                left: calc(50% - 933px / 2);
             }
             @media screen and (min-width: 1366px) {
-                left: calc(50% - 1181px / 2);
+                left: calc(50% - 1151px / 2);
             }
             @media screen and (min-width: 1920px) {
-                left: calc(50% - 1179px / 2);
+                left: calc(50% - 1139px / 2);
             }
             li {
                 padding-left: 5px !important;
@@ -277,7 +283,7 @@ export default {
 
         .wrap {
             background-size:contain;
-            height: calc(100vh - 160px);
+            height: calc(100vh - 173px);
             position: relative;
             display: flex;
             justify-content: center;

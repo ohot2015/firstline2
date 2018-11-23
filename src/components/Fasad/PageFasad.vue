@@ -5,7 +5,7 @@
                 <FilterFasad v-if="!fasad"></FilterFasad>
             </div>
             <fasad v-if="!fasad"></fasad>
-            <h1 v-else class="fasad-not-data">Загрузите фасад</h1>
+            <h1 v-else class="fasad-not-data"><img src="https://cdn-images-1.medium.com/max/800/1*inYwyq37FdvRPLRphTqwBA.gif" alt=""></h1>
         </div>
         <app-footer></app-footer>
     </div>
@@ -52,18 +52,19 @@ export default {
 
 <style lang="scss" scoped>
     .wrap-page-fasad {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height:100vh;
+        /*display: flex;*/
+        /*flex-direction: column;*/
+        /*justify-content: space-between;*/
+        height: 100%;
 
     }
     .fasad-not-data {
         text-align: center;
     }
 .fasad {
-    margin-top:68px;
-    min-height: (calc(100vh - 174px));
+    margin-top: 68px;
+    height: calc(100% - 174px);
+    overflow: hidden;
     .container {
         position: relative;
         width: 1170px;

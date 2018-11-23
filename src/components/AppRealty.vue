@@ -16,19 +16,17 @@
                 </house-realty>
             </div>
             <div class="slider">
-
-                <div class="slide" v-for="(item, index) in selectedSlider" :key="index" >
+                <div class="slide"  >
                     <lightbox
                     :loop="false"
                     :tmp="realty.id"
-                    :images="[{src:'http://' + item.img_path}]"
+                    :images="[{src:'http://' + selectedSlider[0].img_path}]"
                     >
                         <div class="wrap">
-                            <img :src="'http://' + item.img_path" :key="item.img_path" alt="">
+                            <img :src="'http://' + selectedSlider[0].img_path" :key="selectedSlider[0].img_path" alt="">
                         </div>
                     </lightbox>
                 </div>
-
               <div class="block-nav">
                 <div class="back-to-plan" @click="backToPlan"><span class="icon_planhouse"></span>Перейти к общему плану дома</div>
                 <div class="back-to-floor" @click="backToFloor"><span class="icon_planfloor"></span>Перейти к общему плану этажа</div>

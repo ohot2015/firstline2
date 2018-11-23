@@ -43,13 +43,13 @@ export default {
         left: 0;
         top: 20px;
         @media screen and (min-width: 1024px) {
-            left: 32px;
+            left: 52px;
         }
         @media screen and (min-width: 1366px) {
-            left: 0;
+            left: 20px;
         }
         @media screen and (min-width: 1920px) {
-            left: 0;
+            left: 20px;
         }
         .desc {
             text-transform: uppercase;
