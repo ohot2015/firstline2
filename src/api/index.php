@@ -71,16 +71,31 @@ switch ($route) {
             'rId' => $r_id
         ]);
 
-        if ($config['env'] ==='prod') {
-            $return = mail( $config['test_email'] , 'c' , $template, "From:noreply@line12.ru\r\n"
-                ."Content-type: text/html; charset=utf-8\r\n"
-                ."X-Mailer: PHP mail script" );
+
+        $transport = (new Swift_SmtpTransport('smtp.mail.ru', 465, 'ssl'))
+            ->setUsername('test@m2lab.ru')
+            ->setPassword('test123qweasd')
+        ;
+
+        $mailer = new Swift_Mailer($transport);
+
+        $message = (new Swift_Message('Навигатор'))
+            ->setFrom(['test@m2lab.ru' => 'noreply'])
+            ->setTo($config['test_email'])
+            ->setBody($template, 'text/html');
+        ;
+
+        $result = $mailer->send($message);
+
+        if ( $config['env'] ==='prod') {
+            $message = (new Swift_Message('Навигатор'))
+                ->setFrom(['test@m2lab.ru' => 'noreply'])
+                ->setTo($config['email'])
+                ->setBody($template);
+            ;
+            $result = $mailer->send($message);
         }
-        else {
-            $return = mail( $config['test_email'] , 'Первая линия' , $template, "From:noreply@line12.ru\r\n"
-                ."Content-type: text/html; charset=utf-8\r\n"
-                ."X-Mailer: PHP mail script" );
-        }
+
         break;
     default:
         # code...
