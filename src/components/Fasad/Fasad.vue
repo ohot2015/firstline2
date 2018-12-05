@@ -44,9 +44,9 @@
                              <rect :class="tooltip.flats[3] || 'not-realty' "class="fil2 str0" x="158" y="106" width="57" height="51" rx="4" ry="3"/>
                              <text :class="tooltip.flats[3] || 'not-realty' "x="172" y="134"  class="fil1 fnt2">3к</text>
                              <text :class="tooltip.flats[3] || 'not-realty' "x="173" y="151"  class="fil1 fnt3">{{tooltip.flats[3]}} кв.</text>
-                             <rect v-if="false" :class="tooltip.flats[4] || 'not-realty' "class="fil2 str0" x="225" y="106" width="57" height="51" rx="4" ry="3"/>
-                             <text v-if="false" :class="tooltip.flats[4] || 'not-realty' "x="240" y="134"  class="fil1 fnt2">4к</text>
-                             <text v-if="false" :class="tooltip.flats[4] || 'not-realty' "x="240" y="151"  class="fil1 fnt3">10 кв.</text>
+                             <rect :class="tooltip.flats[4] || 'not-realty' "class="fil2 str0" x="225" y="106" width="57" height="51" rx="4" ry="3"/>
+                             <text :class="tooltip.flats[4] || 'not-realty' "x="240" y="134"  class="fil1 fnt2">4к</text>
+                             <text :class="tooltip.flats[4] || 'not-realty' "x="240" y="151"  class="fil1 fnt3">{{tooltip.flats[4]}} кв.</text>
                              <rect v-if="false" :class="tooltip.flats[5] || 'not-realty' "class="fil2 str0" x="293" y="106" width="57" height="51" rx="4" ry="3"/>
                              <text v-if="false" :class="tooltip.flats[5] || 'not-realty' "x="299" y="134"  class="fil1 fnt2">5к+</text>
                              <text v-if="false" :class="tooltip.flats[5] || 'not-realty' "x="307" y="151"  class="fil1 fnt3">10 кв.</text>

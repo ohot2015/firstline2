@@ -310,6 +310,7 @@ export default {
         border-radius: 5px;
         width: calc(100% - 345px);
         min-height: 420px;
+        overflow: hidden;
         /*height: 420px;*/
         margin: 0 20px;
         position: relative;

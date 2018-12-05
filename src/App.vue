@@ -98,6 +98,7 @@ export default {
     width : 100%;
 
   }
+
   .content {
     padding-top: 68px;
     background: white;

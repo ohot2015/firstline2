@@ -88,11 +88,8 @@ export default {
 //                    show:!this.tooltip.show
 //                }
 //            }
-            for(let el in this.polygon1) {
-                if (this.polygon1[el].realty == this.realty.id) {
-                    this.polygon1[el].color = e.type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
-                }
-            }
+
+            this.colored(e.type);
             this.$emit('eventMouseEnter',this.realty.id,e);
         },
         clickPoly (rId){
@@ -100,10 +97,19 @@ export default {
             if (realty.status === 'free' && !realty.reserv) {
                 this.$router.push({name:'realty',params:{id:this.realty.id} });
             }
-        }
+        },
+        colored(type){
+            for(let el in this.polygon1) {
+                if (this.polygon1[el].realty == this.realty.id) {
+                    this.polygon1[el].color = type == 'mouseenter' ? 'rgba(0,0,0,.4)' : 'rgba(0,0,0,.0)'
+                }
+            }
+        },
     },
-    created(){
-    }
+    destroyed(){
+        this.colored(false);
+    },
+
 }
 </script>
 

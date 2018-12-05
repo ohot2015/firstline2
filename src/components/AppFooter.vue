@@ -4,10 +4,10 @@
         <div class="wrap">
             <div class="logo"></div>
             <div class="social">
-                <a href="https://vk.com/rosagrostroj" class="vk" target="_blank"></a>
-                <!--<a href="" class="fb" target="_blank"></a>-->
-                <!--<a href="" class="ok" target="_blank"></a>-->
-                <a href="https://www.instagram.com/rosagrostroj12/" class="in" target="_blank"></a>
+                <a href="" class="vk" target="_blank"></a>
+                <a href="" class="fb" target="_blank"></a>
+                <a href="" class="ok" target="_blank"></a>
+                <a href="" class="in" target="_blank"></a>
             </div>
         </div>
         <nav>
@@ -62,7 +62,7 @@ export default {
                 height: 100%;
                 width: 120px;
                 //margin-left: 20px;
-                background: url(../assets/img/logo-menu-ra.png) no-repeat left;
+                background: url(../assets/img/logo-footer-evrostyle.png) no-repeat left;
                 background-size: contain;
 
             }

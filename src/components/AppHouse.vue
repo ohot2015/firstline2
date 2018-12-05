@@ -1,4 +1,5 @@
 <template>
+    <div class="wrap">
     <div class="wrap-house">
   <div class='house' ref="house">
     <div class="floor-block">
@@ -43,6 +44,7 @@
         </div>
     </div>
   </div>
+    </div>
     </div>
 </template>
 <script>
@@ -95,7 +97,6 @@ export default {
             this.$router.push({name:'realty',params:{id:id}});
         },
         clickFloor(floor) {
-            if (floor > 1)
             this.$router.push({name:'floor',params:{id:this.$store.state.houseId ,floor:floor}});
         },
     },
@@ -111,9 +112,14 @@ export default {
 
 }
 </script>
-
 <style lang="scss" scoped>
-
+    .wrap {
+        height: 100vh;
+        background: #e7e4ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     $sm: 1024px;
     $md: 1366px;
     $lg: 1920px;

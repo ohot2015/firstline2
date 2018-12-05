@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         getPhone() {
-            return '469-998';
+            return ' 753-774';
         },
         click() {
             this.active = this.active ? false : true;

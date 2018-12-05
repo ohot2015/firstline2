@@ -20,10 +20,10 @@
                     <lightbox
                     :loop="false"
                     :tmp="realty.id"
-                    :images="[{src:'http://' + selectedSlider[0].img_path}]"
+                    :images="[{src:imgPath}]"
                     >
                         <div class="wrap">
-                            <img :src="'http://' + selectedSlider[0].img_path" :key="selectedSlider[0].img_path" alt="">
+                            <img  :src="imgPath" :key="imgPath" alt="">
                         </div>
                     </lightbox>
                 </div>
@@ -110,6 +110,15 @@ export default {
         lightbox,
     },
     computed: {
+        imgPath(){
+            if (this.selectedSlider[0]) {
+                return 'http://' + this.selectedSlider[0].img_path;
+            }
+            else {
+                return 'https://www.lrcmyanmar.org/wp-content/uploads/2018/11/noimage.png';
+            }
+
+        },
         endpoint() {
             return this.$store.getters.findAll('absPath')+'/src/api/realty';
         },
