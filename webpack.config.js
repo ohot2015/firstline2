@@ -85,9 +85,9 @@ module.exports = {
     noInfo: true,
     overlay: true,
     port: 8080,
-    host: "local.evrostyle.ru",
+    host: "local.parus.ru",
     proxy: {
-      "/src/api": "http://local.evrostyle.ru"
+      "/src/api": "http://local.parus.ru"
     }
   },
   performance: {

@@ -26,8 +26,8 @@ const store = new Vuex.Store({
             3:false,
             4:false
         },
-        districtId: 36,
-        houseId: 55,
+        districtId: 30,
+        houseId: 32,
     },
     mutations: {
         set(state, {type, items}) {

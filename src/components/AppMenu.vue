@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         getPhone() {
-            return ' 753-774';
+            return '215-2-888';
         },
         click() {
             this.active = this.active ? false : true;
@@ -210,7 +210,7 @@ export default {
                 cursor:default;
                 .wrap {
                     float: right;
-                    width: 153px;
+                    width: 182px;
                 }
                 img {
                     display:block;

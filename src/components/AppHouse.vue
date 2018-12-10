@@ -114,7 +114,7 @@ export default {
 </script>
 <style lang="scss" scoped>
     .wrap {
-        height: 100vh;
+        //height: 100vh;
         background: #e7e4ff;
         display: flex;
         align-items: center;
