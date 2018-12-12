@@ -136,11 +136,10 @@ export default {
           let interval = setInterval(()=> {
             count++;
             prev.scrollTop = --prev.scrollTop;
-            if (count > 77) {
+            if (count > 83) {
               clearInterval(interval)
             }
           },1)
-
         },
         scrollNext() {
           let prev = this.$refs.overflow;
@@ -148,11 +147,10 @@ export default {
           let interval = setInterval(()=> {
             count++;
             prev.scrollTop = ++prev.scrollTop ;
-            if (count > 77) {
+            if (count > 83) {
               clearInterval(interval)
             }
           },1)
-
         },
         activeFloor(item) {
             if (item[this.selectSectionNum]) {
@@ -200,6 +198,13 @@ export default {
                 }
             }
         },
+      scrollToActiveFloor(){
+        let activeElement = document.querySelector('.floors-count .realty.active');
+        let parent = this.$refs.overflow
+        if (activeElement.offsetTop > parent.clientHeight) {
+          parent.scrollTop = activeElement.offsetTop - parent.clientHeight;
+        }
+      }
     },
     components: {
         HouseRealty,
@@ -217,7 +222,11 @@ export default {
             }, err => { throw err });
             this.$store.dispatch('getHousesByDistrictId')
         }
+    },
+    mounted() {
+      this.scrollToActiveFloor();
     }
+
 }
 </script>
 <style lang="scss">
