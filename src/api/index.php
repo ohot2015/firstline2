@@ -91,7 +91,7 @@ switch ($route) {
             $message = (new Swift_Message('Навигатор'))
                 ->setFrom(['test@m2lab.ru' => 'noreply'])
                 ->setTo($config['email'])
-                ->setBody($template);
+                ->setBody($template,'text/html');
             ;
             $result = $mailer->send($message);
         }

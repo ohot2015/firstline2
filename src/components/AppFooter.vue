@@ -60,9 +60,9 @@ export default {
             .logo {
                 float: left;
                 height: 100%;
-                width: 120px;
+                width: 170px;
                 //margin-left: 20px;
-                background: url(../assets/img/logo-footer-evrostyle.png) no-repeat left;
+                background: url(../assets/img/logo_parusa.png) no-repeat left;
                 background-size: contain;
 
             }

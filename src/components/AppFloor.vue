@@ -20,19 +20,23 @@
         </div>
         <div class="floor">
             <div class="floors-count">
-                <house-realty
-                    class="realty"
-                    v-for="(item, key, index) in floors"
-                    :color="'white'"
-                    :line1="getLine2(item)"
-                    :line2="'этаж'"
-                    :key="index"
-                    :data="item"
-                    :class="activeFloor(item)"
-                    :parentSelector="'.floors-count'"
-                    @eventHouseRealty="changeFloor"
-                >
-                </house-realty>
+                <div class="arrow-floor-prev" @click="scrollPrev" ref="prev"></div>
+                <div class="floor-overflow" ref="overflow">
+                    <house-realty
+                        class="realty"
+                        v-for="(item, key, index) in floors"
+                        :color="'white'"
+                        :line1="getLine2(item)"
+                        :line2="'этаж'"
+                        :key="index"
+                        :data="item"
+                        :class="activeFloor(item)"
+                        :parentSelector="'.floors-count'"
+                        @eventHouseRealty="changeFloor"
+                    >
+                    </house-realty>
+                </div>
+                <div class="arrow-floor-next" @click="scrollNext" ref="next"></div>
             </div>
             <div class="slider">
             <!-- замочег в виде глифа  -->
@@ -126,6 +130,30 @@ export default {
         }
     },
     methods: {
+        scrollPrev() {
+          let prev = this.$refs.overflow;
+          let count = 0;
+          let interval = setInterval(()=> {
+            count++;
+            prev.scrollTop = --prev.scrollTop;
+            if (count > 77) {
+              clearInterval(interval)
+            }
+          },1)
+
+        },
+        scrollNext() {
+          let prev = this.$refs.overflow;
+          let count = 0;
+          let interval = setInterval(()=> {
+            count++;
+            prev.scrollTop = ++prev.scrollTop ;
+            if (count > 77) {
+              clearInterval(interval)
+            }
+          },1)
+
+        },
         activeFloor(item) {
             if (item[this.selectSectionNum]) {
                 return item[this.selectSectionNum].floor == this.selectFloorNum ? 'active':''
@@ -270,8 +298,29 @@ export default {
         @media screen and (min-width: 1366px) {
             width: 1170px;
         }
-    }
 
+        .arrow-floor-prev {
+            width: 67px;
+            height: 20px;
+            background: url(../assets/img/arrow-floor.png) no-repeat center;
+            padding:5px;
+        }
+
+        .arrow-floor-next {
+            width:67px;
+            height: 20px;
+            transform: rotate(180deg);
+            background: url(../assets/img/arrow-floor.png) no-repeat center;
+            padding:5px;
+        }
+
+        .floors-count {
+            .floor-overflow {
+                height: 600px;
+                overflow: hidden;
+            }
+        }
+    }
     .floor2{
         width: 960px;
         margin:0 auto;
@@ -291,8 +340,6 @@ export default {
                 margin-left: 95px;
             }
         }
-
-
     }
     .block-nav {
         margin-top: 12px;
